@@ -7,11 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
-    <script src="libs/cytoscape.min.js"></script>
     <script src="libs/jquery.min.js"></script>
+    <script src="libs/cytoscape.min.js"></script>
     <script src="libs/cytoscape-context-menus.js"></script>
     <link href="libs/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
     <script src="libs/cytoscape-edgehandles.js"></script>
+    <script src="libs/cytoscape-expand-collapse.js"></script>
 </head>
 
 <style>
@@ -201,6 +202,20 @@
                 'curve-style': 'bezier'
             }
             },
+            {
+                selector: "[expanded-collapsed='collapsed']",
+                style: {
+                    'background-color': 'gray',
+                    'shape': 'rectangle'
+                }
+            },
+            {
+                selector: "[expanded-collapsed='expanded']",
+                style: {
+                    'background-color': 'ligthgray',
+                    'shape': 'rectangle'
+                }
+            },
         ]
     });
     // demo your core ext
@@ -312,11 +327,15 @@
                 }
             },
             {
-                id: 'export-json',
-                title: 'export to JSON',
+                id: 'layout-bfs',
+                title: 'layout via BFS',
                 coreAsWell: true,
                 onClickFunction: function (event) {
-                    console.log(JSON.stringify(cy.elements().jsons()));
+                    cy.layout({
+                        name: 'breadthfirst',
+                        directed: true,
+                        padding: 10,
+                    });
                 }
              }
         ]
@@ -328,6 +347,17 @@
 		handleSize: 10,
 		edgeType: function(){ return 'flat'; }
 	});
+
+    cy.expandCollapse({
+        layoutBy: {
+            name: 'breadthfirst',
+            directed: true,
+            padding: 10,
+        },
+        animate: false,
+        fisheye: true,
+        undoable: false
+    });
 
 	//document.querySelector('#draw-on').addEventListener('click', function(){
 	//    cy.edgehandles('drawon');

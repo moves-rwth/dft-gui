@@ -1,0 +1,111 @@
+[
+    {
+        "group": "nodes",
+        "data": {
+            "id": "T"
+        },
+        "classes": "or"
+    },
+    {
+        "group": "nodes",
+        "data": {
+            "id": "subA"
+        }
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "A",
+            "parent": "subA"
+        },
+        "classes": "and"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "B",
+            "parent": "subA"
+        },
+        "classes": "be"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "C",
+            "parent": "subA"
+        },
+        "classes": "be"
+    },
+    {
+        "group": "nodes",
+        "data": {
+            "id": "subD"
+        }
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "D",
+            "parent": "subD"
+        },
+        "classes": "spare"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "E",
+            "parent": "subD"
+        },
+        "classes": "be"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "S",
+            "parent": "subD"
+        },
+        "classes": "be"
+    },
+    {
+       "data": {
+        "id": "ta",
+        "source": "T",
+        "target": "A"
+      }
+    },
+    {
+       "data": {
+        "id": "td",
+        "source": "T",
+        "target": "D"
+      }
+    },
+    {
+       "data": {
+        "id": "ab",
+        "source": "A",
+        "target": "B"
+      }
+    },
+    {
+       "data": {
+        "id": "ac",
+        "source": "A",
+        "target": "C"
+      }
+    },
+    {
+       "data": {
+        "id": "de",
+        "source": "D",
+        "target": "E"
+      }
+    },
+    {
+       "data": {
+        "id": "ds",
+        "source": "D",
+        "target": "S"
+      }
+    }
+]
