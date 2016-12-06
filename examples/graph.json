@@ -1,0 +1,58 @@
+[
+    {
+        "group": "nodes",
+        "data": {
+            "id": "Z"
+        },
+        "classes": "pand"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "X"
+        },
+        "classes": "or"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "A"
+        },
+        "classes": "be"
+    },
+    {
+         "group": "nodes",
+         "data": {
+            "id": "B"
+        },
+        "classes": "be"
+    },
+    {
+       "data": {
+        "id": "xz",
+        "source": "Z",
+        "target": "X"
+      }
+    },
+    {
+       "data": {
+        "id": "bz",
+        "source": "Z",
+        "target": "B"
+      }
+    },
+    {
+       "data": {
+        "id": "ax",
+        "source": "X",
+        "target": "A"
+      }
+    },
+    {
+       "data": {
+        "id": "bx",
+        "source": "X",
+        "target": "B"
+      }
+    }
+]

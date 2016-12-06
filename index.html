@@ -1,0 +1,344 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <title>DFT Visualization</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+    <script src="libs/cytoscape.min.js"></script>
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/cytoscape-context-menus.js"></script>
+    <link href="libs/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
+    <script src="libs/cytoscape-edgehandles.js"></script>
+</head>
+
+<style>
+    #cy {
+        width: 100%;
+        height: 95%;
+        position: absolute;
+        top: 60px;
+        left: 0px;
+    }
+
+</style>
+
+<body>
+<div id="load">
+  <input type="file" id="input-file" />
+  <button id="load-graph">Load</button>
+</div>
+<div id="save">
+    <button id="save-graph">Save</button>
+</div>
+<div id="cy"></div>
+<script>
+
+    // Load graph
+    $("#load-graph").click(function() {
+        var filePath = "examples/" + $('#input-file').val();
+        $.getJSON(filePath, function(json) {
+            cy.load(json);
+        });
+    });
+
+    // Save graph
+    $("#save-graph").click(function() {
+        var textToWrite = JSON.stringify(cy.elements().jsons());
+        var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+        var fileNameToSaveAs = "dft-graph.json";
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+            // Chrome allows the link to be clicked without actually adding it to the DOM.
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        } else {
+            // Firefox requires the link to be added to the DOM
+            // before it can be clicked.
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            //downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+        }
+        downloadLink.click();
+    });
+
+    // Cytoscape graph visualization
+    var dftTypes = {
+        BE:     'be',
+        AND:    'and',
+        OR:     'or',
+        PAND:   'pand',
+        POR:    'por',
+        PDEP:   'pdep',
+        FDEP:   'fdep',
+        SPARE:  'spare',
+        SEQ:    'seq',
+    };
+
+    var currentId = 0;
+
+    function addNode(event, dftType) {
+        currentId += 1;
+
+        var elemName = prompt("Element name", dftType+currentId);
+        if (elemName != null) {
+            cy.add({
+                group: 'nodes',
+                data: {
+                    id: elemName
+                },
+                classes: dftType,
+                position: {
+                    x: event.cyPosition.x,
+                    y: event.cyPosition.y
+                }
+            });
+        }
+    }
+
+    var cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [],
+        layout: {
+            name: 'breadthfirst',
+            directed: true,
+            padding: 10,
+        },
+        style: [
+            {
+            selector: 'node',
+            css: {
+                label: 'data(id)',
+                'height': 59,
+                'width': 48,
+                'shape': 'rectangle',
+                'background-fit': 'cover',
+            }
+            },
+            {
+            selector: 'node.be',
+            css: {
+                'height': 42,
+                'width': 42,
+                'background-image': 'images/be.jpg'
+            }
+            },
+            {
+            selector: 'node.and',
+            css: {
+                'height': 59,
+                'width': 48,
+                'background-image': 'images/and.jpg'
+            }
+            },
+            {
+            selector: 'node.or',
+            css: {
+                'height': 59,
+                'width': 44,
+                'background-image': 'images/or.jpg'
+            }
+            },
+            {
+            selector: 'node.pand',
+            css: {
+                'height': 59,
+                'width': 48,
+                'background-image': 'images/pand.jpg'
+            }
+            },
+            {
+            selector: 'node.por',
+            css: {
+                'height': 59,
+                'width': 44,
+                'background-image': 'images/por.jpg'
+            }
+            },
+            {
+            selector: 'node.pdep',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/fdep.jpg'
+            }
+            },
+            {
+            selector: 'node.fdep',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/fdep.jpg'
+            }
+            },
+            {
+            selector: 'node.spare',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/spare.jpg'
+            }
+            },
+            {
+            selector: 'node.seq',
+            css: {
+                'height': 26,
+                'width': 49,
+                'background-image': 'images/seq.jpg'
+            }
+            },
+            {
+            selector: 'edge',
+            css: {
+                'width': 2,
+                'target-arrow-shape': 'triangle',
+                'line-color': '#808080',
+                'target-arrow-color': '#808080',
+                'curve-style': 'bezier'
+            }
+            },
+        ]
+    });
+    // demo your core ext
+    cy.contextMenus({
+        menuItems: [
+            {
+                id: 'remove',
+                title: 'remove',
+                selector: 'node, edge',
+                onClickFunction: function (event) {
+                  event.cyTarget.remove();
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'add-be',
+                title: 'add BE',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.BE);
+                }
+            },
+            {
+                id: 'add-and',
+                title: 'add AND',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.AND);
+                }
+            },
+            {
+                id: 'add-or',
+                title: 'add OR',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.OR);
+                }
+            },
+            {
+                id: 'add-pand',
+                title: 'add PAND',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.PAND);
+                }
+            },
+            {
+                id: 'add-por',
+                title: 'add POR',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.POR);
+                }
+            },
+            {
+                id: 'add-pdep',
+                title: 'add PDEP',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.PDEP);
+                }
+            },
+            {
+                id: 'add-fdep',
+                title: 'add FDEP',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.FDEP);
+                }
+            },
+            {
+                id: 'add-spare',
+                title: 'add SPARE',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.SPARE);
+                }
+            },
+             {
+                id: 'add-seq',
+                title: 'add SEQ',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    addNode(event, dftTypes.SEQ);
+                }
+            },
+            {
+                id: 'remove-selected',
+                title: 'remove selected',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                  cy.$(':selected').remove();
+                }
+            },
+            {
+                id: 'select-all-nodes',
+                title: 'select all nodes',
+                selector: 'node',
+                onClickFunction: function (event) {
+                  selectAllOfTheSameType(event.cyTarget);
+                }
+            },
+            {
+                id: 'select-all-edges',
+                title: 'select all edges',
+                selector: 'edge',
+                onClickFunction: function (event) {
+                  selectAllOfTheSameType(event.cyTarget);
+                }
+            },
+            {
+                id: 'export-json',
+                title: 'export to JSON',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    console.log(JSON.stringify(cy.elements().jsons()));
+                }
+             }
+        ]
+    });
+
+    cy.edgehandles({
+        toggleOffOnLeave: true,
+		handleNodes: "node",
+		handleSize: 10,
+		edgeType: function(){ return 'flat'; }
+	});
+
+	//document.querySelector('#draw-on').addEventListener('click', function(){
+	//    cy.edgehandles('drawon');
+	//});
+
+	//document.querySelector('#draw-off').addEventListener('click', function(){
+	//    cy.edgehandles('drawoff');
+	//});
+
+</script>
+</body>
+</html>
+
+
