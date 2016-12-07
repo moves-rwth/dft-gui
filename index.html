@@ -42,12 +42,16 @@
         var filePath = "examples/" + $('#input-file').val();
         $.getJSON(filePath, function(json) {
             cy.load(json);
+            // Set currentId as maximal id of all loaded nodes
+            cy.nodes().forEach(function( node ){
+                currentId = Math.max(currentId, node.id());
+            });
         });
     });
 
     // Save graph
     $("#save-graph").click(function() {
-        var textToWrite = JSON.stringify(cy.elements().jsons());
+        var textToWrite = JSON.stringify(cy.elements().jsons(), null, 4);
         var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
         var fileNameToSaveAs = "dft-graph.json";
         var downloadLink = document.createElement("a");
@@ -90,7 +94,8 @@
             cy.add({
                 group: 'nodes',
                 data: {
-                    id: elemName
+                    id: currentId,
+                    name: elemName
                 },
                 classes: dftType,
                 position: {
@@ -105,15 +110,14 @@
         container: document.getElementById('cy'),
         elements: [],
         layout: {
-            name: 'breadthfirst',
-            directed: true,
+            name: 'preset',
             padding: 10,
         },
         style: [
             {
             selector: 'node',
             css: {
-                label: 'data(id)',
+                label: 'data(name)',
                 'height': 59,
                 'width': 48,
                 'shape': 'rectangle',
@@ -195,6 +199,7 @@
             {
             selector: 'edge',
             css: {
+                label: 'data(id)',
                 'width': 2,
                 'target-arrow-shape': 'triangle',
                 'line-color': '#808080',
@@ -203,15 +208,19 @@
             }
             },
             {
-                selector: "[expanded-collapsed='collapsed']",
+            selector: "[expanded-collapsed='collapsed']",
                 style: {
+                    label: 'data(name)',
+                    'height': 59,
+                    'width': 89,
                     'background-color': 'gray',
                     'shape': 'rectangle'
                 }
             },
             {
-                selector: "[expanded-collapsed='expanded']",
+            selector: "[expanded-collapsed='expanded']",
                 style: {
+                    label: '',
                     'background-color': 'ligthgray',
                     'shape': 'rectangle'
                 }
@@ -226,7 +235,19 @@
                 title: 'remove',
                 selector: 'node, edge',
                 onClickFunction: function (event) {
-                  event.cyTarget.remove();
+                    event.cyTarget.remove();
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'rename',
+                title: 'rename',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    var elemName = prompt("Element name", event.cyTarget.data('name'));
+                    if (elemName != null) {
+                        event.cyTarget.data('name', elemName);
+                    }
                 },
                 hasTrailingDivider: true
             },
@@ -311,22 +332,6 @@
                 }
             },
             {
-                id: 'select-all-nodes',
-                title: 'select all nodes',
-                selector: 'node',
-                onClickFunction: function (event) {
-                  selectAllOfTheSameType(event.cyTarget);
-                }
-            },
-            {
-                id: 'select-all-edges',
-                title: 'select all edges',
-                selector: 'edge',
-                onClickFunction: function (event) {
-                  selectAllOfTheSameType(event.cyTarget);
-                }
-            },
-            {
                 id: 'layout-bfs',
                 title: 'layout via BFS',
                 coreAsWell: true,
@@ -345,7 +350,20 @@
         toggleOffOnLeave: true,
 		handleNodes: "node",
 		handleSize: 10,
-		edgeType: function(){ return 'flat'; }
+		edgeType: function() {
+		    return 'flat';
+		},
+		edgeParams: function(sourceNode, targetNode, i) {
+            sourceId = sourceNode.data('id');
+            targetId = targetNode.data('id');
+            return {
+                data: {
+                    id: sourceId + 'e' + targetId,
+                    source: sourceId,
+                    target: targetId,
+                }
+            };
+        },
 	});
 
     cy.expandCollapse({

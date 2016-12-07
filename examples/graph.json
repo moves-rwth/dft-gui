@@ -2,57 +2,61 @@
     {
         "group": "nodes",
         "data": {
-            "id": "Z"
+            "id": 1,
+            "name": "Z"
         },
         "classes": "pand"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "X"
+            "id": 2,
+            "name": "X"
         },
         "classes": "or"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "A"
+            "id": 3,
+            "name": "A"
         },
         "classes": "be"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "B"
+            "id": 4,
+            "name": "B"
         },
         "classes": "be"
     },
     {
        "data": {
-        "id": "xz",
-        "source": "Z",
-        "target": "X"
+        "id": 5,
+        "source": 1,
+        "target": 2
       }
     },
     {
        "data": {
-        "id": "bz",
-        "source": "Z",
-        "target": "B"
+        "id": 6,
+        "source": 1,
+        "target": 4
       }
     },
     {
        "data": {
-        "id": "ax",
-        "source": "X",
-        "target": "A"
+        "id": 7,
+        "source": 2,
+        "target": 3
       }
     },
     {
        "data": {
-        "id": "bx",
-        "source": "X",
-        "target": "B"
+        "id": 8,
+        "source": 2,
+        "target": 4
       }
     }
 ]

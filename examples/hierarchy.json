@@ -2,110 +2,119 @@
     {
         "group": "nodes",
         "data": {
-            "id": "T"
+            "id": 1,
+            "name": "T"
         },
         "classes": "or"
     },
     {
         "group": "nodes",
         "data": {
-            "id": "subA"
+            "id": 2,
+            "name": "A"
         }
     },
     {
          "group": "nodes",
          "data": {
-            "id": "A",
-            "parent": "subA"
+            "id": 3,
+            "name": "A",
+            "parent": 2
         },
         "classes": "and"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "B",
-            "parent": "subA"
+            "id": 4,
+            "name": "B",
+            "parent": 2
         },
         "classes": "be"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "C",
-            "parent": "subA"
+            "id": 5,
+            "name": "C",
+            "parent": 2
         },
         "classes": "be"
     },
     {
         "group": "nodes",
         "data": {
-            "id": "subD"
+            "id": 6,
+            "name": "D"
         }
     },
     {
          "group": "nodes",
          "data": {
-            "id": "D",
-            "parent": "subD"
+            "id": 7,
+            "name": "D",
+            "parent": 6
         },
         "classes": "spare"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "E",
-            "parent": "subD"
+            "id": 8,
+            "name": "E",
+            "parent": 6
         },
         "classes": "be"
     },
     {
          "group": "nodes",
          "data": {
-            "id": "S",
-            "parent": "subD"
+            "id": 9,
+            "name": "S",
+            "parent": 6
         },
         "classes": "be"
     },
     {
        "data": {
-        "id": "ta",
-        "source": "T",
-        "target": "A"
+        "id": 10,
+        "source": 1,
+        "target": 3
       }
     },
     {
        "data": {
-        "id": "td",
-        "source": "T",
-        "target": "D"
+        "id": 11,
+        "source": 1,
+        "target": 7
       }
     },
     {
        "data": {
-        "id": "ab",
-        "source": "A",
-        "target": "B"
+        "id": 12,
+        "source": 3,
+        "target": 4
       }
     },
     {
        "data": {
-        "id": "ac",
-        "source": "A",
-        "target": "C"
+        "id": 13,
+        "source": 3,
+        "target": 5
       }
     },
     {
        "data": {
-        "id": "de",
-        "source": "D",
-        "target": "E"
+        "id": 14,
+        "source": 7,
+        "target": 8
       }
     },
     {
        "data": {
-        "id": "ds",
-        "source": "D",
-        "target": "S"
+        "id": 15,
+        "source": 7,
+        "target": 9
       }
     }
 ]
