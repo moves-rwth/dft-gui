@@ -2,7 +2,8 @@
     {
         "data": {
             "id": "1",
-            "name": "T"
+            "name": "T",
+            "children": []
         },
         "position": {
             "x": 637.8094515308509,
@@ -19,13 +20,28 @@
     {
         "data": {
             "id": "2",
-            "name": "TP"
-        }
+            "name": "Trajectory Planning",
+            "expandcollapseRenderedStartX": 279.357509105378,
+            "expandcollapseRenderedStartY": -98.71601282084085,
+            "expandcollapseRenderedCueSize": 7.973412126468997
+        },
+        "position": {
+            "x": 545.3825244455694,
+            "y": 762.6637680631279
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
     },
     {
         "data": {
             "id": "3",
-            "name": "Environment Perception"
+            "name": "Environment Perception",
+            "children": []
         },
         "position": {
             "x": 171.41463435390054,
@@ -42,7 +58,7 @@
     {
         "data": {
             "id": "4",
-            "name": "Trajectory Planning",
+            "name": "TP",
             "parent": "2"
         },
         "position": {
@@ -60,7 +76,8 @@
     {
         "data": {
             "id": "5",
-            "name": "Actuator Control"
+            "name": "Actuator Control",
+            "children": []
         },
         "position": {
             "x": 868.3090646216359,
@@ -77,7 +94,8 @@
     {
         "data": {
             "id": "6",
-            "name": "Actuator Management",
+            "name": "AM",
+            "children": [],
             "parent": "19"
         },
         "position": {
@@ -96,6 +114,7 @@
         "data": {
             "id": "7",
             "name": "Brake Management",
+            "children": [],
             "parent": "19"
         },
         "position": {
@@ -114,6 +133,7 @@
         "data": {
             "id": "8",
             "name": "Powertrain Management",
+            "children": [],
             "parent": "19"
         },
         "position": {
@@ -126,12 +146,13 @@
         "selectable": true,
         "locked": false,
         "grabbable": true,
-        "classes": "be"
+        "classes": "and"
     },
     {
         "data": {
             "id": "9",
             "name": "Steer Management",
+            "children": [],
             "parent": "19"
         },
         "position": {
@@ -167,7 +188,8 @@
     {
         "data": {
             "id": "11",
-            "name": "TP wrong Number",
+            "name": "TPwN",
+            "children": [],
             "parent": "17"
         },
         "position": {
@@ -185,7 +207,8 @@
     {
         "data": {
             "id": "12",
-            "name": "TP wrong Potential",
+            "name": "TPwP",
+            "children": [],
             "parent": "18"
         },
         "position": {
@@ -203,7 +226,7 @@
     {
         "data": {
             "id": "13",
-            "name": "Bus",
+            "name": "BUS",
             "parent": "17"
         },
         "position": {
@@ -275,22 +298,114 @@
     {
         "data": {
             "id": "17",
-            "name": "TPwN",
-            "parent": "2"
-        }
+            "name": "TP wrong Nominal Values",
+            "parent": "2",
+            "expandcollapseRenderedStartX": 320.4523082435059,
+            "expandcollapseRenderedStartY": 18.21976282878287,
+            "expandcollapseRenderedCueSize": 7.973412126468997
+        },
+        "position": {
+            "x": 421.8597619092149,
+            "y": 844.9080473966421
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
     },
     {
         "data": {
             "id": "18",
-            "name": "TPwP",
-            "parent": "2"
-        }
+            "name": "TP wrong Potential",
+            "parent": "2",
+            "expandcollapseRenderedStartX": 514.527699109072,
+            "expandcollapseRenderedStartY": 20.076883628281912,
+            "expandcollapseRenderedCueSize": 7.973412126468997
+        },
+        "position": {
+            "x": 716.5983099388411,
+            "y": 843.6508067505428
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
     },
     {
         "data": {
             "id": "19",
-            "name": "AM"
-        }
+            "name": "Actuator Management",
+            "expandcollapseRenderedStartX": 763.0109520819459,
+            "expandcollapseRenderedStartY": -98.96685905612297,
+            "expandcollapseRenderedCueSize": 7.973412126468997
+        },
+        "position": {
+            "x": 1246.4309194251828,
+            "y": 680.1327136452159
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "20",
+            "name": "depEP",
+            "children": [
+                "3",
+                "3",
+                "2",
+                "17",
+                "17",
+                "14",
+                "3",
+                "3",
+                "17",
+                "14"
+            ]
+        },
+        "position": {
+            "x": -3.5288439481370166,
+            "y": 785.5300970458414
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "21",
+            "name": "depAC",
+            "children": [
+                "5",
+                "16"
+            ]
+        },
+        "position": {
+            "x": 944.6223214611349,
+            "y": 899.9102376348965
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
     },
     {
         "data": {
@@ -492,6 +607,372 @@
             "id": "12e16",
             "source": "12",
             "target": "16"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "21e5",
+            "source": "21",
+            "target": "5",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "21e16",
+            "source": "21",
+            "target": "16",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "20e3",
+            "source": "20",
+            "target": "3",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "20e14",
+            "source": "20",
+            "target": "14",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "34",
+            "name": "Hybrid Drive Act",
+            "children": [
+                "32",
+                "35"
+            ]
+        },
+        "position": {
+            "x": 1115.4408745873636,
+            "y": 925.4952690824426
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "and"
+    },
+    {
+        "data": {
+            "id": "23",
+            "name": "Electric Drive Act",
+            "children": [
+                "8"
+            ]
+        },
+        "position": {
+            "x": 1339.6861502159056,
+            "y": 923.9902672325923
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "24",
+            "name": "Combustion Drive Act",
+            "children": [
+                "19",
+                "8"
+            ]
+        },
+        "position": {
+            "x": 1508.2463573997761,
+            "y": 931.5152764818722
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "27",
+            "name": "Internal Drive",
+            "children": [
+                "29",
+                "33"
+            ]
+        },
+        "position": {
+            "x": 1086.8458394401,
+            "y": 1166.2955650594063
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "28",
+            "name": "Drive Wrong Potential",
+            "children": []
+        },
+        "position": {
+            "x": 915.2756285565171,
+            "y": 1166.295565059406
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "29",
+            "name": "Engine failure",
+            "children": []
+        },
+        "position": {
+            "x": 1151.5609189839065,
+            "y": 1271.6456945493237
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "27e29",
+            "source": "27",
+            "target": "29"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "30",
+            "name": "Wrong Nominal Values",
+            "children": []
+        },
+        "position": {
+            "x": 1414.9362427087042,
+            "y": 1062.4504374193416
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "31",
+            "name": "Internal failure",
+            "children": []
+        },
+        "position": {
+            "x": 1280.991078071523,
+            "y": 1063.9554392691946
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "32",
+            "name": "Electric Drive",
+            "children": [
+                "28",
+                "27"
+            ]
+        },
+        "position": {
+            "x": 996.5457284487408,
+            "y": 1048.9054207706336
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "32e28",
+            "source": "32",
+            "target": "28"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "32e27",
+            "source": "32",
+            "target": "27"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "33",
+            "name": "Wrong Nominal Values",
+            "children": []
+        },
+        "position": {
+            "x": 1007.0807413977327,
+            "y": 1267.1306889997518
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "27e33",
+            "source": "27",
+            "target": "33"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "34e32",
+            "source": "34",
+            "target": "32"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "35",
+            "name": "Combustion Drive",
+            "children": []
+        },
+        "position": {
+            "x": 1163.6009337827554,
+            "y": 1054.9254281700576
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "34e35",
+            "source": "34",
+            "target": "35"
         },
         "position": {},
         "group": "edges",
