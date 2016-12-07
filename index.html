@@ -95,7 +95,8 @@
                 group: 'nodes',
                 data: {
                     id: currentId,
-                    name: elemName
+                    name: elemName,
+                    children: [],
                 },
                 classes: dftType,
                 position: {
@@ -104,6 +105,22 @@
                 }
             });
         }
+    }
+
+    function addEdge(source, target) {
+        sourceId = source.data('id');
+        targetId = target.data('id');
+        children = source.data('children');
+        children.push(targetId);
+        source.data('children', children);
+        return {
+            data: {
+                id: sourceId + 'e' + targetId,
+                source: sourceId,
+                target: targetId,
+                index:  children.length-1,
+            }
+        };
     }
 
     var cy = cytoscape({
@@ -199,7 +216,7 @@
             {
             selector: 'edge',
             css: {
-                label: '',
+                label: 'data(index)',
                 'width': 2,
                 'target-arrow-shape': 'triangle',
                 'line-color': '#808080',
@@ -354,24 +371,12 @@
 		    return 'flat';
 		},
 		edgeParams: function(sourceNode, targetNode, i) {
-            sourceId = sourceNode.data('id');
-            targetId = targetNode.data('id');
-            return {
-                data: {
-                    id: sourceId + 'e' + targetId,
-                    source: sourceId,
-                    target: targetId,
-                }
-            };
+            return addEdge(sourceNode, targetNode);
         },
 	});
 
     cy.expandCollapse({
-        layoutBy: {
-            name: 'breadthfirst',
-            directed: true,
-            padding: 10,
-        },
+        layoutBy: null,
         animate: false,
         fisheye: true,
         undoable: false
