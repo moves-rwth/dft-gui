@@ -1,0 +1,1619 @@
+[
+    {
+        "data": {
+            "id": "1",
+            "name": "T",
+            "children": [
+                "67",
+                "68",
+                "71"
+            ]
+        },
+        "position": {
+            "x": 484.1402412774,
+            "y": 241.37073880700177
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "2",
+            "name": "Trajectory Planning",
+            "expandcollapseRenderedStartX": 507.6838706703141,
+            "expandcollapseRenderedStartY": 137.06307374851949,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": 451.04251561627314,
+            "y": 806.3822419085889
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "3",
+            "name": "EP",
+            "children": [
+                "55",
+                "66",
+                "82",
+                "66",
+                "83"
+            ],
+            "parent": "66"
+        },
+        "position": {
+            "x": -535.3883864570372,
+            "y": 582.2703205342814
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "4",
+            "name": "TP",
+            "parent": "2"
+        },
+        "position": {
+            "x": 453.16649291695376,
+            "y": 642.7084491402198
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "5",
+            "name": "Actuator Control",
+            "children": []
+        },
+        "position": {
+            "x": 1505.017055059649,
+            "y": 499.63338021367923
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "6",
+            "name": "AM",
+            "children": [
+                "63"
+            ],
+            "parent": "19"
+        },
+        "position": {
+            "x": 1953.6535243836495,
+            "y": 486.469527400733
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "7",
+            "name": "Brake Management",
+            "children": [],
+            "parent": "19"
+        },
+        "position": {
+            "x": 1706.0569483163122,
+            "y": 569.4515696065702
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "68e70",
+            "source": "68",
+            "target": "70",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "9",
+            "name": "Steer Management",
+            "children": [],
+            "parent": "19"
+        },
+        "position": {
+            "x": 2230.785933750569,
+            "y": 562.5362159912248
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "10",
+            "name": "TP internal",
+            "parent": "2"
+        },
+        "position": {
+            "x": 232.13577200222517,
+            "y": 779.7323843326374
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "11",
+            "name": "TPwN",
+            "children": [],
+            "parent": "17"
+        },
+        "position": {
+            "x": 376.7232821060761,
+            "y": 823.508672164232
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "12",
+            "name": "TPwP",
+            "children": [],
+            "parent": "18"
+        },
+        "position": {
+            "x": 597.7051146829004,
+            "y": 826.3036424028841
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "13",
+            "name": "BUS EP-TP",
+            "parent": "17"
+        },
+        "position": {
+            "x": 404.10207016964966,
+            "y": 980.4236543762653
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "14",
+            "name": "EP",
+            "parent": "17"
+        },
+        "position": {
+            "x": 318.58842216278885,
+            "y": 980.0284467921095
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "15",
+            "name": "BUS TP-AC",
+            "parent": "18"
+        },
+        "position": {
+            "x": 540.270227925397,
+            "y": 979.9116079072131
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "16",
+            "name": "AC",
+            "parent": "18"
+        },
+        "position": {
+            "x": 675.9492592303211,
+            "y": 983.0560346769579
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "17",
+            "name": "TP wrong Nominal Value",
+            "parent": "2",
+            "expandcollapseRenderedStartX": 542.3152232928081,
+            "expandcollapseRenderedStartY": 197.2958457663462,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": 371.5952461662192,
+            "y": 889.7161632702487
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "18",
+            "name": "TP wrong Potential",
+            "parent": "2",
+            "expandcollapseRenderedStartX": 609.0048814522157,
+            "expandcollapseRenderedStartY": 198.22697738977888,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": 597.359743577859,
+            "y": 892.429838539921
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "19",
+            "name": "Actuator Management",
+            "expandcollapseRenderedStartX": 988.2199254022437,
+            "expandcollapseRenderedStartY": 85.01278754839831,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": 1967.4214410334405,
+            "y": 519.0555181226961
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "96",
+            "name": "dep MSG",
+            "children": [
+                "91",
+                "63"
+            ]
+        },
+        "position": {
+            "x": 1966.0913668857445,
+            "y": 813.6493963862257
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "95e90",
+            "source": "95",
+            "target": "90",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "83e85",
+            "source": "83",
+            "target": "85",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "3e83",
+            "source": "3",
+            "target": "83"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "67e69",
+            "source": "67",
+            "target": "69",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "97",
+            "name": "dep LSG",
+            "children": [
+                "92",
+                "9"
+            ]
+        },
+        "position": {
+            "x": 2236.2436366060415,
+            "y": 810.647704500445
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "3e82",
+            "source": "3",
+            "target": "82"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "56",
+            "name": "Sensortype 1",
+            "children": [],
+            "parent": "66"
+        },
+        "position": {
+            "x": -645.7418967545627,
+            "y": 855.7128213819868
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "69e79",
+            "source": "69",
+            "target": "79"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "91",
+            "name": "MSG",
+            "children": []
+        },
+        "position": {
+            "x": 1828.013540139815,
+            "y": 822.6544720435688
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "92",
+            "name": "LSG",
+            "children": []
+        },
+        "position": {
+            "x": 2104.1691936316743,
+            "y": 825.6561639293501
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "1e67",
+            "source": "1",
+            "target": "67"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "55",
+            "name": "EP wrong Nominal Value",
+            "children": [
+                "50",
+                "56"
+            ],
+            "parent": "66"
+        },
+        "position": {
+            "x": -565.1095446387459,
+            "y": 727.2983346790193
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "68e4",
+            "source": "68",
+            "target": "4",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "59",
+            "name": "Sensortype 2",
+            "children": [
+                "55"
+            ],
+            "parent": "66"
+        },
+        "position": {
+            "x": -541.2184773451704,
+            "y": 864.6719716170776
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "63",
+            "name": "Powertrain Management",
+            "children": [],
+            "parent": "19"
+        },
+        "position": {
+            "x": 1967.039313958088,
+            "y": 576.1415088446591
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "83e86",
+            "source": "83",
+            "target": "86"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "1e71",
+            "source": "1",
+            "target": "71"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "66",
+            "name": "Environment Perception",
+            "expandcollapseRenderedStartX": 192.82608921007758,
+            "expandcollapseRenderedStartY": 116.9283860771326,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": -509.3293907329396,
+            "y": 711.2211460756795
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "68",
+            "name": "Trajectory Planning",
+            "children": [
+                "4",
+                "70"
+            ]
+        },
+        "position": {
+            "x": 607.343128477558,
+            "y": 464.6625669136486
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "spare"
+    },
+    {
+        "data": {
+            "id": "67",
+            "name": "Environment Perception",
+            "children": [
+                "66",
+                "3",
+                "69"
+            ]
+        },
+        "position": {
+            "x": -410.03308599400384,
+            "y": 366.45093875809096
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "spare"
+    },
+    {
+        "data": {
+            "id": "69",
+            "name": "SafeEP",
+            "children": [
+                "77",
+                "79"
+            ],
+            "parent": "84"
+        },
+        "position": {
+            "x": -63.113283550333044,
+            "y": 553.5264990666401
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "70",
+            "name": "Safety Trajectory Planning",
+            "children": []
+        },
+        "position": {
+            "x": 845.4585829538227,
+            "y": 585.5042916302253
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "71",
+            "name": "Trajectory Checking & Selection",
+            "children": []
+        },
+        "position": {
+            "x": 1107.8591570203423,
+            "y": 503.80355346666425
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "77",
+            "name": "SafeEP internal",
+            "children": [],
+            "parent": "84"
+        },
+        "position": {
+            "x": -166.308942363107,
+            "y": 677.9358609746432
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "79",
+            "name": "SafeEP wrong Nominal Value",
+            "children": [
+                "80",
+                "81"
+            ],
+            "parent": "84"
+        },
+        "position": {
+            "x": 12.260744075991399,
+            "y": 694.6023650422925
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "80",
+            "name": "Sensors",
+            "children": [],
+            "parent": "84"
+        },
+        "position": {
+            "x": -104.4047843975529,
+            "y": 844.6009016511349
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "81",
+            "name": "BUS Sensors-SafeEP",
+            "children": [],
+            "parent": "84"
+        },
+        "position": {
+            "x": 47.97468136381107,
+            "y": 851.743689108699
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "82",
+            "name": "EP internal",
+            "children": [],
+            "parent": "66"
+        },
+        "position": {
+            "x": -712.9702757819999,
+            "y": 673.1740026696004
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "83",
+            "name": "EP wrong Potential",
+            "children": [
+                "85",
+                "66",
+                "86"
+            ],
+            "parent": "66"
+        },
+        "position": {
+            "x": -345.8310004632138,
+            "y": 696.9832941948138
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "or"
+    },
+    {
+        "data": {
+            "id": "84",
+            "name": "Safety Environment Perception",
+            "expandcollapseRenderedStartX": 369.44692625542854,
+            "expandcollapseRenderedStartY": 107.35251268259806,
+            "expandcollapseRenderedCueSize": 3.9977454237870367
+        },
+        "position": {
+            "x": -48.16713049964797,
+            "y": 690.3850940876696
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "85",
+            "name": "TP",
+            "children": [],
+            "parent": "66"
+        },
+        "position": {
+            "x": -434.40156493700454,
+            "y": 849.909875342985
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "86",
+            "name": "BUS EP-TP",
+            "children": [],
+            "parent": "66"
+        },
+        "position": {
+            "x": -308.6885056838794,
+            "y": 858.4812202920616
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "94e82",
+            "source": "94",
+            "target": "82",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "69e77",
+            "source": "69",
+            "target": "77"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "55e59",
+            "source": "55",
+            "target": "59"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "93",
+            "name": "dep ADAS*",
+            "children": [
+                "89",
+                "84",
+                "77",
+                "2",
+                "70",
+                "21",
+                "71"
+            ]
+        },
+        "position": {
+            "x": 807.4382989742469,
+            "y": 1206.871033423548
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "94",
+            "name": "dep ADAS",
+            "children": [
+                "88",
+                "66",
+                "82",
+                "66",
+                "2",
+                "10"
+            ]
+        },
+        "position": {
+            "x": -513.306130769429,
+            "y": 1065.7915147918366
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "3e55",
+            "source": "3",
+            "target": "55"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "95",
+            "name": "dep BSG",
+            "children": [
+                "90",
+                "5",
+                "7"
+            ]
+        },
+        "position": {
+            "x": 1680.9306377365417,
+            "y": 813.6493963862258
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "fdep"
+    },
+    {
+        "data": {
+            "id": "94e10",
+            "source": "94",
+            "target": "10",
+            "index": 2
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "93e89",
+            "source": "93",
+            "target": "89",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "1e68",
+            "source": "1",
+            "target": "68"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "94e88",
+            "source": "94",
+            "target": "88",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "55e56",
+            "source": "55",
+            "target": "56"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "67e3",
+            "source": "67",
+            "target": "3",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "6e63",
+            "source": "6",
+            "target": "63"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "79e81",
+            "source": "79",
+            "target": "81"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "6e9",
+            "source": "6",
+            "target": "9"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "1e5",
+            "source": "1",
+            "target": "5"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "1e6",
+            "source": "1",
+            "target": "6"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "79e80",
+            "source": "79",
+            "target": "80"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "6e7",
+            "source": "6",
+            "target": "7"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "4e10",
+            "source": "4",
+            "target": "10"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "4e12",
+            "source": "4",
+            "target": "12"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "4e11",
+            "source": "4",
+            "target": "11"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "11e13",
+            "source": "11",
+            "target": "13"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "11e14",
+            "source": "11",
+            "target": "14"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "12e15",
+            "source": "12",
+            "target": "15"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "12e16",
+            "source": "12",
+            "target": "16"
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "95e5",
+            "source": "95",
+            "target": "5",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "95e7",
+            "source": "95",
+            "target": "7",
+            "index": 2
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "88",
+            "name": "ADAS",
+            "children": []
+        },
+        "position": {
+            "x": -666.3924169442644,
+            "y": 1062.7898229060556
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "89",
+            "name": "ADAS*",
+            "children": []
+        },
+        "position": {
+            "x": 654.3520127994118,
+            "y": 1203.8693415377663
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "90",
+            "name": "BSG",
+            "children": []
+        },
+        "position": {
+            "x": 1545.854502876393,
+            "y": 822.654472043569
+        },
+        "group": "nodes",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": "be"
+    },
+    {
+        "data": {
+            "id": "93e77",
+            "source": "93",
+            "target": "77",
+            "index": 2
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "93e70",
+            "source": "93",
+            "target": "70",
+            "index": 2
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "93e71",
+            "source": "93",
+            "target": "71",
+            "index": 3
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "97e92",
+            "source": "97",
+            "target": "92",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "97e9",
+            "source": "97",
+            "target": "9",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "96e91",
+            "source": "96",
+            "target": "91",
+            "index": 0
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    },
+    {
+        "data": {
+            "id": "96e63",
+            "source": "96",
+            "target": "63",
+            "index": 1
+        },
+        "position": {},
+        "group": "edges",
+        "removed": false,
+        "selected": false,
+        "selectable": true,
+        "locked": false,
+        "grabbable": true,
+        "classes": ""
+    }
+]
