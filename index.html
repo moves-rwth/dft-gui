@@ -30,9 +30,10 @@
 <div id="load">
   <input type="file" id="input-file" />
   <button id="load-graph">Load</button>
-</div>
-<div id="save">
     <button id="save-graph">Save</button>
+</div>
+<div id="export">
+    <button id="export-image">Export image</button>
 </div>
 <div id="cy"></div>
 <script>
@@ -64,6 +65,29 @@
             // Firefox requires the link to be added to the DOM
             // before it can be clicked.
             downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            //downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+        }
+        downloadLink.click();
+    });
+
+    // Export graph as image
+    $("#export-image").click(function() {
+        var image = cy.png({
+            full: true
+        });
+        var fileNameToSaveAs = "dft-graph.png";
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+            // Chrome allows the link to be clicked without actually adding it to the DOM.
+            downloadLink.href = image;
+        } else {
+            // Firefox requires the link to be added to the DOM
+            // before it can be clicked.
+            downloadLink.href = image;
             //downloadLink.onclick = destroyClickedElement;
             downloadLink.style.display = "none";
             document.body.appendChild(downloadLink);
@@ -359,7 +383,7 @@
                         padding: 10,
                     });
                 }
-             }
+            }
         ]
     });
 
