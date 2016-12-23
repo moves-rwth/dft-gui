@@ -1,13 +1,52 @@
+// Cytoscape graph visualization
+var dftTypes = {
+    BE:     'be',
+    AND:    'and',
+    OR:     'or',
+    PAND:   'pand',
+    POR:    'por',
+    PDEP:   'pdep',
+    SPARE:  'spare',
+    SEQ:    'seq',
+};
+
+var currentId = 0;
+
 // Load graph
 $("#load-graph").click(function() {
-    var filePath = "examples/" + $('#input-file').val();
-    $.getJSON(filePath, function(json) {
+    if (typeof window.FileReader !== 'function') {
+        alert("The file API isn't supported on this browser yet.");
+        return;
+    }
+
+    var input = document.getElementById('input-file');
+    if (!input.files) {
+        alert("This browser doesn't seem to support the `files` property of file inputs.");
+        return;
+    }
+    if (!input.files[0]) {
+        alert("Please select a file before clicking 'Load'");
+        return;
+    }
+
+    var file = input.files[0];
+    var filereader = new FileReader();
+    filereader.onload = loadFile;
+    filereader.readAsText(file);
+
+
+    function loadFile(file) {
+        lines = file.target.result;
+        var json = JSON.parse(lines);
+        console.log(json)
+
         cy.load(json);
         // Set currentId as maximal id of all loaded nodes
+        currentId = 0;
         cy.nodes().forEach(function( node ){
             currentId = Math.max(currentId, node.id());
         });
-    });
+    }
 });
 
 // Save graph
@@ -55,21 +94,6 @@ $("#export-image").click(function() {
     downloadLink.click();
 });
 
-
-// Cytoscape graph visualization
-var dftTypes = {
-    BE:     'be',
-    AND:    'and',
-    OR:     'or',
-    PAND:   'pand',
-    POR:    'por',
-    PDEP:   'pdep',
-    FDEP:   'fdep',
-    SPARE:  'spare',
-    SEQ:    'seq',
-};
-
-var currentId = 0;
 
 function addNode(event, dftType) {
     currentId += 1;
