@@ -116,21 +116,41 @@ function addNode(event, dftType) {
     }
 }
 
-function addEdge(source, target) {
-    sourceId = source.data('id');
-    targetId = target.data('id');
-    children = source.data('children');
-    children.push(targetId);
-    source.data('children', children);
+function removeNode(node) {
+    //TODO remove all corresponding edges
+    node.remove();
+}
+
+function addEdge(sourceNode, targetNode) {
+    sourceId = sourceNode.data('id');
+    targetId = targetNode.data('id');
+    var edgeId = sourceId + 'e' + targetId;
+    if (cy.edges("[id='" + edgeId + "']").length > 0) {
+        console.log("Already exists");
+        edgeId = 'idInvalid';
+    }
+
     return {
         data: {
-            id: sourceId + 'e' + targetId,
+            id: edgeId,
             source: sourceId,
             target: targetId,
-            index:  children.length-1,
         }
     };
 }
+
+function removeEdge(edge) {
+    sourceId = edge.data('source');
+    sourceNode = cy.getElementById(sourceId);
+    children = sourceNode.data('children');
+    // TODO remove child
+    var index = edge.data('index');
+    //children.remove(index);
+    sourceNode.data('children', children);
+    // TODO update indices of all edges
+    edge.remove();
+}
+
 
 // Initialize cytoscape
 var cy = cytoscape({
@@ -259,11 +279,20 @@ var cy = cytoscape({
 cy.contextMenus({
     menuItems: [
         {
-            id: 'remove',
+            id: 'removeNode',
             title: 'remove',
-            selector: 'node, edge',
+            selector: 'node',
             onClickFunction: function (event) {
-                event.cyTarget.remove();
+                removeNode(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'removeEdge',
+            title: 'remove',
+            selector: 'edge',
+            onClickFunction: function (event) {
+                removeEdge(event.cyTarget);
             },
             hasTrailingDivider: true
         },
@@ -352,14 +381,6 @@ cy.contextMenus({
             }
         },
         {
-            id: 'remove-selected',
-            title: 'remove selected',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-              cy.$(':selected').remove();
-            }
-        },
-        {
             id: 'layout-bfs',
             title: 'layout via BFS',
             coreAsWell: true,
@@ -379,12 +400,36 @@ cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
     handleSize: 10,
+    loopAllowed: function(node) {
+        return false;
+    },
     edgeType: function() {
         return 'flat';
     },
     edgeParams: function(sourceNode, targetNode, i) {
         return addEdge(sourceNode, targetNode);
     },
+    complete: function(sourceNode, targetNode, addedEdge) {
+        sourceId = sourceNode.data('id');
+        targetId = targetNode.data('id');
+
+        if (addedEdge.data('source') != sourceId) {
+            throw new Error("Source id does not match.");
+        }
+        if (addedEdge.data('target') != targetId) {
+            throw new Error("Target id does not match.");
+        }
+
+        // Check if edge is valid
+        if (addedEdge.data('id') == 'idInvalid') {
+            cy.remove(addedEdge);
+        } else {
+            children = sourceNode.data('children');
+            children.push(targetId);
+            sourceNode.data('children', children);
+            addedEdge.data('index', children.length-1);
+        }
+    }
 });
 
 // Initialize collapsing
