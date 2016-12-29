@@ -1,4 +1,6 @@
-// Cytoscape graph visualization
+// Cytoscape graph visualization.
+
+// Possible types of DFT gates.
 var dftTypes = {
     BE:     'be',
     AND:    'and',
@@ -10,9 +12,10 @@ var dftTypes = {
     SEQ:    'seq',
 };
 
+// Currently highest used id.
 var currentId = 0;
 
-// Load graph
+// Load graph.
 $("#load-graph").click(function() {
     if (typeof window.FileReader !== 'function') {
         alert("The file API isn't supported on this browser yet.");
@@ -36,9 +39,8 @@ $("#load-graph").click(function() {
 
 
     function loadFile(file) {
-        lines = file.target.result;
+        var lines = file.target.result;
         var json = JSON.parse(lines);
-        console.log(json)
 
         cy.load(json);
         // Set currentId as maximal id of all loaded nodes
@@ -49,7 +51,7 @@ $("#load-graph").click(function() {
     }
 });
 
-// Save graph
+// Save graph.
 $("#save-graph").click(function() {
     var textToWrite = JSON.stringify(cy.elements().jsons(), null, 4);
     var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
@@ -71,7 +73,7 @@ $("#save-graph").click(function() {
     downloadLink.click();
 });
 
-// Export graph as image
+// Export graph as image.
 $("#export-image").click(function() {
     var image = cy.png({
         full: true
@@ -94,7 +96,7 @@ $("#export-image").click(function() {
     downloadLink.click();
 });
 
-
+// Add a node.
 function addNode(event, dftType) {
     currentId += 1;
 
@@ -116,14 +118,20 @@ function addNode(event, dftType) {
     }
 }
 
+// Remove a node and all connected edges.
 function removeNode(node) {
-    //TODO remove all corresponding edges
+    var edges = node.connectedEdges();
+    edges.forEach(function( edge ){
+        removeEdge(edge);
+    });
     node.remove();
 }
 
+// Add edge. If there already exists an edge with the same source
+// and target nodes the edge id is marked as 'idInvalid'.
 function addEdge(sourceNode, targetNode) {
-    sourceId = sourceNode.data('id');
-    targetId = targetNode.data('id');
+    var sourceId = sourceNode.data('id');
+    var targetId = targetNode.data('id');
     var edgeId = sourceId + 'e' + targetId;
     if (cy.edges("[id='" + edgeId + "']").length > 0) {
         console.log("Already exists");
@@ -139,15 +147,27 @@ function addEdge(sourceNode, targetNode) {
     };
 }
 
+// Remove edge from graph and update indices.
 function removeEdge(edge) {
-    sourceId = edge.data('source');
-    sourceNode = cy.getElementById(sourceId);
-    children = sourceNode.data('children');
-    // TODO remove child
-    var index = edge.data('index');
-    //children.remove(index);
+    var sourceId = edge.data('source');
+    var targetId = edge.data('target');
+    var edgeIndex = edge.data('index');
+    var sourceNode = cy.getElementById(sourceId);
+    var children = sourceNode.data('children');
+    if (children.length <= edgeIndex || children[edgeIndex] != targetId) {
+        throw new Error('Indices do not match');
+    }
+    // Remove index entry in node
+    children.splice(edgeIndex, 1);
     sourceNode.data('children', children);
-    // TODO update indices of all edges
+    // Update indices of all other edges
+    var edges = sourceNode.connectedEdges();
+    edges.forEach(function( edgeUpdate ){
+        var index = edgeUpdate.data('index');
+        if (index > edgeIndex) {
+            edgeUpdate.data('index', index-1);
+        }
+    });
     edge.remove();
 }
 
@@ -160,6 +180,7 @@ var cy = cytoscape({
         name: 'preset',
         padding: 10,
     },
+    // Initialize DFT gate styles for nodes.
     style: [
         {
         selector: 'node',
@@ -357,14 +378,6 @@ cy.contextMenus({
             }
         },
         {
-            id: 'add-fdep',
-            title: 'add FDEP',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, dftTypes.FDEP);
-            }
-        },
-        {
             id: 'add-spare',
             title: 'add SPARE',
             coreAsWell: true,
@@ -395,7 +408,7 @@ cy.contextMenus({
     ]
 });
 
-// Initialize edgehandles
+// Initialize edgehandles.
 cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
@@ -410,8 +423,8 @@ cy.edgehandles({
         return addEdge(sourceNode, targetNode);
     },
     complete: function(sourceNode, targetNode, addedEdge) {
-        sourceId = sourceNode.data('id');
-        targetId = targetNode.data('id');
+        var sourceId = sourceNode.data('id');
+        var targetId = targetNode.data('id');
 
         if (addedEdge.data('source') != sourceId) {
             throw new Error("Source id does not match.");
@@ -424,7 +437,7 @@ cy.edgehandles({
         if (addedEdge.data('id') == 'idInvalid') {
             cy.remove(addedEdge);
         } else {
-            children = sourceNode.data('children');
+            var children = sourceNode.data('children');
             children.push(targetId);
             sourceNode.data('children', children);
             addedEdge.data('index', children.length-1);
