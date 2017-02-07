@@ -14,7 +14,7 @@ var dftTypes = {
 };
 
 // Currently highest used id.
-var currentId = 0;
+var currentId = -1;
 
 // Load graph.
 $("#load-graph").click(function() {
@@ -45,7 +45,7 @@ $("#load-graph").click(function() {
 
         cy.load(json);
         // Set currentId as maximal id of all loaded nodes
-        currentId = 0;
+        currentId = -1;
         cy.nodes().forEach(function( node ){
             currentId = Math.max(currentId, node.id());
         });
