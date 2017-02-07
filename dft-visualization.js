@@ -97,6 +97,17 @@ $("#export-image").click(function() {
     downloadLink.click();
 });
 
+// Set label for a node.
+function setLabel(node) {
+    var elemName = node.data('name');
+    if (node.hasClass('be')) {
+        var rate = node.data('rate');
+        node.data('label', elemName + ' (' + rate + ')');
+    } else {
+        node.data('label', elemName);
+    }
+}
+
 // Add a node.
 function addNode(event, dftType) {
     currentId += 1;
@@ -105,17 +116,16 @@ function addNode(event, dftType) {
     if (elemName != null) {
         if (dftType == 'be') {
             // Get rate and dormancy factor
-            var rate = prompt("Rate", 0.0);
+            var rate = prompt("Failure rate", 0.0);
             var dorm = prompt("Dormancy factor", 0.0);
 
-            cy.add({
+            var node = cy.add({
                 group: 'nodes',
                 data: {
                     id: currentId,
                     name: elemName,
                     rate: rate,
-                    dorm: dorm,
-                    label: elemName + ' (' + rate + ')'
+                    dorm: dorm
                 },
                 classes: dftType,
                 position: {
@@ -123,14 +133,14 @@ function addNode(event, dftType) {
                     y: event.cyPosition.y
                 }
             });
+            setLabel(node);
         } else {
-            cy.add({
+            var node = cy.add({
                 group: 'nodes',
                 data: {
                     id: currentId,
                     name: elemName,
-                    children: [],
-                    label: elemName
+                    children: []
                 },
                 classes: dftType,
                 position: {
@@ -138,6 +148,7 @@ function addNode(event, dftType) {
                     y: event.cyPosition.y
                 }
             });
+            setLabel(node);
         }
 
     }
@@ -350,6 +361,32 @@ cy.contextMenus({
                 var elemName = prompt("Element name", event.cyTarget.data('name'));
                 if (elemName != null) {
                     event.cyTarget.data('name', elemName);
+                    setLabel(event.cyTarget);
+                }
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'changerate',
+            title: 'change rate',
+            selector: 'node.be',
+            onClickFunction: function (event) {
+                var rate = prompt("Failure rate", event.cyTarget.data('rate'));
+                if (rate != null) {
+                    event.cyTarget.data('rate', rate);
+                    setLabel(event.cyTarget);
+                }
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'changedorm',
+            title: 'change dormancy factor',
+            selector: 'node.be',
+            onClickFunction: function (event) {
+                var dorm = prompt("Dormancy factor", event.cyTarget.data('dorm'));
+                if (dorm != null) {
+                    event.cyTarget.data('dorm', dorm);
                 }
             },
             hasTrailingDivider: true
