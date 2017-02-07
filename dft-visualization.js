@@ -8,6 +8,7 @@ var dftTypes = {
     PAND:   'pand',
     POR:    'por',
     PDEP:   'pdep',
+    FDEP:   'fdep',
     SPARE:  'spare',
     SEQ:    'seq',
 };
@@ -367,6 +368,14 @@ cy.contextMenus({
             coreAsWell: true,
             onClickFunction: function (event) {
                 addNode(event, dftTypes.POR);
+            }
+        },
+        {
+            id: 'add-fdep',
+            title: 'add FDEP',
+            coreAsWell: true,
+            onClickFunction: function (event) {
+                addNode(event, dftTypes.FDEP);
             }
         },
         {
