@@ -103,19 +103,43 @@ function addNode(event, dftType) {
 
     var elemName = prompt("Element name", dftType+currentId);
     if (elemName != null) {
-        cy.add({
-            group: 'nodes',
-            data: {
-                id: currentId,
-                name: elemName,
-                children: [],
-            },
-            classes: dftType,
-            position: {
-                x: event.cyPosition.x,
-                y: event.cyPosition.y
-            }
-        });
+        if (dftType == 'be') {
+            // Get rate and dormancy factor
+            var rate = prompt("Rate", 0.0);
+            var dorm = prompt("Dormancy factor", 0.0);
+
+            cy.add({
+                group: 'nodes',
+                data: {
+                    id: currentId,
+                    name: elemName,
+                    rate: rate,
+                    dorm: dorm,
+                    label: elemName + ' (' + rate + ')'
+                },
+                classes: dftType,
+                position: {
+                    x: event.cyPosition.x,
+                    y: event.cyPosition.y
+                }
+            });
+        } else {
+            cy.add({
+                group: 'nodes',
+                data: {
+                    id: currentId,
+                    name: elemName,
+                    children: [],
+                    label: elemName
+                },
+                classes: dftType,
+                position: {
+                    x: event.cyPosition.x,
+                    y: event.cyPosition.y
+                }
+            });
+        }
+
     }
 }
 
@@ -186,7 +210,7 @@ var cy = cytoscape({
         {
         selector: 'node',
         css: {
-            label: 'data(name)',
+            label: 'data(label)',
             'height': 59,
             'width': 48,
             'shape': 'rectangle',
