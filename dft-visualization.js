@@ -117,7 +117,7 @@ function addNode(event, dftType) {
         if (dftType == 'be') {
             // Get rate and dormancy factor
             var rate = prompt("Failure rate", 0.0);
-            var dorm = prompt("Dormancy factor", 0.0);
+            var dorm = prompt("Dormancy factor", 1.0);
 
             var node = cy.add({
                 group: 'nodes',
