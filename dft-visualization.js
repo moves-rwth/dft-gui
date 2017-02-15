@@ -16,6 +16,8 @@ var dftTypes = {
 // Currently highest used id.
 var currentId = -1;
 
+var topLevelId = -1;
+
 // Load graph.
 $("#load-graph").click(function() {
     if (typeof window.FileReader !== 'function') {
@@ -83,6 +85,7 @@ $("#load-graph").click(function() {
 // Save graph.
 $("#save-graph").click(function() {
     var json = {};
+    json.toplevel = topLevelId;
     json.nodes = cy.nodes().jsons();
     var jsonString = JSON.stringify(json, null, 4);
     var textFileAsBlob = new Blob([jsonString], {type:'text/plain'});
@@ -237,6 +240,17 @@ function removeEdge(edge) {
     edge.remove();
 }
 
+// Set element as toplevel element
+function setToplevel(node) {
+    if (topLevelId >= 0) {
+        // Remove class for old toplevel element
+        cy.getElementById(topLevelId).removeClass('toplevel');
+    }
+    // Set new toplevel element
+    topLevelId = node.data('id');
+    node.addClass('toplevel');
+}
+
 
 // Initialize cytoscape
 var cy = cytoscape({
@@ -256,6 +270,13 @@ var cy = cytoscape({
             'width': 48,
             'shape': 'rectangle',
             'background-fit': 'cover',
+        }
+        },
+        {
+        selector: 'node.toplevel',
+        css: {
+            'border-color': 'black',
+            'border-width': '4'
         }
         },
         {
@@ -422,6 +443,15 @@ cy.contextMenus({
             hasTrailingDivider: true
         },
         {
+            id: 'toplevel',
+            title: 'set as toplevel',
+            selector: 'node',
+            onClickFunction: function (event) {
+                setToplevel(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
+        {
             id: 'add-be',
             title: 'add BE',
             coreAsWell: true,
@@ -498,10 +528,17 @@ cy.contextMenus({
             title: 'layout via BFS',
             coreAsWell: true,
             onClickFunction: function (event) {
+                var root = undefined;
+                if (topLevelId >= 0) {
+                    root = cy.getElementById(topLevelId);
+                }
                 cy.layout({
                     name: 'breadthfirst',
                     directed: true,
                     padding: 10,
+                    roots: root,
+                    avoidOverlap: true,
+                    fit: true,
                 });
             }
         }
