@@ -43,19 +43,49 @@ $("#load-graph").click(function() {
         var lines = file.target.result;
         var json = JSON.parse(lines);
 
-        cy.load(json);
+        cy.load(json.nodes);
+
         // Set currentId as maximal id of all loaded nodes
         currentId = -1;
-        cy.nodes().forEach(function( node ){
+
+        cy.nodes().forEach(function( node ) {
             currentId = Math.max(currentId, node.id());
+
+            if (!node.hasClass('be')) {
+                // Add edges for gates
+                var sourceId = node.data('id');
+                var children = node.data('children');
+                for (var i = 0; i < children.length; ++i) {
+                    var targetId = children[i];
+                    var target = cy.getElementById(targetId);
+                    var edgeId = sourceId + 'e' + targetId;
+                    if (cy.edges("[id='" + edgeId + "']").length > 0) {
+                        alert("Edge '" + edgeId + "' already exists");
+                    }
+
+                    cy.add({
+                        group: 'edges',
+                        data: {
+                            id: edgeId,
+                            source: sourceId,
+                            target: targetId,
+                        },
+                    });
+                }
+            }
         });
+
+        // Set toplevel
+        setToplevel(cy.getElementById(json.toplevel));
     }
 });
 
 // Save graph.
 $("#save-graph").click(function() {
-    var textToWrite = JSON.stringify(cy.elements().jsons(), null, 4);
-    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var json = {};
+    json.nodes = cy.nodes().jsons();
+    var jsonString = JSON.stringify(json, null, 4);
+    var textFileAsBlob = new Blob([jsonString], {type:'text/plain'});
     var fileNameToSaveAs = "dft-graph.json";
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
