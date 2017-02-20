@@ -1,7 +1,7 @@
 // Cytoscape graph visualization.
 
 // Possible types of DFT gates.
-var dftTypes = {
+var DftTypes = Object.freeze({
     BE:     'be',
     AND:    'and',
     OR:     'or',
@@ -11,7 +11,7 @@ var dftTypes = {
     FDEP:   'fdep',
     SPARE:  'spare',
     SEQ:    'seq',
-};
+});
 
 // Currently highest used id.
 var currentId = -1;
@@ -52,8 +52,10 @@ $("#load-graph").click(function() {
 
         cy.nodes().forEach(function( node ) {
             currentId = Math.max(currentId, node.id());
+            setLabel(node);
+            node.addClass(node.data('type'));
 
-            if (!node.hasClass('be')) {
+            if (node.data('type') != DftTypes.BE) {
                 // Add edges for gates
                 var sourceId = node.data('id');
                 var children = node.data('children');
@@ -84,11 +86,14 @@ $("#load-graph").click(function() {
 
 // Save graph.
 $("#save-graph").click(function() {
+    // Construct JSON
     var json = {};
     json.toplevel = topLevelId;
     json.nodes = cy.nodes().jsons();
     var jsonString = JSON.stringify(json, null, 4);
     var textFileAsBlob = new Blob([jsonString], {type:'text/plain'});
+
+    // Create link to download
     var fileNameToSaveAs = "dft-graph.json";
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
@@ -112,6 +117,8 @@ $("#export-image").click(function() {
     var image = cy.png({
         full: true
     });
+
+    // Create link to download
     var fileNameToSaveAs = "dft-graph.png";
     var downloadLink = document.createElement("a");
     downloadLink.download = fileNameToSaveAs;
@@ -130,60 +137,40 @@ $("#export-image").click(function() {
     downloadLink.click();
 });
 
-// Set label for a node.
-function setLabel(node) {
-    var elemName = node.data('name');
-    if (node.hasClass('be')) {
-        var rate = node.data('rate');
-        node.data('label', elemName + ' (' + rate + ')');
-    } else {
-        node.data('label', elemName);
-    }
-}
-
 // Add a node.
 function addNode(event, dftType) {
     currentId += 1;
 
     var elemName = prompt("Element name", dftType+currentId);
     if (elemName != null) {
-        if (dftType == 'be') {
+        var newNode = {
+            group: 'nodes',
+            data: {
+                id: currentId,
+                name: elemName,
+                type: dftType,
+                rate: rate,
+                dorm: dorm
+            },
+            classes: dftType,
+            position: {
+                x: event.cyPosition.x,
+                y: event.cyPosition.y
+            }
+        };
+
+        if (dftType == DftTypes.BE) {
             // Get rate and dormancy factor
             var rate = prompt("Failure rate", 0.0);
             var dorm = prompt("Dormancy factor", 1.0);
-
-            var node = cy.add({
-                group: 'nodes',
-                data: {
-                    id: currentId,
-                    name: elemName,
-                    rate: rate,
-                    dorm: dorm
-                },
-                classes: dftType,
-                position: {
-                    x: event.cyPosition.x,
-                    y: event.cyPosition.y
-                }
-            });
-            setLabel(node);
+            newNode.data.rate = rate;
+            newNode.data.dorm = dorm;
         } else {
-            var node = cy.add({
-                group: 'nodes',
-                data: {
-                    id: currentId,
-                    name: elemName,
-                    children: []
-                },
-                classes: dftType,
-                position: {
-                    x: event.cyPosition.x,
-                    y: event.cyPosition.y
-                }
-            });
-            setLabel(node);
+            newNode.data.children = [];
         }
 
+        var node = cy.add(newNode);
+        setLabel(node);
     }
 }
 
@@ -238,6 +225,17 @@ function removeEdge(edge) {
         }
     });
     edge.remove();
+}
+
+// Set label for a node.
+function setLabel(node) {
+    var elemName = node.data('name');
+    if (node.data('type') == DftTypes.BE) {
+        var rate = node.data('rate');
+        node.data('label', elemName + ' (' + rate + ')');
+    } else {
+        node.data('label', elemName);
+    }
 }
 
 // Set element as toplevel element
@@ -456,7 +454,7 @@ cy.contextMenus({
             title: 'add BE',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.BE);
+                addNode(event, DftTypes.BE);
             }
         },
         {
@@ -464,7 +462,7 @@ cy.contextMenus({
             title: 'add AND',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.AND);
+                addNode(event, DftTypes.AND);
             }
         },
         {
@@ -472,7 +470,7 @@ cy.contextMenus({
             title: 'add OR',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.OR);
+                addNode(event, DftTypes.OR);
             }
         },
         {
@@ -480,7 +478,7 @@ cy.contextMenus({
             title: 'add PAND',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.PAND);
+                addNode(event, DftTypes.PAND);
             }
         },
         {
@@ -488,7 +486,7 @@ cy.contextMenus({
             title: 'add POR',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.POR);
+                addNode(event, DftTypes.POR);
             }
         },
         {
@@ -496,7 +494,7 @@ cy.contextMenus({
             title: 'add FDEP',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.FDEP);
+                addNode(event, DftTypes.FDEP);
             }
         },
         {
@@ -504,7 +502,7 @@ cy.contextMenus({
             title: 'add PDEP',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.PDEP);
+                addNode(event, DftTypes.PDEP);
             }
         },
         {
@@ -512,7 +510,7 @@ cy.contextMenus({
             title: 'add SPARE',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.SPARE);
+                addNode(event, DftTypes.SPARE);
             }
         },
          {
@@ -520,7 +518,7 @@ cy.contextMenus({
             title: 'add SEQ',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addNode(event, dftTypes.SEQ);
+                addNode(event, DftTypes.SEQ);
             }
         },
         {
