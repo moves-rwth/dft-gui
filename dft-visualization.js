@@ -98,7 +98,7 @@ function addNode(event, dftType) {
 }
 
 // Set label for a node.
-function setLabel(node) {
+function setLabelNode(node) {
     var elemName = node.data('name');
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
@@ -146,113 +146,128 @@ var cy = cytoscape({
     // Initialize DFT gate styles for nodes.
     style: [
         {
-        selector: 'node',
-        css: {
-            label: 'data(label)',
-            'height': 59,
-            'width': 48,
-            'shape': 'rectangle',
-            'background-fit': 'cover',
+            selector: 'node',
+            css: {
+                label: 'data(label)',
+                'height': 59,
+                'width': 48,
+                'shape': 'rectangle',
+                'background-fit': 'cover',
+            }
+        },
+        {
+            selector: 'node.toplevel',
+            css: {
+                'border-color': 'black',
+                'border-width': '4'
+            }
+        },
+        {
+            selector: 'node.be',
+            css: {
+                'height': 42,
+                'width': 42,
+                'background-image': 'images/be.jpg'
+            }
+        },
+        {
+            selector: 'node.and, node.compound-and[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 48,
+                'background-image': 'images/and.jpg'
+            }
+        },
+        {
+            selector: 'node.or, node.compound-or[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 44,
+                'background-image': 'images/or.jpg'
         }
         },
         {
-        selector: 'node.toplevel',
-        css: {
-            'border-color': 'black',
-            'border-width': '4'
+            selector: 'node.pand, node.compound-pand[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 48,
+                'background-image': 'images/pand.jpg'
         }
         },
         {
-        selector: 'node.be',
-        css: {
-            'height': 42,
-            'width': 42,
-            'background-image': 'images/be.jpg'
+            selector: 'node.por, node.compound-por[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 44,
+                'background-image': 'images/por.jpg'
         }
         },
         {
-        selector: 'node.and, node.compound-and[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 48,
-            'background-image': 'images/and.jpg'
-        }
+            selector: 'node.pdep, node.compound-pdep[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/fdep.jpg'
+            }
         },
         {
-        selector: 'node.or, node.compound-or[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 44,
-            'background-image': 'images/or.jpg'
-        }
+            selector: 'node.fdep, node.compound-fdep[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/fdep.jpg'
+            }
         },
         {
-        selector: 'node.pand, node.compound-pand[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 48,
-            'background-image': 'images/pand.jpg'
-        }
+            selector: 'node.spare, node.compound-spare[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 89,
+                'background-image': 'images/spare.jpg'
+            }
         },
         {
-        selector: 'node.por, node.compound-por[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 44,
-            'background-image': 'images/por.jpg'
-        }
+            selector: 'node.seq, node.compound-seq[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 26,
+                'width': 49,
+                'background-image': 'images/seq.jpg'
+            }
         },
         {
-        selector: 'node.pdep, node.compound-pdep[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 89,
-            'background-image': 'images/fdep.jpg'
-        }
-        },
-        {
-        selector: 'node.fdep, node.compound-fdep[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 89,
-            'background-image': 'images/fdep.jpg'
-        }
-        },
-        {
-        selector: 'node.spare, node.compound-spare[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 59,
-            'width': 89,
-            'background-image': 'images/spare.jpg'
-        }
-        },
-        {
-        selector: 'node.seq, node.compound-seq[expanded-collapsed="collapsed"]',
-        css: {
-            'height': 26,
-            'width': 49,
-            'background-image': 'images/seq.jpg'
-        }
-        },
-        {
-        selector: 'edge',
-        css: {
-            label: 'data(index)',
-            'width': 2,
-            'target-arrow-shape': 'triangle',
-            'line-color': '#808080',
-            'target-arrow-color': '#808080',
-            'curve-style': 'bezier'
-        }
-        },
-        {
-        selector: "[expanded-collapsed='expanded']",
+            selector: "[expanded-collapsed='expanded']",
             style: {
                 label: '',
                 'background-color': 'ligthgray',
                 'shape': 'rectangle'
             }
         },
+        {
+            selector: 'edge',
+            css: {
+                label: '',
+                'width': 2,
+                'target-arrow-shape': 'triangle',
+                'line-style': 'solid',
+                'line-color': '#808080',
+                'target-arrow-color': '#808080',
+                'curve-style': 'bezier',
+            }
+        },
+        {
+            selector: 'edge.pand, edge.por, edge.spare, edge.seq',
+            css: {
+                label: 'data(index)',
+            }
+        },
+        {
+            selector: 'edge.pdep, edge.fdep',
+            css: {
+                label: 'data(index)',
+                'line-style': 'dashed',
+            }
+        },
+
     ]
 });
 
@@ -267,7 +282,7 @@ cy.contextMenus({
                 var elemName = prompt("Element name", event.cyTarget.data('name'));
                 if (elemName != null) {
                     event.cyTarget.data('name', elemName);
-                    setLabel(event.cyTarget);
+                    setLabelNode(event.cyTarget);
                 }
             },
         },
@@ -279,7 +294,7 @@ cy.contextMenus({
                 var rate = prompt("Failure rate", event.cyTarget.data('rate'));
                 if (rate != null) {
                     event.cyTarget.data('rate', rate);
-                    setLabel(event.cyTarget);
+                    setLabelNode(event.cyTarget);
                 }
             },
         },

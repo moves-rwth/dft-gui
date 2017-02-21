@@ -28,10 +28,10 @@ function importDftFromJson(json) {
 
     cy.nodes().forEach(function( node ) {
         currentId = Math.max(currentId, node.id());
-        setLabel(node);
+        setLabelNode(node);
         node.addClass(node.data('type'));
 
-        if (node.data('type') != DftTypes.BE) {
+        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND) {
             // Add edges for gates
             var sourceId = node.data('id');
             var children = node.data('children');
@@ -43,13 +43,15 @@ function importDftFromJson(json) {
                     alert("Edge '" + edgeId + "' already exists");
                 }
 
-                cy.add({
+                var edge = cy.add({
                     group: 'edges',
                     data: {
                         id: edgeId,
                         source: sourceId,
                         target: targetId,
+                        index: i,
                     },
+                    classes: node.data('type'),
                 });
             }
         }
@@ -109,7 +111,7 @@ function createNode(element, parent) {
         element.data.parent = parent.data("id");
     }
     var node = cy.add(element);
-    setLabel(node);
+    setLabelNode(node);
     return node;
 }
 
@@ -156,6 +158,7 @@ function addEdge(edge, source, target) {
     children.push(target.data('id'));
     source.data('children', children);
     edge.data('index', children.length-1);
+    edge.addClass(source.data('type'));
 }
 
 function createEdge(source, target) {
