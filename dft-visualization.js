@@ -1,23 +1,5 @@
 // Cytoscape graph visualization.
 
-// Possible types of DFT gates.
-var DftTypes = Object.freeze({
-    BE:     'be',
-    AND:    'and',
-    OR:     'or',
-    PAND:   'pand',
-    POR:    'por',
-    PDEP:   'pdep',
-    FDEP:   'fdep',
-    SPARE:  'spare',
-    SEQ:    'seq',
-});
-
-// Currently highest used id.
-var currentId = -1;
-
-var topLevelId = -1;
-
 // Load graph.
 $("#load-graph").click(function() {
     if (typeof window.FileReader !== 'function') {
@@ -40,58 +22,17 @@ $("#load-graph").click(function() {
     filereader.onload = loadFile;
     filereader.readAsText(file);
 
-
     function loadFile(file) {
         var lines = file.target.result;
         var json = JSON.parse(lines);
-
-        cy.load(json.nodes);
-
-        // Set currentId as maximal id of all loaded nodes
-        currentId = -1;
-
-        cy.nodes().forEach(function( node ) {
-            currentId = Math.max(currentId, node.id());
-            setLabel(node);
-            node.addClass(node.data('type'));
-
-            if (node.data('type') != DftTypes.BE) {
-                // Add edges for gates
-                var sourceId = node.data('id');
-                var children = node.data('children');
-                for (var i = 0; i < children.length; ++i) {
-                    var targetId = children[i];
-                    var target = cy.getElementById(targetId);
-                    var edgeId = sourceId + 'e' + targetId;
-                    if (cy.edges("[id='" + edgeId + "']").length > 0) {
-                        alert("Edge '" + edgeId + "' already exists");
-                    }
-
-                    cy.add({
-                        group: 'edges',
-                        data: {
-                            id: edgeId,
-                            source: sourceId,
-                            target: targetId,
-                        },
-                    });
-                }
-            }
-        });
-
-        // Set toplevel
-        setToplevel(cy.getElementById(json.toplevel));
+        importDftFromJson(json);
     }
 });
 
 // Save graph.
 $("#save-graph").click(function() {
-    // Construct JSON
-    var json = {};
-    json.toplevel = topLevelId;
-    json.nodes = cy.nodes().jsons();
-    var jsonString = JSON.stringify(json, null, 4);
-    var textFileAsBlob = new Blob([jsonString], {type:'text/plain'});
+    var json = exportDftToJSON();
+    var textFileAsBlob = new Blob([json], {type:'text/plain'});
 
     // Create link to download
     var fileNameToSaveAs = "dft-graph.json";
@@ -139,92 +80,21 @@ $("#export-image").click(function() {
 
 // Add a node.
 function addNode(event, dftType) {
-    currentId += 1;
-
-    var elemName = prompt("Element name", dftType+currentId);
+    var elemName = prompt("Element name", dftType + (currentId+1));
+    var posX = event.cyPosition.x;
+    var posY = event.cyPosition.y;
     if (elemName != null) {
-        var newNode = {
-            group: 'nodes',
-            data: {
-                id: currentId,
-                name: elemName,
-                type: dftType,
-                rate: rate,
-                dorm: dorm
-            },
-            classes: dftType,
-            position: {
-                x: event.cyPosition.x,
-                y: event.cyPosition.y
-            }
-        };
-
         if (dftType == DftTypes.BE) {
             // Get rate and dormancy factor
             var rate = prompt("Failure rate", 0.0);
             var dorm = prompt("Dormancy factor", 1.0);
-            newNode.data.rate = rate;
-            newNode.data.dorm = dorm;
+            var newElement = createBe(elemName, rate, dorm, posX, posY);
+            createNode(newElement);
         } else {
-            newNode.data.children = [];
+            var newElement = createGate(dftType, elemName, posX, posY);
+            createNode(newElement);
         }
-
-        var node = cy.add(newNode);
-        setLabel(node);
     }
-}
-
-// Remove a node and all connected edges.
-function removeNode(node) {
-    var edges = node.connectedEdges();
-    edges.forEach(function( edge ){
-        removeEdge(edge);
-    });
-    node.remove();
-}
-
-// Add edge. If there already exists an edge with the same source
-// and target nodes the edge id is marked as 'idInvalid'.
-function addEdge(sourceNode, targetNode) {
-    var sourceId = sourceNode.data('id');
-    var targetId = targetNode.data('id');
-    var edgeId = sourceId + 'e' + targetId;
-    if (cy.edges("[id='" + edgeId + "']").length > 0) {
-        console.log("Already exists");
-        edgeId = 'idInvalid';
-    }
-
-    return {
-        data: {
-            id: edgeId,
-            source: sourceId,
-            target: targetId,
-        }
-    };
-}
-
-// Remove edge from graph and update indices.
-function removeEdge(edge) {
-    var sourceId = edge.data('source');
-    var targetId = edge.data('target');
-    var edgeIndex = edge.data('index');
-    var sourceNode = cy.getElementById(sourceId);
-    var children = sourceNode.data('children');
-    if (children.length <= edgeIndex || children[edgeIndex] != targetId) {
-        throw new Error('Indices do not match');
-    }
-    // Remove index entry in node
-    children.splice(edgeIndex, 1);
-    sourceNode.data('children', children);
-    // Update indices of all other edges
-    var edges = sourceNode.connectedEdges();
-    edges.forEach(function( edgeUpdate ){
-        var index = edgeUpdate.data('index');
-        if (index > edgeIndex) {
-            edgeUpdate.data('index', index-1);
-        }
-    });
-    edge.remove();
 }
 
 // Set label for a node.
@@ -233,6 +103,8 @@ function setLabel(node) {
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
         node.data('label', elemName + ' (' + rate + ')');
+    } else if (node.data('type') == DftTypes.COMPOUND) {
+        node.data('label', elemName);
     } else {
         node.data('label', elemName);
     }
@@ -244,9 +116,22 @@ function setToplevel(node) {
         // Remove class for old toplevel element
         cy.getElementById(topLevelId).removeClass('toplevel');
     }
-    // Set new toplevel element
-    topLevelId = node.data('id');
     node.addClass('toplevel');
+    // Set new toplevel element
+    setToplevelId(node);
+}
+
+// Add subtree for (partly covered failures)
+function addCoveredFailure(event) {
+    var faultName = prompt("Element name", "fault" + (currentId+1));
+    var rate = prompt("Failure rate of fault", 0.0);
+    var coverage = -1;
+    while (coverage < 0.0 || coverage > 1.0) {
+        coverage = prompt("Fault coverage", 0.0);
+    }
+    var safetyRate = prompt("Failure rate of safety mechanism", 0.0);
+    // Create subtree
+    createCoveredFailure(faultName, rate, coverage, safetyRate, event.cyPosition.x, event.cyPosition.y);
 }
 
 
@@ -286,7 +171,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.and',
+        selector: 'node.and, node.compound-and[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 48,
@@ -294,7 +179,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.or',
+        selector: 'node.or, node.compound-or[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 44,
@@ -302,7 +187,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.pand',
+        selector: 'node.pand, node.compound-pand[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 48,
@@ -310,7 +195,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.por',
+        selector: 'node.por, node.compound-por[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 44,
@@ -318,7 +203,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.pdep',
+        selector: 'node.pdep, node.compound-pdep[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 89,
@@ -326,7 +211,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.fdep',
+        selector: 'node.fdep, node.compound-fdep[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 89,
@@ -334,7 +219,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.spare',
+        selector: 'node.spare, node.compound-spare[expanded-collapsed="collapsed"]',
         css: {
             'height': 59,
             'width': 89,
@@ -342,7 +227,7 @@ var cy = cytoscape({
         }
         },
         {
-        selector: 'node.seq',
+        selector: 'node.seq, node.compound-seq[expanded-collapsed="collapsed"]',
         css: {
             'height': 26,
             'width': 49,
@@ -361,16 +246,6 @@ var cy = cytoscape({
         }
         },
         {
-        selector: "[expanded-collapsed='collapsed']",
-            style: {
-                label: 'data(name)',
-                'height': 59,
-                'width': 89,
-                'background-color': 'gray',
-                'shape': 'rectangle'
-            }
-        },
-        {
         selector: "[expanded-collapsed='expanded']",
             style: {
                 label: '',
@@ -384,6 +259,50 @@ var cy = cytoscape({
 // Initialize context menu
 cy.contextMenus({
     menuItems: [
+        {
+            id: 'rename',
+            title: 'rename',
+            selector: 'node[type != "compound"]',
+            onClickFunction: function (event) {
+                var elemName = prompt("Element name", event.cyTarget.data('name'));
+                if (elemName != null) {
+                    event.cyTarget.data('name', elemName);
+                    setLabel(event.cyTarget);
+                }
+            },
+        },
+        {
+            id: 'changerate',
+            title: 'change rate',
+            selector: 'node.be',
+            onClickFunction: function (event) {
+                var rate = prompt("Failure rate", event.cyTarget.data('rate'));
+                if (rate != null) {
+                    event.cyTarget.data('rate', rate);
+                    setLabel(event.cyTarget);
+                }
+            },
+        },
+        {
+            id: 'changedorm',
+            title: 'change dormancy',
+            selector: 'node.be',
+            onClickFunction: function (event) {
+                var dorm = prompt("Dormancy factor", event.cyTarget.data('dorm'));
+                if (dorm != null) {
+                    event.cyTarget.data('dorm', dorm);
+                }
+            },
+        },
+        {
+            id: 'toplevel',
+            title: 'set as toplevel',
+            selector: 'node[type != "compound"]',
+            onClickFunction: function (event) {
+                setToplevel(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
         {
             id: 'removeNode',
             title: 'remove',
@@ -399,53 +318,6 @@ cy.contextMenus({
             selector: 'edge',
             onClickFunction: function (event) {
                 removeEdge(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'rename',
-            title: 'rename',
-            selector: 'node',
-            onClickFunction: function (event) {
-                var elemName = prompt("Element name", event.cyTarget.data('name'));
-                if (elemName != null) {
-                    event.cyTarget.data('name', elemName);
-                    setLabel(event.cyTarget);
-                }
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'changerate',
-            title: 'change rate',
-            selector: 'node.be',
-            onClickFunction: function (event) {
-                var rate = prompt("Failure rate", event.cyTarget.data('rate'));
-                if (rate != null) {
-                    event.cyTarget.data('rate', rate);
-                    setLabel(event.cyTarget);
-                }
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'changedorm',
-            title: 'change dormancy factor',
-            selector: 'node.be',
-            onClickFunction: function (event) {
-                var dorm = prompt("Dormancy factor", event.cyTarget.data('dorm'));
-                if (dorm != null) {
-                    event.cyTarget.data('dorm', dorm);
-                }
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'toplevel',
-            title: 'set as toplevel',
-            selector: 'node',
-            onClickFunction: function (event) {
-                setToplevel(event.cyTarget);
             },
             hasTrailingDivider: true
         },
@@ -519,7 +391,17 @@ cy.contextMenus({
             coreAsWell: true,
             onClickFunction: function (event) {
                 addNode(event, DftTypes.SEQ);
-            }
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'add-covered-failure',
+            title: 'add covered fault',
+            coreAsWell: true,
+            onClickFunction: function (event) {
+                addCoveredFailure(event);
+            },
+            hasTrailingDivider: true
         },
         {
             id: 'layout-bfs',
@@ -551,11 +433,19 @@ cy.edgehandles({
     loopAllowed: function(node) {
         return false;
     },
-    edgeType: function() {
+    edgeType: function(sourceNode, targetNode) {
+        if (sourceNode.data('type') == DftTypes.BE) {
+            // No edges starting from BEs
+            return null;
+        }
+        if (sourceNode.data('type') == DftTypes.COMPOUND || targetNode.data('type') == DftTypes.COMPOUND) {
+            // No edges from compound nodes
+            return null;
+        }
         return 'flat';
     },
     edgeParams: function(sourceNode, targetNode, i) {
-        return addEdge(sourceNode, targetNode);
+        return getNewEdge(sourceNode, targetNode);
     },
     complete: function(sourceNode, targetNode, addedEdge) {
         var sourceId = sourceNode.data('id');
@@ -570,12 +460,10 @@ cy.edgehandles({
 
         // Check if edge is valid
         if (addedEdge.data('id') == 'idInvalid') {
+            console.log("Already exists");
             cy.remove(addedEdge);
         } else {
-            var children = sourceNode.data('children');
-            children.push(targetId);
-            sourceNode.data('children', children);
-            addedEdge.data('index', children.length-1);
+            addEdge(addedEdge, sourceNode, targetNode);
         }
     }
 });
