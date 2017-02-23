@@ -5,6 +5,7 @@ var DftTypes = Object.freeze({
     BE:     'be',
     AND:    'and',
     OR:     'or',
+    VOT:    'vot',
     PAND:   'pand',
     POR:    'por',
     PDEP:   'pdep',
@@ -94,6 +95,13 @@ function createGeneralElement(dftType, name, posX, posY) {
 function createGate(dftType, name, posX, posY) {
     var newElement = createGeneralElement(dftType, name, posX, posY);
     newElement.data.children = [];
+    return newElement;
+}
+
+// Create a new voting gate.
+function createVotingGate(name, votingThreshold, posX, posY) {
+    var newElement = createGate(DftTypes.VOT, name, posX, posY);
+    newElement.data.voting = votingThreshold;
     return newElement;
 }
 

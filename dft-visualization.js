@@ -90,6 +90,11 @@ function addNode(event, dftType) {
             var dorm = prompt("Dormancy factor", 1.0);
             var newElement = createBe(elemName, rate, dorm, posX, posY);
             createNode(newElement);
+        } else if (dftType == DftTypes.VOT) {
+            // Get voting number
+            var voting = prompt("Voting threshold", 1);
+            var newElement = createVotingGate(elemName, voting, posX, posY);
+            createNode(newElement);
         } else {
             var newElement = createGate(dftType, elemName, posX, posY);
             createNode(newElement);
@@ -105,6 +110,9 @@ function setLabelNode(node) {
         node.data('label', elemName + ' (' + rate + ')');
     } else if (node.data('type') == DftTypes.COMPOUND) {
         node.data('label', elemName);
+    } else if (node.data('type') == DftTypes.VOT) {
+        var voting = node.data('voting') + "/" + node.data('children').length;
+        node.data('label', elemName + ' (' + voting + ')');
     } else {
         node.data('label', elemName);
     }
@@ -185,6 +193,14 @@ var cy = cytoscape({
                 'width': 44,
                 'background-image': 'images/or.jpg'
         }
+        },
+        {
+            selector: 'node.vot, node.compound-vot[expanded-collapsed="collapsed"]',
+            css: {
+                'height': 59,
+                'width': 48,
+                'background-image': 'images/and.jpg'
+            }
         },
         {
             selector: 'node.pand, node.compound-pand[expanded-collapsed="collapsed"]',
@@ -361,6 +377,14 @@ cy.contextMenus({
             }
         },
         {
+            id: 'add-vot',
+            title: 'add VOT',
+            coreAsWell: true,
+            onClickFunction: function (event) {
+                addNode(event, DftTypes.VOT);
+            }
+        },
+        {
             id: 'add-pand',
             title: 'add PAND',
             coreAsWell: true,
@@ -479,6 +503,10 @@ cy.edgehandles({
             cy.remove(addedEdge);
         } else {
             addEdge(addedEdge, sourceNode, targetNode);
+        }
+        // Update labels
+        if (sourceNode.data('type') == DftTypes.VOT) {
+            setLabelNode(sourceNode);
         }
     }
 });
