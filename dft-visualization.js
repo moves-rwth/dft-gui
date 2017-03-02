@@ -129,7 +129,14 @@ function setToplevel(node) {
     setToplevelId(node);
 }
 
-// Add subtree for (partly covered failures)
+// Add subtree for block
+function addBlock(event) {
+    var blockName = prompt("Block name", currentId+1);
+    // Create subtree
+    createBlock(blockName, event.cyPosition.x, event.cyPosition.y);
+}
+
+// Add subtree for (partly) covered failures
 function addCoveredFailure(event) {
     var faultName = prompt("Element name", "fault" + (currentId+1));
     var rate = prompt("Failure rate of fault", 0.0);
@@ -432,6 +439,14 @@ cy.contextMenus({
                 addNode(event, DftTypes.SEQ);
             },
             hasTrailingDivider: true
+        },
+        {
+            id: 'add-block',
+            title: 'add block',
+            coreAsWell: true,
+            onClickFunction: function (event) {
+                addBlock(event);
+            },
         },
         {
             id: 'add-covered-failure',

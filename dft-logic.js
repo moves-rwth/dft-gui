@@ -205,6 +205,26 @@ function setToplevelId(node) {
     topLevelId = node.data('id');
 }
 
+// Create subtree for block.
+function createBlock(name, posX, posY) {
+    // Create nodes
+    var orBlockElement = createGate(DftTypes.OR, name, posX, posY);
+    var compoundNode = createCompoundNode(orBlockElement);
+    var orBlock = createNode(orBlockElement, compoundNode);
+    var nodeInternal = createNode(createBe(name + " internal", "r" + name + "Int", 1.0, posX-150, posY+100), compoundNode);
+    var orWrongNominal = createNode(createGate(DftTypes.OR, name + " wrong Nominal Value", posX, posY+100), compoundNode);
+    var orWrongPotential = createNode(createGate(DftTypes.OR, name + " wrong Potential", posX+150, posY+100), compoundNode);
+    var orHW = createNode(createGate(DftTypes.OR, "HW-"+ name, posX, posY+600))
+    var dep = createNode(createGate(DftTypes.FDEP, "dep " + name, posX+100, posY+200));
+
+    // Create edges.
+   createEdge(orBlock, nodeInternal);
+   createEdge(orBlock, orWrongNominal);
+   createEdge(orBlock, orWrongPotential);
+   createEdge(orBlock, orHW);
+   createEdge(dep, orBlock);
+}
+
 // Create subtree for (partly) covered failures.
 function createCoveredFailure(faultName, rate, coverage, safetyRate, posX, posY) {
     // Create nodes
