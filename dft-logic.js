@@ -19,6 +19,8 @@ var DftTypes = Object.freeze({
 var currentId = -1;
 // Id of toplevel element.
 var topLevelId = -1;
+// Parameters
+var parameters = {};
 
 // Import DFT from JSON.
 function importDftFromJson(json) {
@@ -26,6 +28,8 @@ function importDftFromJson(json) {
 
     // Set currentId as maximal id of all loaded nodes
     currentId = -1;
+
+    parameters = json.parameters;
 
     cy.nodes().forEach(function( node ) {
         currentId = Math.max(currentId, node.id());
@@ -67,6 +71,7 @@ function exportDftToJSON() {
     // Construct JSON
     var json = {};
     json.toplevel = topLevelId;
+    json.parameters = parameters;
     json.nodes = cy.nodes().jsons();
     var jsonString = JSON.stringify(json, null, 4);
     return jsonString;
