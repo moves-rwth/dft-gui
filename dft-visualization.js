@@ -333,6 +333,18 @@ cy.contextMenus({
             },
         },
         {
+            id: 'changethreshold',
+            title: 'change threshold',
+            selector: 'node.vot',
+            onClickFunction: function (event) {
+                var voting = prompt("Voting threshold", event.cyTarget.data('voting'));
+                if (voting != null) {
+                    event.cyTarget.data('voting', voting);
+                    setLabelNode(event.cyTarget);
+                }
+            },
+        },
+        {
             id: 'toplevel',
             title: 'set as toplevel',
             selector: 'node[type != "compound"]',
