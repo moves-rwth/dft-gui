@@ -1,62 +1,94 @@
-[
-    {
-        "group": "nodes",
-        "data": {
-            "id": 1,
-            "name": "Z"
+{
+    "toplevel": "0",
+    "parameters": {},
+    "nodes": [
+        {
+            "data": {
+                "id": "0",
+                "name": "Z",
+                "type": "pand",
+                "children": [
+                    "2",
+                    "1"
+                ],
+                "label": "Z"
+            },
+            "position": {
+                "x": 468,
+                "y": 86
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand toplevel"
         },
-        "classes": "pand"
-    },
-    {
-         "group": "nodes",
-         "data": {
-            "id": 2,
-            "name": "X"
+        {
+            "data": {
+                "id": "1",
+                "name": "A",
+                "type": "and",
+                "children": [
+                    "2",
+                    "3"
+                ],
+                "label": "A"
+            },
+            "position": {
+                "x": 549,
+                "y": 206
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
         },
-        "classes": "or"
-    },
-    {
-         "group": "nodes",
-         "data": {
-            "id": 3,
-            "name": "A"
+        {
+            "data": {
+                "id": "2",
+                "name": "B",
+                "type": "be",
+                "rate": "2",
+                "dorm": "1",
+                "label": "B (2)"
+            },
+            "position": {
+                "x": 412,
+                "y": 342
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
         },
-        "classes": "be"
-    },
-    {
-         "group": "nodes",
-         "data": {
-            "id": 4,
-            "name": "B"
-        },
-        "classes": "be"
-    },
-    {
-       "data": {
-        "id": 5,
-        "source": 1,
-        "target": 2
-      }
-    },
-    {
-       "data": {
-        "id": 6,
-        "source": 1,
-        "target": 4
-      }
-    },
-    {
-       "data": {
-        "id": 7,
-        "source": 2,
-        "target": 3
-      }
-    },
-    {
-       "data": {
-        "id": 8,
-        "source": 2,
-        "target": 4
-      }
-    }
-]
+        {
+            "data": {
+                "id": "3",
+                "name": "C",
+                "type": "be",
+                "rate": "5",
+                "dorm": "1",
+                "label": "C (5)"
+            },
+            "position": {
+                "x": 606,
+                "y": 347
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        }
+    ]
+}
