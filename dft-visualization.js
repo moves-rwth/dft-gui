@@ -182,71 +182,71 @@ var cy = cytoscape({
             css: {
                 'height': 42,
                 'width': 42,
-                'background-image': 'images/be.jpg'
+                'background-image': 'images/be.png'
             }
         },
         {
             selector: 'node.and, node.compound-and[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 48,
-                'background-image': 'images/and.jpg'
+                'height': 66.65,
+                'width': 50,
+                'background-image': 'images/and.png'
             }
         },
         {
             selector: 'node.or, node.compound-or[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 44,
-                'background-image': 'images/or.jpg'
+                'height': 66.65,
+                'width': 50,
+                'background-image': 'images/or.png'
         }
         },
         {
             selector: 'node.vot, node.compound-vot[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 48,
-                'background-image': 'images/and.jpg'
+                'height': 66.65,
+                'width': 50,
+                'background-image': 'images/and.png'
             }
         },
         {
             selector: 'node.pand, node.compound-pand[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 48,
-                'background-image': 'images/pand.jpg'
+                'height': 66.65,
+                'width': 50,
+                'background-image': 'images/pand.png'
         }
         },
         {
             selector: 'node.por, node.compound-por[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 44,
-                'background-image': 'images/por.jpg'
+                'height': 66.65,
+                'width': 50,
+                'background-image': 'images/por.png'
         }
         },
         {
             selector: 'node.pdep, node.compound-pdep[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 89,
-                'background-image': 'images/fdep.jpg'
+                'height': 50,
+                'width': 100,
+                'background-image': 'images/fdep.png'
             }
         },
         {
             selector: 'node.fdep, node.compound-fdep[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 89,
-                'background-image': 'images/fdep.jpg'
+                'height': 50,
+                'width': 100,
+                'background-image': 'images/fdep.png'
             }
         },
         {
             selector: 'node.spare, node.compound-spare[expanded-collapsed="collapsed"]',
             css: {
-                'height': 59,
-                'width': 89,
-                'background-image': 'images/spare.jpg'
+                'height': 50,
+                'width': 100,
+                'background-image': 'images/spare.png'
             }
         },
         {
@@ -254,7 +254,7 @@ var cy = cytoscape({
             css: {
                 'height': 26,
                 'width': 49,
-                'background-image': 'images/seq.jpg'
+                'background-image': 'images/seq.png'
             }
         },
         {
