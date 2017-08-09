@@ -87,8 +87,9 @@ function addNode(event, dftType) {
         if (dftType == DftTypes.BE) {
             // Get rate and dormancy factor
             var rate = prompt("Failure rate", 0.0);
+            var repair = prompt("Repair rate", 0.0);
             var dorm = prompt("Dormancy factor", 1.0);
-            var newElement = createBe(elemName, rate, dorm, posX, posY);
+            var newElement = createBe(elemName, rate, repair, dorm, posX, posY);
             createNode(newElement);
         } else if (dftType == DftTypes.VOT) {
             // Get voting number
@@ -107,7 +108,8 @@ function setLabelNode(node) {
     var elemName = node.data('name');
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
-        node.data('label', elemName + ' (' + rate + ')');
+        var repair = node.data('repair');
+        node.data('label', elemName + ' (\u03BB: ' + rate + ', r: ' + repair + ')');
     } else if (node.data('type') == DftTypes.COMPOUND) {
         node.data('label', elemName);
     } else if (node.data('type') == DftTypes.VOT) {
@@ -317,6 +319,18 @@ cy.contextMenus({
                 var rate = prompt("Failure rate", event.cyTarget.data('rate'));
                 if (rate != null) {
                     event.cyTarget.data('rate', rate);
+                    setLabelNode(event.cyTarget);
+                }
+            },
+        },
+        {
+            id: 'changerepair',
+            title: 'change repair',
+            selector: 'node.be',
+            onClickFunction: function (event) {
+                var repair = prompt("Repair rate", event.cyTarget.data('repair'));
+                if (repair != null) {
+                    event.cyTarget.data('repair', repair);
                     setLabelNode(event.cyTarget);
                 }
             },

@@ -111,9 +111,10 @@ function createVotingGate(name, votingThreshold, posX, posY) {
 }
 
 // Create a new BE.
-function createBe(name, rate, dorm, posX, posY) {
+function createBe(name, rate, repair, dorm, posX, posY) {
     var newElement = createGeneralElement(DftTypes.BE, name, posX, posY);
     newElement.data.rate = rate;
+    newElement.data.repair = repair;
     newElement.data.dorm = dorm;
     return newElement;
 }
@@ -216,7 +217,7 @@ function createBlock(name, posX, posY) {
     var orBlockElement = createGate(DftTypes.OR, name, posX, posY);
     var compoundNode = createCompoundNode(orBlockElement);
     var orBlock = createNode(orBlockElement, compoundNode);
-    var nodeInternal = createNode(createBe(name + " internal", "r" + name + "Int", 1.0, posX-150, posY+100), compoundNode);
+    var nodeInternal = createNode(createBe(name + " internal", "r" + name + "Int", 0.0, 1.0, posX-150, posY+100), compoundNode);
     var orWrongNominal = createNode(createGate(DftTypes.OR, name + " wrong Nominal Value", posX, posY+100), compoundNode);
     var orWrongPotential = createNode(createGate(DftTypes.OR, name + " wrong Potential", posX+150, posY+100), compoundNode);
     var orHW = createNode(createGate(DftTypes.OR, "HW-"+ name, posX, posY+600))
@@ -236,11 +237,11 @@ function createCoveredFailure(faultName, rate, coverage, safetyRate, posX, posY)
     var orFaultElement = createGate(DftTypes.OR, faultName, posX, posY);
     var compoundNode = createCompoundNode(orFaultElement);
     var orFault = createNode(orFaultElement, compoundNode);
-    var nodeFaultNotCovered = createNode(createBe(faultName + "NotCov", rate * (1-coverage), 1.0, posX-75, posY+100), compoundNode);
+    var nodeFaultNotCovered = createNode(createBe(faultName + "NotCov", rate * (1-coverage), 0.0, 1.0, posX-75, posY+100), compoundNode);
     var andNotDetected = createNode(createGate(DftTypes.AND, faultName + "NotDet", posX+75, posY+100), compoundNode);
     var seqCovered = createNode(createGate(DftTypes.SEQ, "seq" + faultName, posX+150, posY+100), compoundNode);
-    var nodeSafety = createNode(createBe(faultName + "SafeMech", safetyRate, 1.0, posX+50, posY+200), compoundNode);
-    var nodeFaultCovered = createNode(createBe(faultName + "Cov", rate * coverage, 1.0, posX+150, posY+200), compoundNode);
+    var nodeSafety = createNode(createBe(faultName + "SafeMech", safetyRate, 0.0, 1.0, posX+50, posY+200), compoundNode);
+    var nodeFaultCovered = createNode(createBe(faultName + "Cov", rate * coverage, 0.0, 1.0, posX+150, posY+200), compoundNode);
 
     // Create edges.
    createEdge(orFault, nodeFaultNotCovered);
