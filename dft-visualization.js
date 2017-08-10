@@ -85,7 +85,7 @@ function addNode(event, dftType) {
     var posY = event.cyPosition.y;
     if (elemName != null) {
         if (dftType == DftTypes.BE) {
-            // Get rate and dormancy factor
+            // Get rate, repair and dormancy factor
             var rate = prompt("Failure rate", 0.0);
             var repair = prompt("Repair rate", 0.0);
             var dorm = prompt("Dormancy factor", 1.0);
@@ -109,7 +109,11 @@ function setLabelNode(node) {
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
         var repair = node.data('repair');
-        node.data('label', elemName + ' (\u03BB: ' + rate + ', r: ' + repair + ')');
+        if (repair != 0) {
+            node.data('label', elemName + ' (\u03BB: ' + rate + ', r: ' + repair + ')');
+        } else {
+            node.data('label', elemName + ' (\u03BB: ' + rate + ')');
+        }
     } else if (node.data('type') == DftTypes.COMPOUND) {
         node.data('label', elemName);
     } else if (node.data('type') == DftTypes.VOT) {
@@ -510,6 +514,7 @@ cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
     handleSize: 10,
+    handleOutlineWidth: 10,
     loopAllowed: function(node) {
         return false;
     },
