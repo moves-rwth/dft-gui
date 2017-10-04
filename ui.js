@@ -21,7 +21,7 @@ function toggleOptionBar() {
 
 $(function() {
     $('#tabs').tabs();
-    $('#be-elem').draggable({revert: true});
+    $('#be-elem').draggable({revert: true, zIndex: 5});
     $('#and-elem').draggable({revert: true});
     $('#or-elem').draggable({revert: true});
     $('#vot-elem').draggable({revert: true});
@@ -37,37 +37,139 @@ $(function() {
 });
 
 // Dragstop events
-
+$('#be-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStart();
+    }
+});
 $('#be-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.BE);
+    if (window.outerWidth < 1500) {
+        dragHelperStop();
+    }
+});
+$('#and-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStart();
+    }
 });
 $('#and-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.AND);
+    if (window.outerWidth < 1500) {
+        dragHelperStop();
+    }
+});
+$('#or-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStart();
+    }
 });
 $('#or-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.OR);
+    if (window.outerWidth < 1500) {
+        dragHelperStop();
+    }
+});
+$('#vot-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStart();
+    }
 });
 $('#vot-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.VOT);
+    if (window.outerWidth < 1500) {
+        dragHelperStop();
+    }
+});
+$('#pand-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        DragHelperStartDyn();
+    }
 });
 $('#pand-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.PAND);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
+});
+$('#por-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStartDyn();
+    }
 });
 $('#por-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.POR);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
+});
+$('#fdep-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStartDyn();
+    }
 });
 $('#fdep-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.FDEP);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
+});
+$('#pdep-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStartDyn();
+    }
 });
 $('#pdep-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.PDEP);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
 }); 
+$('#spare-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStartDyn();
+    }
+});
 $('#spare-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.SPARE);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
+});
+$('#seq-elem').on('dragstart', function(event, ui) {
+    if (window.outerWidth < 1500) {
+        dragHelperStartDyn();
+    }
 });
 $('#seq-elem').on('dragstop', function(event, ui) {
     openDialog(ui.position.left, ui.position.top, DftTypes.SEQ);
+    if (window.outerWidth < 1500) {
+        dragHelperStopDyn();
+    }
 }); 
+
+function dragHelperStart() {
+    $('.ui-tabs').css('overflow', 'visible');
+    $('#dynamic-elements').css('display', 'none');
+}
+function dragHelperStop() {
+    $('.ui-tabs').css('overflow', 'scroll');
+    $('#dynamic-elements').css('display', 'inline-block');
+}
+function dragHelperStartDyn() {
+    $('.ui-tabs').css('overflow', 'visible');
+    $('#static-elements').css('display', 'none');
+}
+function dragHelperStopDyn() {
+    $('.ui-tabs').css('overflow', 'scroll');
+    $('#static-elements').css('display', 'inline-block');
+}
+
+window.onresize = function(event) {
+    if (window.outerWidth > 1500) {
+        $('.ui-tabs').css('overflow', 'hidden');
+    } else $('.ui-tabs').css('overflow', 'scroll');
+}
 
 // ADD Buttons
 

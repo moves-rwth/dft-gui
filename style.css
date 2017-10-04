@@ -104,8 +104,7 @@ fieldset.option_tab {
 }
 #load{
     float: left;
-    margin: 0 15px 10px 15px;
-    width: 577px;
+    margin: 0 30px 10px 0;
     height: 55px;
     padding: 0 0 35px 0;
     display: inline-block;
@@ -114,12 +113,13 @@ fieldset.option_tab {
 #save {
     float: left;
     display: inline-block;
-    margin: 0 45px 10px 15px;
+    margin: 0 30px 10px 0px;
     height: 55px;
     padding: 0 0 35px 0;
 }
 
 #lock {
+    margin-left: 0;
     cursor: pointer;
     display: inline-block;
     height: 55px;
@@ -137,7 +137,6 @@ fieldset.option_tab {
 }
 
 #lock-field {
-    margin-left: 15px;
     height: 80px;
     text-align: center;
     padding-left: 25px;
@@ -145,7 +144,11 @@ fieldset.option_tab {
     padding-top: 0;
 }
 
-#load-field #save-field {
+#load-field {
+    padding-top: 25px;
+    padding-bottom: 15px;
+}
+#save-field {
     padding-top: 25px;
     padding-bottom: 15px;
     margin: 0 0 25px 0;
@@ -294,17 +297,17 @@ fieldset.option_tab {
 
 @media screen and (max-width: 1500px) {
     #load{
-        display: block;
+        display: inline-block;
         width: auto;
         position: static;
     }
     #save {
-        display: block;
+        display: inline-block;
         width: auto;
         position: static;
     }
     .ui-tabs {
-        overflow: scroll; 
+        overflow: scroll;
     }
 }
 
@@ -318,9 +321,15 @@ fieldset.option_tab {
         width: 370px;
     }
     #load-field {
-        width: 509px;
+
     }
     #load-graph {
+    }
+}
+@media screen and (min-width: 1500px) {
+    .ui-tabs {
+        overflow: visible;
+        z-index: 5;
     }
 }
 
@@ -617,6 +626,7 @@ fieldset.option_tab {
     font-variant: small-caps;
     font-family: sans-serif;
 }
+
 #info-data {
     float: left;
     display: inline-block;
@@ -625,36 +635,13 @@ fieldset.option_tab {
     height: 75px;
     width: calc(100% - 115px);
 }
-#info-data-1 {
+
+.info-layout {
     height: 100%;
     width: 30%;
     display: inline-block;
 }
-#info-data-be {
-    height: 100%;
-    width: 30%;
-    display: inline-block;
-}
-#info-data-gate {
-    height: 100%;
-    width: 30%;
-    display: inline-block;
-}
-#info-data-fdep {
-    height: 100%;
-    width: 30%;
-    display: inline-block;
-}
-#info-data-pdep {
-    height: 100%;
-    width: 30%;
-    display: inline-block;
-}
-#info-data-spare {
-    height: 100%;
-    width: 30%;
-    display: inline-block;
-}
+
 
 .information {
     padding: 0 auto 0 auto;

@@ -274,6 +274,8 @@ function checkValue(value) {
     }
 }
 
+
+
 // Checks for valid name. Otherwise returns gate type + currentID
 function checkName(name, dftType) {
     if (name) {
