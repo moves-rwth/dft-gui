@@ -78,31 +78,6 @@ $("#export-image").click(function() {
     downloadLink.click();
 });
 
-// Add a node.
-function addNode(event, dftType) {
-    var elemName = prompt("Element name", dftType + (currentId+1));
-    var posX = event.cyPosition.x;
-    var posY = event.cyPosition.y;
-    if (elemName != null) {
-        if (dftType == DftTypes.BE) {
-            // Get rate, repair and dormancy factor
-            var rate = prompt("Failure rate", 0.0);
-            var repair = prompt("Repair rate", 0.0);
-            var dorm = prompt("Dormancy factor", 1.0);
-            var newElement = createBe(elemName, rate, repair, dorm, posX, posY);
-            createNode(newElement);
-        } else if (dftType == DftTypes.VOT) {
-            // Get voting number
-            var voting = prompt("Voting threshold", 1);
-            var newElement = createVotingGate(elemName, voting, posX, posY);
-            createNode(newElement);
-        } else {
-            var newElement = createGate(dftType, elemName, posX, posY);
-            createNode(newElement);
-        }
-    }
-}
-
 // Set label for a node.
 function setLabelNode(node) {
     var elemName = node.data('name');
@@ -144,17 +119,173 @@ function addBlock(event) {
 
 // Add subtree for (partly) covered failures
 function addCoveredFailure(event) {
-    var faultName = prompt("Element name", "fault" + (currentId+1));
-    var rate = prompt("Failure rate of fault", 0.0);
+    var faultName = prompt('Element name', 'fault' + (currentId+1));
+    var rate = prompt('Failure rate of fault', 0.0);
     var coverage = -1;
     while (coverage < 0.0 || coverage > 1.0) {
-        coverage = prompt("Fault coverage", 0.0);
+        coverage = prompt('Fault coverage', 0.0);
     }
-    var safetyRate = prompt("Failure rate of safety mechanism", 0.0);
+    var safetyRate = prompt('Failure rate of safety mechanism', 0.0);
     // Create subtree
     createCoveredFailure(faultName, rate, coverage, safetyRate, event.cyPosition.x, event.cyPosition.y);
 }
 
+////////////////////////////////////////
+
+// Add a node
+function addNode(event, dftType) {
+    openDialog(event.cyPosition.x, event.cyPosition.y, dftType);
+}
+
+// Open a specific dialog ui for input
+function openDialog(posX, posY, dftType, create = true, elem) {
+    // If createObj.create == TRUE, a new element is created. Otherwise an existing element is changed
+    var heightVal;
+    var type;
+
+    switch(dftType) {
+        case DftTypes.BE: heightVal = 400; type = '-be'; break;
+        case DftTypes.VOT: heightVal = 300; type = '-vot'; break;
+        default: heightVal = 225; type = '-gate';
+    };
+    
+    if (type == '-gate' && create) {
+        var sub = 'Create new ' + dftType.substring(dftType.indexOf('.') + 1).toUpperCase();
+    } else if (type == '-be' && create){
+        var sub = 'Create new BE';
+    } else if (create){
+        var sub = 'Create new VOT Gate';
+    } else {
+        var sub = 'Change Element'
+    }
+    $('#dialog' + type).dialog({
+        width: 300,
+        modal: true,
+        title: sub,
+        resizable: false,
+        dialogClass: 'no-close',
+        classes: {
+            'ui-dialog': 'highlight'
+        },
+        buttons: {
+            'Confirm': function() {
+                if (type == '-gate') {
+                    if (create) {
+                        addGate(posX, posY, dftType);                        
+                    } else changeGate(elem);
+                } else if (type.indexOf('e') > -1) {
+                    if (create) {
+                        addBE(posX, posY);
+                    } else changeBE(elem);
+                } else if (type.indexOf('t') > -1) {
+                    if (create) {
+                        addVot(posX, posY);
+                    } else changeVot(elem);
+                } else {
+                    alert("HERE");
+                }
+            },
+            Cancel: function() {
+                $(this).dialog('close');
+            }
+        },
+        close: function() {
+            $(this).dialog('close');
+        }
+    });
+}
+
+
+
+function addBE(posX, posY) {
+    var elemName = checkName($('#name-be').val(), 'DftTypes.be');
+    var rate = checkValue($('#failure').val());
+    var repair = checkValue($('#repair').val());
+    var dorm = checkValue($('#dormancy').val()); 
+    $('#dialog-be').dialog('close');
+    var newElement = createBe(elemName, rate, repair, dorm, posX, posY);
+    createNode(newElement);
+    // Empty inputs
+    var list = ['name-be', 'failure', 'repair', 'dormancy'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
+function changeBE(elem) {
+    elem.data('name', checkName($('#name-be').val(), elem.data('type')));
+    elem.data('rate', checkValue($('#failure').val()));
+    elem.data('repair', checkValue($('#repair').val()));
+    elem.data('dorm', checkValue($('#dormancy').val()));
+    setLabelNode(elem)
+    $('#dialog-be').dialog('close');
+    // Empty inputs
+    var list = ['name-be', 'failure', 'repair', 'dormancy'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
+function addVot(posX, posY) {
+    var elemName = checkName($('#name-vot').val(), 'DftTypes.vot');
+    var threshold = checkValue($('#threshold').val());
+    $('#dialog-vot').dialog('close');
+    var newElement = createVotingGate(elemName, threshold, posX, posY);
+    createNode(newElement);
+    // Empty inputs
+    var list = ['name-vot', 'threshold'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
+function changeVot(elem) {
+    elem.data('name', checkName($('#name-vot').val(), elem.data('type')));
+    elem.data('voting', checkValue($('#threshold').val()));
+    setLabelNode(elem);
+    $('#dialog-vot').dialog('close');
+    var list = ['name-vot', 'threshold'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
+function addGate(posX, posY, type) {
+    var elemName = checkName($('#name-gate').val(), type);
+    $('#dialog-gate').dialog('close');
+    var newElement = createGate(type, elemName, posX, posY);
+    createNode(newElement);
+    $('#name-gate').val('');
+}
+
+function changeGate(elem) {
+    elem.data('name', checkName($('#name-gate').val(), elem.data('type')));
+    setLabelNode(elem);
+    $('#dialog-gate').dialog('close');
+    $('#name-gate').val('');
+}
+
+// Checks for undefined values. If some undefined found -> change to 0
+function checkValue(value) {
+    if (value) {
+        return value;
+    } else {
+        return 0;
+    }
+}
+
+// Checks for valid name. Otherwise returns gate type + currentID
+function checkName(name, dftType) {
+    if (name) {
+        return name;
+    } else {
+        var sub = dftType.substring(dftType.indexOf('.') + 1);
+        var res =  sub + ' ' + (currentId + 1);
+        return res;
+    }
+}
+
+//////////////////////////////////////////////////
 
 // Initialize cytoscape
 var cy = cytoscape({
@@ -179,8 +310,9 @@ var cy = cytoscape({
         {
             selector: 'node.toplevel',
             css: {
-                'border-color': 'black',
-                'border-width': '4'
+                color: 'white',
+                'font-size': '25px',
+                'font-weight': 'bold'
             }
         },
         {
@@ -188,7 +320,7 @@ var cy = cytoscape({
             css: {
                 'height': 42,
                 'width': 42,
-                'background-image': 'images/be.png'
+                'background-image': 'img/beInv.png'            
             }
         },
         {
@@ -196,7 +328,7 @@ var cy = cytoscape({
             css: {
                 'height': 66.65,
                 'width': 50,
-                'background-image': 'images/and.png'
+                'background-image': 'img/andInv.png'
             }
         },
         {
@@ -204,7 +336,7 @@ var cy = cytoscape({
             css: {
                 'height': 66.65,
                 'width': 50,
-                'background-image': 'images/or.png'
+                'background-image': 'img/orInv.png'
         }
         },
         {
@@ -212,7 +344,7 @@ var cy = cytoscape({
             css: {
                 'height': 66.65,
                 'width': 50,
-                'background-image': 'images/and.png'
+                'background-image': 'img/andInv.png'
             }
         },
         {
@@ -220,7 +352,7 @@ var cy = cytoscape({
             css: {
                 'height': 66.65,
                 'width': 50,
-                'background-image': 'images/pand.png'
+                'background-image': 'img/pandInv.png'
         }
         },
         {
@@ -228,7 +360,7 @@ var cy = cytoscape({
             css: {
                 'height': 66.65,
                 'width': 50,
-                'background-image': 'images/por.png'
+                'background-image': 'img/porInv.png'
         }
         },
         {
@@ -236,7 +368,7 @@ var cy = cytoscape({
             css: {
                 'height': 50,
                 'width': 100,
-                'background-image': 'images/fdep.png'
+                'background-image': 'img/pdep.png'
             }
         },
         {
@@ -244,7 +376,7 @@ var cy = cytoscape({
             css: {
                 'height': 50,
                 'width': 100,
-                'background-image': 'images/fdep.png'
+                'background-image': 'img/fdep.png'
             }
         },
         {
@@ -252,7 +384,7 @@ var cy = cytoscape({
             css: {
                 'height': 50,
                 'width': 100,
-                'background-image': 'images/spare.png'
+                'background-image': 'img/spare.png'
             }
         },
         {
@@ -260,7 +392,7 @@ var cy = cytoscape({
             css: {
                 'height': 26,
                 'width': 49,
-                'background-image': 'images/seq.png'
+                'background-image': 'img/seqInv.png'
             }
         },
         {
@@ -278,8 +410,8 @@ var cy = cytoscape({
                 'width': 2,
                 'target-arrow-shape': 'triangle',
                 'line-style': 'solid',
-                'line-color': '#808080',
-                'target-arrow-color': '#808080',
+                'line-color': 'black',
+                'target-arrow-color': 'black',
                 'curve-style': 'bezier',
             }
         },
@@ -304,62 +436,30 @@ var cy = cytoscape({
 cy.contextMenus({
     menuItems: [
         {
-            id: 'rename',
-            title: 'rename',
+            id: 'change',
+            title: 'change element',
             selector: 'node[type != "compound"]',
             onClickFunction: function (event) {
-                var elemName = prompt("Element name", event.cyTarget.data('name'));
-                if (elemName != null) {
-                    event.cyTarget.data('name', elemName);
-                    setLabelNode(event.cyTarget);
+                var el = {
+                    x: event.cyTarget.position('x'),
+                    y: event.cyTarget.position('y'),
+                    type: event.cyTarget.data('type'),
+                    create: false,
+                    elem: event.cyTarget
+                };
+                // Insert actual values
+                if (el.type == 'be') {
+                    $('#name-be').val(el.elem.data('name'));
+                    $('#failure').val(el.elem.data('rate'));
+                    $('#repair').val(el.elem.data('repair'));
+                    $('#dormancy').val(el.elem.data('dorm'));
+                } else if (el.type == 'vot') {
+                    $('#name-vot').val(el.elem.data('name'));
+                    $('#threshold').val(el.elem.data('voting'));
+                } else {
+                    $('#name-gate').val(el.elem.data('name'));
                 }
-            },
-        },
-        {
-            id: 'changerate',
-            title: 'change rate',
-            selector: 'node.be',
-            onClickFunction: function (event) {
-                var rate = prompt("Failure rate", event.cyTarget.data('rate'));
-                if (rate != null) {
-                    event.cyTarget.data('rate', rate);
-                    setLabelNode(event.cyTarget);
-                }
-            },
-        },
-        {
-            id: 'changerepair',
-            title: 'change repair',
-            selector: 'node.be',
-            onClickFunction: function (event) {
-                var repair = prompt("Repair rate", event.cyTarget.data('repair'));
-                if (repair != null) {
-                    event.cyTarget.data('repair', repair);
-                    setLabelNode(event.cyTarget);
-                }
-            },
-        },
-        {
-            id: 'changedorm',
-            title: 'change dormancy',
-            selector: 'node.be',
-            onClickFunction: function (event) {
-                var dorm = prompt("Dormancy factor", event.cyTarget.data('dorm'));
-                if (dorm != null) {
-                    event.cyTarget.data('dorm', dorm);
-                }
-            },
-        },
-        {
-            id: 'changethreshold',
-            title: 'change threshold',
-            selector: 'node.vot',
-            onClickFunction: function (event) {
-                var voting = prompt("Voting threshold", event.cyTarget.data('voting'));
-                if (voting != null) {
-                    event.cyTarget.data('voting', voting);
-                    setLabelNode(event.cyTarget);
-                }
+                openDialog(el.x, el.y, el.type, el.create, el.elem);
             },
         },
         {
@@ -368,6 +468,23 @@ cy.contextMenus({
             selector: 'node[type != "compound"]',
             onClickFunction: function (event) {
                 setToplevel(event.cyTarget);
+            }
+        },
+        {
+            id: 'lockNode',
+            title: 'lock node',
+            selector: 'node:unlocked',
+            onClickFunction: function (event) {
+                lockNode(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'unlockNode',
+            title: 'unlock node',
+            selector: 'node:locked',
+            onClickFunction: function (event) {
+                unlockNode(event.cyTarget);
             },
             hasTrailingDivider: true
         },
@@ -386,87 +503,6 @@ cy.contextMenus({
             selector: 'edge',
             onClickFunction: function (event) {
                 removeEdge(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'add-be',
-            title: 'add BE',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.BE);
-            }
-        },
-        {
-            id: 'add-and',
-            title: 'add AND',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.AND);
-            }
-        },
-        {
-            id: 'add-or',
-            title: 'add OR',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.OR);
-            }
-        },
-        {
-            id: 'add-vot',
-            title: 'add VOT',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.VOT);
-            }
-        },
-        {
-            id: 'add-pand',
-            title: 'add PAND',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.PAND);
-            }
-        },
-        {
-            id: 'add-por',
-            title: 'add POR',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.POR);
-            }
-        },
-        {
-            id: 'add-fdep',
-            title: 'add FDEP',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.FDEP);
-            }
-        },
-        {
-            id: 'add-pdep',
-            title: 'add PDEP',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.PDEP);
-            }
-        },
-        {
-            id: 'add-spare',
-            title: 'add SPARE',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.SPARE);
-            }
-        },
-         {
-            id: 'add-seq',
-            title: 'add SEQ',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                addNode(event, DftTypes.SEQ);
             },
             hasTrailingDivider: true
         },
@@ -564,3 +600,6 @@ cy.expandCollapse({
     fisheye: true,
     undoable: false
 });
+
+
+        

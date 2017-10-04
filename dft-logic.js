@@ -211,6 +211,28 @@ function setToplevelId(node) {
     topLevelId = node.data('id');
 }
 
+// Lock position of specific node 
+function lockNode(node) {
+    node.lock();
+}
+
+// Unlock position of specific node 
+function unlockNode(node) {
+    node.unlock();
+}
+
+function lockAll() {
+    cy.nodes().forEach(function(node) {
+        lockNode(node);
+    });
+}
+
+function unlockAll() {
+    cy.nodes().forEach(function(node) {
+        unlockNode(node);
+    });
+}
+
 // Create subtree for block.
 function createBlock(name, posX, posY) {
     // Create nodes
