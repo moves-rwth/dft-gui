@@ -6,6 +6,7 @@ cy.minZoom(0.7);
 var foundElements = [];
 var counter = 0;
 var maxCount = 0;
+var transferObjectEnter = {};
 
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
@@ -34,6 +35,19 @@ $(function() {
 
     // Search field 
     $('#search-input').val("");
+
+    // Tooltipps
+    $('#name-be').tooltip();
+    $('#failure').tooltip();
+    $('#repair').tooltip();
+    $('#dormancy').tooltip();
+
+    // Clear Inputs
+    $('#name-be').val('');
+    $('#failure').val('');
+    $('#repair').val('');
+    $('#dormancy').val('');
+
 });
 
 // Dragstop events
@@ -387,3 +401,85 @@ $('#last').on('click', function() {
     } else counter--;
     prepareResult();
 });
+
+
+// REGEX TEST
+
+$('#testButton').on('click', checkText);
+
+function checkText() {
+    var input = $('#testField').val();
+    var reg = /^\w*$/;
+    $('#testField').val('');
+    if(reg.test(input)) {
+        $('#testCheck').text('True');
+        $('#testCheck').animate({paddingLeft:'+=5px'}, 'fast');
+        $('#testCheck').animate({paddingLeft:'-=5px'}, 'slow');
+    } else {
+        $('#testCheck').text('False');
+        $('#testCheck').animate({paddingLeft:'+=5px'}, 'fast');
+        $('#testCheck').animate({paddingLeft:'-=5px'}, 'slow');
+    }
+}
+    // REGEXE    
+    var regName = /^[a-zA-Z]\w*$|^$/; 
+    var regRate = /^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$/;
+    var regDorm = /^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$/;
+    var regThresh = /^[1-9]+[0-9]*$|^$/;
+
+$('.no-float').keydown(function (e) {
+    if (e.which === 13) {
+        if (!validationCheck(transferObjectEnter.type)) {
+            $('.errorLabel').text('Inavild Input');
+        } else {
+            $('.errorLabel').text('');
+            if (transferObjectEnter.type == '-gate') {
+            if (transferObjectEnter.create) {
+                    addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
+                } else changeGate(transferObjectEnter.elem);
+            } else if (transferObjectEnter.type.indexOf('e') > -1) {
+                if (transferObjectEnter.create) {
+                    addBE(transferObjectEnter.x, transferObjectEnter.y);
+                } else changeBE(transferObjectEnter.elem);
+            } else if (transferObjectEnter.type.indexOf('t') > -1) {
+                if (transferObjectEnter.create) {
+                    addVot(transferObjectEnter.x, transferObjectEnter.y);
+                } else changeVot(transferObjectEnter.elem);
+            } else {
+                alert("HERE");
+            }   
+        }
+    }
+});
+
+// ValidationCheck 
+
+function validationCheck(type) {
+    if (type == '-gate') {
+        var input = $('#name-gate').val();
+        if(regName.test(input)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else if (type == '-be') {
+        if (!regName.test($('#name-be').val())) {
+            return false;
+        }
+        if (!regRate.test($('#failure').val()) || !regRate.test($('#repair').val())) {
+            return false;
+        } 
+        if (!regDorm.test($('#dormancy').val())) {
+            return false;
+        }
+        return true;
+    } else {
+        if (!regThresh.test($('#threshold').val())) {
+            return false;
+        }
+        if (!regName.test($('#name-vot').val())) {
+            return false;
+        }
+        return true;
+    } 
+}

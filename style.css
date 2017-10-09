@@ -10,11 +10,17 @@ fieldset {
 fieldset.option_tab {
     height: 60px;
 }
+input:invalid {
+    color: red;
+}
 
 .nonVis {
     background-color: red;
     display: none;
 
+}
+label.error {
+    color: red;
 }
 #title-bar {
     width: 100%;
@@ -142,11 +148,14 @@ fieldset.option_tab {
     padding-left: 25px;
     padding-bottom: 0;
     padding-top: 0;
+    margin: 0 0;
 }
 
 #load-field {
     padding-top: 25px;
     padding-bottom: 15px;
+    margin-right: 0;
+    margin-left: 0;
 }
 #save-field {
     padding-top: 25px;
@@ -711,3 +720,12 @@ fieldset.option_tab {
     height: 45px;
     cursor: pointer;
 }
+
+  .ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    opacity: 0.6;
+    font: bold 14px "Helvetica Neue", Sans-Serif;
+    box-shadow: 0 0 7px black;
+  }

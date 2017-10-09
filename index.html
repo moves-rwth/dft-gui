@@ -37,10 +37,17 @@
 
         <div id="tabs">
             <ul>
+                <li><a href="#test">Test</a></li>
                 <li><a href="#options">Options</a></li>
                 <li><a href="#add-Elements">Add Elements</a></li>
                 <li><a href="#search-option">Search</a></li>
             </ul>
+            <div id="test">
+                <input type="text" id="testField" pattern="/'[a-zA-Z]+\w*'$|\d?\d*\.?\d*/">
+                <button type="button" id="testButton">Check</button>
+                <br>
+                <div id="testCheck"></div>
+            </div>
             <div id="options">
                 <div id="load">
                         <fieldset id="load-field" class="option_tab">
@@ -218,13 +225,14 @@
     <div class="nonVis" id="dialog-be" title="Create new BE">
             <fieldset>
                 <label class="no-float" for="name">Name</label>
-                <input class="no-float" type="text" name="name" id="name-be" placeholder="name ...">
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-be" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
                 <label class="no-float" for="failure">Failure Rate</label>
-                <input class="no-float" type="text" name="failure" id="failure" placeholder="rate ...">
+                <input title="Any number greater or equal 0. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="failure" id="failure" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
                 <label class="no-float" for="repair">Repair Rate</label>
-                <input class="no-float" type="text" name="repair" id="repair" placeholder="rate ...">
+                <input title="Any number greater or equal 0. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="repair" id="repair" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
                 <label class="no-float" for="dormancy">Dormancy Factor</label>
-                <input class="no-float" type="text" name="dormancy" id="dormancy" placeholder="rate ...">
+                <input title="Any number in [0,1]. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="dormancy" id="dormancy" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$">
+                <label class="error errorLabel"></label>
             </fieldset>
     </div>
 
@@ -233,9 +241,10 @@
     <div class="nonVis" id="dialog-vot" title="Create new VOT Gate">
             <fieldset>
                 <label class="no-float" for="name">Name</label>
-                <input class="no-float" type="text" name="name" id="name-vot" placeholder="name ...">
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-vot" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
                 <label class="no-float" for="threshold">Threshold</label>
-                <input class="no-float" type="text" name="threshold" id="threshold" placeholder="value ...">
+                <input title="Any natural number greater than 0." class="no-float" type="text" name="threshold" id="threshold" placeholder="value ..." pattern="^[1-9]+[0-9]*$|^$">
+                <label class="error errorLabel"></label>
             </fieldset>
     </div>
 
@@ -244,7 +253,8 @@
     <div class="nonVis" id="dialog-gate" title="Create new Gate">
             <fieldset>
                 <label class="no-float"   for="name">Name</label>
-                <input class="no-float" type="text" name="name" id="name-gate" placeholder="name ...">
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-gate" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="error errorLabel"></label>
             </fieldset>
     </div>
 

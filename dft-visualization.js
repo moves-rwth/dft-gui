@@ -158,6 +158,14 @@ function openDialog(posX, posY, dftType, create = true, elem) {
     } else {
         var sub = 'Change Element'
     }
+
+    transferObjectEnter.dftType = dftType;
+    transferObjectEnter.x = posX;
+    transferObjectEnter.y = posY;
+    transferObjectEnter.elem = elem;
+    transferObjectEnter.type = type;
+    transferObjectEnter.create = create;
+
     $('#dialog' + type).dialog({
         width: 300,
         modal: true,
@@ -167,28 +175,37 @@ function openDialog(posX, posY, dftType, create = true, elem) {
         classes: {
             'ui-dialog': 'highlight'
         },
-        buttons: {
-            'Confirm': function() {
-                if (type == '-gate') {
-                    if (create) {
-                        addGate(posX, posY, dftType);                        
-                    } else changeGate(elem);
-                } else if (type.indexOf('e') > -1) {
-                    if (create) {
-                        addBE(posX, posY);
-                    } else changeBE(elem);
-                } else if (type.indexOf('t') > -1) {
-                    if (create) {
-                        addVot(posX, posY);
-                    } else changeVot(elem);
+        buttons: [{
+            id: 'confirmButton',
+            text: 'Confirm',
+            click: function() {
+                if (!validationCheck(type)) {
+                    $('.errorLabel').text('Invalid Input');
                 } else {
-                    alert("HERE");
+                    $('.errorLabel').text('');
+                    if (type == '-gate') {
+                        if (create) {
+                            addGate(posX, posY, dftType);                        
+                        } else changeGate(elem);
+                    } else if (type.indexOf('e') > -1) {
+                        if (create) {
+                            addBE(posX, posY);
+                        } else changeBE(elem);
+                    } else if (type.indexOf('t') > -1) {
+                        if (create) {
+                            addVot(posX, posY);
+                        } else changeVot(elem);
+                    } else {
+                        alert("HERE");
+                    }
                 }
-            },
-            Cancel: function() {
+            }
+        }, {
+            text: 'Cancel',
+            click: function() {
                 $(this).dialog('close');
             }
-        },
+        }],
         close: function() {
             $(this).dialog('close');
         }
