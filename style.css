@@ -15,10 +15,13 @@ input:invalid {
 }
 
 .nonVis {
-    background-color: red;
     display: none;
-
 }
+
+.vis {
+    display: block;
+}
+
 label.error {
     color: red;
 }
@@ -31,6 +34,7 @@ label.error {
     border-radius-bottom: 10px;
     margin: auto;
     background-size: cover;
+    z-index: 1;
 }
 
 #title-fill {
@@ -38,11 +42,11 @@ label.error {
     height: 70px;
     position: absolute;
     top: 0;
+    z-index: -1;
     left: 0;
     margin: 0;
     padding: 0;
     background-size: cover;
-    z-index: -1;
 }
 
 #cy {
@@ -54,17 +58,16 @@ label.error {
     background-color: #999999;
     border-top: 2px solid black;
     border-bottom: 7px solid #505050;
-    z-index: 1;
+    z-index: 0;
 }
 
-#cy.draggableIndex {
+.draggableIndex {
     z-index: -1;
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1921px) {
     #title-bar {
-        background-repeat: no-repeat;
-        background-size: contain;
+        background-size: cover;
     }
     #title-fill {
         background-image: url('img/title_full.png');
@@ -91,17 +94,16 @@ label.error {
     top: 15px;
     height: 37.5px;
     width: 37.5px;
-    z-index: 2;
     display: block;
     background-image: url(img/option.png);
     background-size: cover;
+    z-index: 2;
 }
 #option-icon:hover {
     background-image: url(img/option_hover.png);
 }
 #option-bar {
     display: none;
-    z-index: 1;
     width: 100%;
     height: 150px;
     background-color: #FAF6F6;
@@ -152,6 +154,7 @@ label.error {
 }
 
 #load-field {
+    width: 650px;
     padding-top: 25px;
     padding-bottom: 15px;
     margin-right: 0;
@@ -165,6 +168,7 @@ label.error {
 
 .ui-tabs {
     height: 175px;
+    z-index: -2;
 }
 
 .ui-tabs-tab {
@@ -265,6 +269,7 @@ label.error {
 
 
 #load-graph {
+    float: right;
     background-image: url(img/Buttons/load.png);
     display: inline-block;
     height: 50px;
@@ -322,12 +327,8 @@ label.error {
 
 @media screen and (max-width: 800px) {
     #load{
-        display: block;
-        width: 650px;
+        display: inline-block;
         position: static;
-    }
-    #save{
-        width: 370px;
     }
     #load-field {
 
@@ -338,11 +339,11 @@ label.error {
 @media screen and (min-width: 1500px) {
     .ui-tabs {
         overflow: visible;
-        z-index: 5;
     }
 }
 
 .drag-element {
+    z-index: 4;
     margin: 2px 5px 2px 5px;
 }
 
@@ -531,7 +532,7 @@ label.error {
     background-size: auto 37.5px;
     background-repeat: no-repeat;
     cursor: pointer;
-    z-index: 3;
+    z-index: 1;
 }
 #search-option {
     margin: 0;
@@ -722,6 +723,7 @@ label.error {
 }
 
   .ui-tooltip {
+    width: 150px;
     padding: 10px 20px;
     color: white;
     border-radius: 20px;
@@ -729,3 +731,26 @@ label.error {
     font: bold 14px "Helvetica Neue", Sans-Serif;
     box-shadow: 0 0 7px black;
   }
+
+#gateSwitch {
+    border-radius: 3px;
+    border: white 1px solid;
+    margin: 10px 0 0 0;
+    background-repeat: no-repeat;
+    padding: 0 0;
+    float: right;
+    width: 25px;
+    height: 25px;
+    background-image: url(img/switch.png);
+    background-size: 25px auto;
+}
+#gateSwitch:active {
+    border: gray 2px solid;
+}
+
+#switch-field {
+    width: 85%;
+}
+#switch-type {
+    width: 100%;
+}

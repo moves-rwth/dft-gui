@@ -143,12 +143,23 @@ function openDialog(posX, posY, dftType, create = true, elem) {
     var heightVal;
     var type;
 
+    // Save elem for switching
+    switchElem = elem;
+
     switch(dftType) {
         case DftTypes.BE: heightVal = 400; type = '-be'; break;
         case DftTypes.VOT: heightVal = 300; type = '-vot'; break;
         default: heightVal = 225; type = '-gate';
     };
     
+    if (create) {
+        $('#gateSwitch').addClass('nonVis');
+        $('#gateSwitch').removeClass('vis');
+    } else {
+        $('#gateSwitch').addClass('vis');
+        $('#gateSwitch').removeClass('nonVis');
+    }
+
     if (type == '-gate' && create) {
         var sub = 'Create new ' + dftType.substring(dftType.indexOf('.') + 1).toUpperCase();
     } else if (type == '-be' && create){
@@ -200,7 +211,8 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                     }
                 }
             }
-        }, {
+        }, 
+        {
             text: 'Cancel',
             click: function() {
                 $(this).dialog('close');
@@ -208,6 +220,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
         }],
         close: function() {
             $(this).dialog('close');
+            switchElem = {};
         }
     });
 }
@@ -245,7 +258,7 @@ function changeBE(elem) {
 
 function addVot(posX, posY) {
     var elemName = checkName($('#name-vot').val(), 'DftTypes.vot');
-    var threshold = checkValue($('#threshold').val());
+    var threshold = checkValueVot($('#threshold').val());
     $('#dialog-vot').dialog('close');
     var newElement = createVotingGate(elemName, threshold, posX, posY);
     createNode(newElement);
@@ -258,7 +271,7 @@ function addVot(posX, posY) {
 
 function changeVot(elem) {
     elem.data('name', checkName($('#name-vot').val(), elem.data('type')));
-    elem.data('voting', checkValue($('#threshold').val()));
+    elem.data('voting', checkValueVot($('#threshold').val()));
     setLabelNode(elem);
     $('#dialog-vot').dialog('close');
     var list = ['name-vot', 'threshold'];
@@ -290,8 +303,13 @@ function checkValue(value) {
         return 0;
     }
 }
-
-
+function checkValueVot(value) {
+    if (value) {
+        return value;
+    } else {
+        return 1;
+    }
+}
 
 // Checks for valid name. Otherwise returns gate type + currentID
 function checkName(name, dftType) {
@@ -299,7 +317,7 @@ function checkName(name, dftType) {
         return name;
     } else {
         var sub = dftType.substring(dftType.indexOf('.') + 1);
-        var res =  sub + ' ' + (currentId + 1);
+        var res =  sub + '_' + (currentId + 1);
         return res;
     }
 }

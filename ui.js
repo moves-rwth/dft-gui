@@ -8,6 +8,9 @@ var counter = 0;
 var maxCount = 0;
 var transferObjectEnter = {};
 
+// Switch Elements
+var switchElem = {};
+
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
     $('#cy').toggleClass('clicked');
@@ -16,13 +19,13 @@ $('#option-icon').on('click', function() {
 });
 
 function toggleOptionBar() {
-    $('.clicked').animate({'top': '257px'}, { start: function() { $('#option-bar').toggle(); }, done: function() { $('#cy').addClass('draggableIndex'); } });
-    $('.not-Clicked').animate({'top': '72px'}, { start: function() { $('#cy').removeClass('draggableIndex'); }, done: function() {$('#option-bar').toggle(); } }, 'fast');
+    $('.clicked').animate({'top': '257px'}, { start: function() { $('#option-bar').toggle(); }, done: function() { $('#cy').css('zIndex', '-1'); } });
+    $('.not-Clicked').animate({'top': '72px'}, { start: function() { $('#cy').css('zIndex', '0'); }, done: function() {$('#option-bar').toggle(); } }, 'fast');
 }
 
 $(function() {
     $('#tabs').tabs();
-    $('#be-elem').draggable({revert: true, zIndex: 5});
+    $('#be-elem').draggable({revert: true});
     $('#and-elem').draggable({revert: true});
     $('#or-elem').draggable({revert: true});
     $('#vot-elem').draggable({revert: true});
@@ -37,16 +40,39 @@ $(function() {
     $('#search-input').val("");
 
     // Tooltipps
-    $('#name-be').tooltip();
-    $('#failure').tooltip();
-    $('#repair').tooltip();
-    $('#dormancy').tooltip();
+    $('#name-be').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+    $('#failure').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+    $('#repair').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+    $('#dormancy').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+
+    $('#name-gate').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+
+    $('#name-vot').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
+
+    $('#threshold').tooltip({
+        position: { my: 'left+45 center', at: 'right center'}
+    });
 
     // Clear Inputs
     $('#name-be').val('');
     $('#failure').val('');
     $('#repair').val('');
     $('#dormancy').val('');
+    $('#name-vot').val('');
+    $('#threshold').val('');
+    $('#name-gate').val('');
 
 });
 
@@ -97,7 +123,7 @@ $('#vot-elem').on('dragstop', function(event, ui) {
 });
 $('#pand-elem').on('dragstart', function(event, ui) {
     if (window.outerWidth < 1500) {
-        DragHelperStartDyn();
+        dragHelperStartDyn();
     }
 });
 $('#pand-elem').on('dragstop', function(event, ui) {
@@ -181,7 +207,7 @@ function dragHelperStopDyn() {
 
 window.onresize = function(event) {
     if (window.outerWidth > 1500) {
-        $('.ui-tabs').css('overflow', 'hidden');
+        $('.ui-tabs').css('overflow', 'visible');
     } else $('.ui-tabs').css('overflow', 'scroll');
 }
 
@@ -424,8 +450,8 @@ function checkText() {
     // REGEXE    
     var regName = /^[a-zA-Z]\w*$|^$/; 
     var regRate = /^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$/;
-    var regDorm = /^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$/;
-    var regThresh = /^[1-9]+[0-9]*$|^$/;
+    var regDorm = /^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$|1\.0*/;
+    var regThresh = /^[1-9]+[0-9]*$|^[1-9]+\d*\.[0]*$|^$/;
 
 $('.no-float').keydown(function (e) {
     if (e.which === 13) {
@@ -482,4 +508,100 @@ function validationCheck(type) {
         }
         return true;
     } 
+}
+
+// Gate type switch
+$('#gateSwitch').on('click', function() {
+    $('#dialog-switch').dialog({
+        width: 250,
+        height: 250,
+        modal: true,
+        resizable: false,
+        dialogClass: 'no-close',
+        classes: {
+            'ui-dialog': 'highlight'
+        },
+        buttons: [{
+            id: 'switchConfirmButton',
+            text: 'Change',
+            click: function() {
+                var type = $('#switch-type').val();
+                if (type == 'vot') {
+
+                } else {
+                    $('#gateSwitch').addClass('nonVis');
+                    $('#gateSwitch').removeClass('vis');
+                    var sub = 'Change to ' + $('#switch-type').val().toUpperCase();
+                    $('#dialog-gate').dialog({
+                        width: 300,
+                        modal: true,
+                        title: sub,
+                        resizable: false,
+                        dialogClass: 'no-close',
+                        classes: {
+                            'ui-dialog': 'highlight'
+                        },
+                        buttons: [{
+                            id: 'switchConfirmButton2',
+                            text: 'Confirm',
+                            click: function() {
+                                switchElement(type)
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            click: function() {
+                                $(this).dialog('close');
+                            }
+                        }
+                        ],
+                        close: function() {
+                            $(this).dialog('close');
+                            $('#gateSwitch').addClass('vis');
+                            $('#gateSwitch').removeClass('nonVis');
+                            $('#dialog-switch').dialog('close');
+                        }
+                    });
+                }
+            }
+        }, 
+        {
+            text: 'Cancel',
+            click: function() {
+                $(this).dialog('close');
+            }
+        }],
+        close: function() {
+            $(this).dialog('close');
+        }
+    });
+});
+
+function switchElement(type) {
+    var id = switchElem.data('id');
+    alert('Actual id: ' + id + ' which is deleted.');
+    removeNode(cy.getElementById(id));
+
+
+    if (type == 'and') {
+        var storedCurrentId = currentId;
+        alert('Stored ID: ' + storedCurrentId);
+        currentId -= 1;
+        alert('Add gate with id: ' + currentId);
+        addGate(switchElem.position('x'), switchElem.position('y'), type);
+        currentId = storedCurrentId;
+        alert(currentId);
+    }
+    else if (type == 'or') {
+
+    }
+    else if (type == 'pand') {
+
+    }
+    else if (type == 'por') {
+
+    }
+    else if (type == 'vot') {
+
+    }
 }

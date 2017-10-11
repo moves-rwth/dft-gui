@@ -231,7 +231,7 @@
                 <label class="no-float" for="repair">Repair Rate</label>
                 <input title="Any number greater or equal 0. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="repair" id="repair" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
                 <label class="no-float" for="dormancy">Dormancy Factor</label>
-                <input title="Any number in [0,1]. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="dormancy" id="dormancy" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$">
+                <input title="Any number in [0,1]. Use '.' for decimal numbers and use emphasis to enter parameter (e.g. 'p')." class="no-float" type="text" name="dormancy" id="dormancy" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$|1\.0*">
                 <label class="error errorLabel"></label>
             </fieldset>
     </div>
@@ -243,7 +243,7 @@
                 <label class="no-float" for="name">Name</label>
                 <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-vot" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
                 <label class="no-float" for="threshold">Threshold</label>
-                <input title="Any natural number greater than 0." class="no-float" type="text" name="threshold" id="threshold" placeholder="value ..." pattern="^[1-9]+[0-9]*$|^$">
+                <input title="Any natural number greater than 0." class="no-float" type="text" name="threshold" id="threshold" placeholder="value ..." pattern="^[1-9]+[0-9]*$|^[1-9]+\d*\.[0]*$|^$">
                 <label class="error errorLabel"></label>
             </fieldset>
     </div>
@@ -255,6 +255,22 @@
                 <label class="no-float"   for="name">Name</label>
                 <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-gate" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
                 <label class="error errorLabel"></label>
+                <div title="switch" id="gateSwitch" class="nonVis"></div>
+            </fieldset>
+    </div>
+
+    <!-- Dialog for switching gate types -->
+
+    <div class="nonVis" id="dialog-switch" title="Switch gate type">
+            <fieldset id="switch-field">
+                <label class="no-float" for="type">Select type</label>
+                <select  id="switch-type">
+                    <option value="and" selected>AND</option>
+                    <option value="or">OR</option>
+                    <option value="vot">VOT</option>
+                    <option value="pand">PAND</option>
+                    <option value="por">POR</option>
+                </select>
             </fieldset>
     </div>
 
