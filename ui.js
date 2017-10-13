@@ -10,6 +10,7 @@ var transferObjectEnter = {};
 
 // Switch Elements
 var switchElem = {};
+var switched = false;
 
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
@@ -25,16 +26,16 @@ function toggleOptionBar() {
 
 $(function() {
     $('#tabs').tabs();
-    $('#be-elem').draggable({revert: true});
-    $('#and-elem').draggable({revert: true});
-    $('#or-elem').draggable({revert: true});
-    $('#vot-elem').draggable({revert: true});
-    $('#pand-elem').draggable({revert: true});
-    $('#por-elem').draggable({revert: true});
-    $('#fdep-elem').draggable({revert: true});
-    $('#pdep-elem').draggable({revert: true});
-    $('#spare-elem').draggable({revert: true});
-    $('#seq-elem').draggable({revert: true});
+    $('#be-elem').draggable({revert: true, revertDuration: 1});
+    $('#and-elem').draggable({revert: true, revertDuration: 1});
+    $('#or-elem').draggable({revert: true, revertDuration: 1});
+    $('#vot-elem').draggable({revert: true, revertDuration: 1});
+    $('#pand-elem').draggable({revert: true, revertDuration: 1});
+    $('#por-elem').draggable({revert: true, revertDuration: 1});
+    $('#fdep-elem').draggable({revert: true, revertDuration: 1});
+    $('#pdep-elem').draggable({revert: true, revertDuration: 1});
+    $('#spare-elem').draggable({revert: true, revertDuration: 1});
+    $('#seq-elem').draggable({revert: true, revertDuration: 1});
 
     // Search field 
     $('#search-input').val("");
@@ -83,7 +84,7 @@ $('#be-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#be-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.BE);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.BE);
     if (window.outerWidth < 1500) {
         dragHelperStop();
     }
@@ -94,7 +95,7 @@ $('#and-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#and-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.AND);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.AND);
     if (window.outerWidth < 1500) {
         dragHelperStop();
     }
@@ -105,7 +106,7 @@ $('#or-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#or-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.OR);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.OR);
     if (window.outerWidth < 1500) {
         dragHelperStop();
     }
@@ -116,7 +117,7 @@ $('#vot-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#vot-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.VOT);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.VOT);
     if (window.outerWidth < 1500) {
         dragHelperStop();
     }
@@ -127,7 +128,7 @@ $('#pand-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#pand-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.PAND);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.PAND);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -138,7 +139,7 @@ $('#por-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#por-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.POR);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.POR);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -149,7 +150,7 @@ $('#fdep-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#fdep-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.FDEP);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.FDEP);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -160,7 +161,7 @@ $('#pdep-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#pdep-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.PDEP);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.PDEP);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -171,7 +172,7 @@ $('#spare-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#spare-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.SPARE);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.SPARE);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -182,7 +183,7 @@ $('#seq-elem').on('dragstart', function(event, ui) {
     }
 });
 $('#seq-elem').on('dragstop', function(event, ui) {
-    openDialog(ui.position.left, ui.position.top, DftTypes.SEQ);
+    openDialog((ui.position.left + 250), (ui.position.top - 150), DftTypes.SEQ);
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
@@ -453,27 +454,32 @@ function checkText() {
     var regDorm = /^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$|1\.0*/;
     var regThresh = /^[1-9]+[0-9]*$|^[1-9]+\d*\.[0]*$|^$/;
 
-$('.no-float').keydown(function (e) {
+$('.switchHelp').keydown(function (e) {
     if (e.which === 13) {
-        if (!validationCheck(transferObjectEnter.type)) {
-            $('.errorLabel').text('Inavild Input');
+        if(switched) {
+            switchElement($('#switch-type').val());
+            switched = false;
         } else {
-            $('.errorLabel').text('');
-            if (transferObjectEnter.type == '-gate') {
-            if (transferObjectEnter.create) {
-                    addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
-                } else changeGate(transferObjectEnter.elem);
-            } else if (transferObjectEnter.type.indexOf('e') > -1) {
-                if (transferObjectEnter.create) {
-                    addBE(transferObjectEnter.x, transferObjectEnter.y);
-                } else changeBE(transferObjectEnter.elem);
-            } else if (transferObjectEnter.type.indexOf('t') > -1) {
-                if (transferObjectEnter.create) {
-                    addVot(transferObjectEnter.x, transferObjectEnter.y);
-                } else changeVot(transferObjectEnter.elem);
+            if (!validationCheck(transferObjectEnter.type)) {
+                $('.errorLabel').text('Inavild Input');
             } else {
-                alert("HERE");
-            }   
+                $('.errorLabel').text('');
+                if (transferObjectEnter.type == '-gate') {
+                if (transferObjectEnter.create) {
+                        addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
+                    } else changeGate(transferObjectEnter.elem);
+                } else if (transferObjectEnter.type.indexOf('e') > -1) {
+                    if (transferObjectEnter.create) {
+                        addBE(transferObjectEnter.x, transferObjectEnter.y);
+                    } else changeBE(transferObjectEnter.elem);
+                } else if (transferObjectEnter.type.indexOf('t') > -1) {
+                    if (transferObjectEnter.create) {
+                        addVot(transferObjectEnter.x, transferObjectEnter.y);
+                    } else changeVot(transferObjectEnter.elem);
+                } else {
+                    alert("HERE");
+                }   
+            }
         }
     }
 });
@@ -511,10 +517,12 @@ function validationCheck(type) {
 }
 
 // Gate type switch
-$('#gateSwitch').on('click', function() {
+$('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
+    switched = true;
     $('#dialog-switch').dialog({
         width: 250,
         height: 250,
+
         modal: true,
         resizable: false,
         dialogClass: 'no-close',
@@ -527,12 +535,10 @@ $('#gateSwitch').on('click', function() {
             click: function() {
                 var type = $('#switch-type').val();
                 if (type == 'vot') {
-
-                } else {
-                    $('#gateSwitch').addClass('nonVis');
-                    $('#gateSwitch').removeClass('vis');
+                    $('#gateSwitch-vot').addClass('nonVis');
+                    $('#gateSwitch-vot').removeClass('vis');
                     var sub = 'Change to ' + $('#switch-type').val().toUpperCase();
-                    $('#dialog-gate').dialog({
+                    $('#dialog-vot').dialog({
                         width: 300,
                         modal: true,
                         title: sub,
@@ -542,10 +548,11 @@ $('#gateSwitch').on('click', function() {
                             'ui-dialog': 'highlight'
                         },
                         buttons: [{
-                            id: 'switchConfirmButton2',
+                            id: 'switchConfirmButton-vot',
                             text: 'Confirm',
                             click: function() {
-                                switchElement(type)
+                                switchElement(type);
+                                switched = false;
                             }
                         },
                         {
@@ -557,8 +564,43 @@ $('#gateSwitch').on('click', function() {
                         ],
                         close: function() {
                             $(this).dialog('close');
-                            $('#gateSwitch').addClass('vis');
-                            $('#gateSwitch').removeClass('nonVis');
+                            $('#gateSwitch-gate').addClass('vis');
+                            $('#gateSwitch-gate').removeClass('nonVis');
+                            $('#dialog-switch').dialog('close');
+                        }
+                    });                    
+                } else {
+                    $('#gateSwitch-vot, #gateSwitch-gate').addClass('nonVis');
+                    $('#gateSwitch-vot, #gateSwitch-gate').removeClass('vis');
+                    var sub = 'Change to ' + $('#switch-type').val().toUpperCase();
+                    $('#dialog-gate').dialog({
+                        width: 300,
+                        modal: true,
+                        title: sub,
+                        resizable: false,
+                        dialogClass: 'no-close',
+                        classes: {
+                            'ui-dialog': 'highlight'
+                        },
+                        buttons: [{
+                            id: 'switchConfirmButton-gate',
+                            text: 'Confirm',
+                            click: function() {
+                                switchElement(type);
+                                switched = false;
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            click: function() {
+                                $(this).dialog('close');
+                            }
+                        }
+                        ],
+                        close: function() {
+                            $(this).dialog('close');
+                            $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
+                            $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                             $('#dialog-switch').dialog('close');
                         }
                     });
@@ -577,31 +619,14 @@ $('#gateSwitch').on('click', function() {
     });
 });
 
+
 function switchElement(type) {
     var id = switchElem.data('id');
-    alert('Actual id: ' + id + ' which is deleted.');
     removeNode(cy.getElementById(id));
 
+    var storedCurrentId = currentId;
+    currentId = switchElem.id() - 1;
+    addGate(switchElem.position('x'), switchElem.position('y'), type);
+    currentId = storedCurrentId;
 
-    if (type == 'and') {
-        var storedCurrentId = currentId;
-        alert('Stored ID: ' + storedCurrentId);
-        currentId -= 1;
-        alert('Add gate with id: ' + currentId);
-        addGate(switchElem.position('x'), switchElem.position('y'), type);
-        currentId = storedCurrentId;
-        alert(currentId);
-    }
-    else if (type == 'or') {
-
-    }
-    else if (type == 'pand') {
-
-    }
-    else if (type == 'por') {
-
-    }
-    else if (type == 'vot') {
-
-    }
 }

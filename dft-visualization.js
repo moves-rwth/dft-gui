@@ -153,11 +153,12 @@ function openDialog(posX, posY, dftType, create = true, elem) {
     };
     
     if (create) {
-        $('#gateSwitch').addClass('nonVis');
-        $('#gateSwitch').removeClass('vis');
+        $('#gateSwitch-vot, #gateSwitch-gate').addClass('nonVis');
+        $('#gateSwitch-vot, #gateSwitch-gate').removeClass('vis');
+
     } else {
-        $('#gateSwitch').addClass('vis');
-        $('#gateSwitch').removeClass('nonVis');
+        $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
+        $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
     }
 
     if (type == '-gate' && create) {
@@ -228,7 +229,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
 
 
 function addBE(posX, posY) {
-    var elemName = checkName($('#name-be').val(), 'DftTypes.be');
+    var elemName = checkName($('#name-be').val(), 'DftTypes.be', false);
     var rate = checkValue($('#failure').val());
     var repair = checkValue($('#repair').val());
     var dorm = checkValue($('#dormancy').val()); 
@@ -243,7 +244,7 @@ function addBE(posX, posY) {
 }
 
 function changeBE(elem) {
-    elem.data('name', checkName($('#name-be').val(), elem.data('type')));
+    elem.data('name', checkName($('#name-be').val(), elem.data('type'), false));
     elem.data('rate', checkValue($('#failure').val()));
     elem.data('repair', checkValue($('#repair').val()));
     elem.data('dorm', checkValue($('#dormancy').val()));
@@ -257,7 +258,7 @@ function changeBE(elem) {
 }
 
 function addVot(posX, posY) {
-    var elemName = checkName($('#name-vot').val(), 'DftTypes.vot');
+    var elemName = checkName($('#name-vot').val(), 'DftTypes.vot', false);
     var threshold = checkValueVot($('#threshold').val());
     $('#dialog-vot').dialog('close');
     var newElement = createVotingGate(elemName, threshold, posX, posY);
@@ -270,7 +271,7 @@ function addVot(posX, posY) {
 }
 
 function changeVot(elem) {
-    elem.data('name', checkName($('#name-vot').val(), elem.data('type')));
+    elem.data('name', checkName($('#name-vot').val(), elem.data('type'), false));
     elem.data('voting', checkValueVot($('#threshold').val()));
     setLabelNode(elem);
     $('#dialog-vot').dialog('close');
@@ -281,7 +282,7 @@ function changeVot(elem) {
 }
 
 function addGate(posX, posY, type) {
-    var elemName = checkName($('#name-gate').val(), type);
+    var elemName = checkName($('#name-gate').val(), type, false);
     $('#dialog-gate').dialog('close');
     var newElement = createGate(type, elemName, posX, posY);
     createNode(newElement);
@@ -289,7 +290,7 @@ function addGate(posX, posY, type) {
 }
 
 function changeGate(elem) {
-    elem.data('name', checkName($('#name-gate').val(), elem.data('type')));
+    elem.data('name', checkName($('#name-gate').val(), elem.data('type'), true));
     setLabelNode(elem);
     $('#dialog-gate').dialog('close');
     $('#name-gate').val('');
@@ -312,13 +313,19 @@ function checkValueVot(value) {
 }
 
 // Checks for valid name. Otherwise returns gate type + currentID
-function checkName(name, dftType) {
+function checkName(name, dftType, change) {
     if (name) {
         return name;
     } else {
-        var sub = dftType.substring(dftType.indexOf('.') + 1);
-        var res =  sub + '_' + (currentId + 1);
-        return res;
+        if(change) {
+            var sub = dftType.substring(dftType.indexOf('.') + 1);
+            var res =  sub + '_' + (currentId);
+            return res;
+        } else {
+            var sub = dftType.substring(dftType.indexOf('.') + 1);
+            var res =  sub + '_' + (currentId + 1);
+            return res;
+        }
     }
 }
 

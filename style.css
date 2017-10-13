@@ -81,6 +81,11 @@ label.error {
 .no-close .ui-dialog-titlebar-close {
     display: none;
 }
+
+.switchHelp {
+
+}
+
 .no-float {
     float: none;
     display: block;
@@ -732,7 +737,7 @@ label.error {
     box-shadow: 0 0 7px black;
   }
 
-#gateSwitch {
+#gateSwitch-vot, #gateSwitch-gate {
     border-radius: 3px;
     border: white 1px solid;
     margin: 10px 0 0 0;
@@ -744,7 +749,7 @@ label.error {
     background-image: url(img/switch.png);
     background-size: 25px auto;
 }
-#gateSwitch:active {
+#gateSwitch-vot:active, #gateSwitch-gate:active {
     border: gray 2px solid;
 }
 
