@@ -461,7 +461,7 @@ $('.switchHelp').keydown(function (e) {
             switched = false;
         } else {
             if (!validationCheck(transferObjectEnter.type)) {
-                $('.errorLabel').text('Inavild Input');
+                $('.errorLabel').text('Invalid Input');
             } else {
                 $('.errorLabel').text('');
                 if (transferObjectEnter.type == '-gate') {
@@ -563,15 +563,16 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                         }
                         ],
                         close: function() {
-                            $(this).dialog('close');
-                            $('#gateSwitch-gate').addClass('vis');
-                            $('#gateSwitch-gate').removeClass('nonVis');
                             $('#dialog-switch').dialog('close');
+                            $('#dialog-vot').dialog('close');
+                            $('#dialog-gate').dialog('close');
+                            $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
+                            $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                         }
                     });                    
                 } else {
-                    $('#gateSwitch-vot, #gateSwitch-gate').addClass('nonVis');
-                    $('#gateSwitch-vot, #gateSwitch-gate').removeClass('vis');
+                    $('#gateSwitch-gate').addClass('nonVis');
+                    $('#gateSwitch-gate').removeClass('vis');
                     var sub = 'Change to ' + $('#switch-type').val().toUpperCase();
                     $('#dialog-gate').dialog({
                         width: 300,
@@ -599,6 +600,7 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                         ],
                         close: function() {
                             $(this).dialog('close');
+                            $('#dialog-gate').dialog('close');
                             $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
                             $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                             $('#dialog-switch').dialog('close');
@@ -626,7 +628,11 @@ function switchElement(type) {
 
     var storedCurrentId = currentId;
     currentId = switchElem.id() - 1;
-    addGate(switchElem.position('x'), switchElem.position('y'), type);
+    if (type == 'vot') {
+        addVot(switchElem.position('x'), switchElem.position('y'), type);
+    } else {
+        addGate(switchElem.position('x'), switchElem.position('y'), type);
+    }
     currentId = storedCurrentId;
 
 }
