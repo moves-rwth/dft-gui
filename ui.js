@@ -636,3 +636,13 @@ function switchElement(type) {
     currentId = storedCurrentId;
 
 }
+
+
+// TEST FUNCTION
+
+function testFunction(node) {
+    var parents = node.parent();
+    if (parents != {}) alert("NULL");
+    alert(parents.data('type'));
+    $('#testField').val(parents.data('id'));
+}

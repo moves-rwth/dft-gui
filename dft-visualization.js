@@ -515,6 +515,14 @@ cy.contextMenus({
             }
         },
         {
+            id: 'test',
+            title: 'test',
+            selector: 'node',
+            onClickFunction: function (event) {
+                testFunction(event.cyTarget);
+            }
+        },
+        {
             id: 'lockNode',
             title: 'lock node',
             selector: 'node:unlocked',
@@ -586,7 +594,7 @@ cy.contextMenus({
                 });
             }
         }
-    ]
+    ]                            
 });
 
 // Initialize edgehandles.
