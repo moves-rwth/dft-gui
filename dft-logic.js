@@ -144,6 +144,8 @@ function removeNode(node) {
     edges.forEach(function( edge ){
         removeEdge(edge);
     });
+    // Delete name from usedNames.
+    usedNames.delete(node.data('name'));
     node.remove();
 }
 

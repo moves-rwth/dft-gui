@@ -222,6 +222,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
         close: function() {
             $(this).dialog('close');
             switchElem = {};
+            invalidNameReset();
         }
     });
 }

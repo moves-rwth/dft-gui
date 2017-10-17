@@ -12,6 +12,10 @@ var transferObjectEnter = {};
 var switchElem = {};
 var switched = false;
 
+// Name handling
+var usedNames = new Set();
+
+
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
     $('#cy').toggleClass('clicked');
@@ -489,13 +493,28 @@ $('.switchHelp').keydown(function (e) {
 function validationCheck(type) {
     if (type == '-gate') {
         var input = $('#name-gate').val();
+        var size = usedNames.size;
+        usedNames.add(input);
+        if (size == usedNames.size) {
+            // Name already in use.
+            invalidName();
+            return false;
+        }
         if(regName.test(input)) {
             return true;
         } else {
             return false;
         }
     } else if (type == '-be') {
-        if (!regName.test($('#name-be').val())) {
+        var input = $('#name-be').val();
+        var size = usedNames.size;
+        usedNames.add(input);
+        if (size == usedNames.size) {
+            // Name already in use.
+            invalidName();
+            return false;
+        }
+        if (!regName.test(input)) {
             return false;
         }
         if (!regRate.test($('#failure').val()) || !regRate.test($('#repair').val())) {
@@ -506,14 +525,35 @@ function validationCheck(type) {
         }
         return true;
     } else {
+        var input = $('#name-vot').val();
+        var size = usedNames.size;
+        usedNames.add(input);
+        if (size == usedNames.size) {
+            // Name already in use.
+            invalidName();
+            return false;
+        }
         if (!regThresh.test($('#threshold').val())) {
             return false;
         }
-        if (!regName.test($('#name-vot').val())) {
+        if (!regName.test(input)) {
             return false;
         }
         return true;
     } 
+}
+
+function invalidName() {
+    $('#be-label').text('Name already in Use!');
+    $('#vot-label').text('Name already in Use!');
+    $('#gate-label').text('Name already in Use!');
+}
+
+function invalidNameReset() {
+    $('#be-label').text('Name');
+    $('#vot-label').text('Name');
+    $('#gate-label').text('Name');
+    $('.errorLabel').text('');
 }
 
 // Gate type switch
@@ -568,6 +608,7 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                             $('#dialog-gate').dialog('close');
                             $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
                             $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
+                            invalidNameReset();
                         }
                     });                    
                 } else {
@@ -605,6 +646,7 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                             $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
                             $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                             $('#dialog-switch').dialog('close');
+                            invalidNameReset();
                         }
                     });
                 }
