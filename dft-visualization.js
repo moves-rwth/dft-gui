@@ -244,7 +244,8 @@ function addBE(posX, posY) {
 }
 
 function changeBE(elem) {
-    elem.data('name', checkName($('#name-be').val(), elem.data('type'), false));
+    var id = elem.id();
+    elem.data('name', checkName($('#name-be').val(), elem.data('type'), true, id));
     elem.data('rate', checkValue($('#failure').val()));
     elem.data('repair', checkValue($('#repair').val()));
     elem.data('dorm', checkValue($('#dormancy').val()));
@@ -271,7 +272,8 @@ function addVot(posX, posY) {
 }
 
 function changeVot(elem) {
-    elem.data('name', checkName($('#name-vot').val(), elem.data('type'), false));
+    var id = elem.id();
+    elem.data('name', checkName($('#name-vot').val(), elem.data('type'), true, id));
     elem.data('voting', checkValueVot($('#threshold').val()));
     setLabelNode(elem);
     $('#dialog-vot').dialog('close');
@@ -290,7 +292,8 @@ function addGate(posX, posY, type) {
 }
 
 function changeGate(elem) {
-    elem.data('name', checkName($('#name-gate').val(), elem.data('type'), true));
+    var id = elem.id();
+    elem.data('name', checkName($('#name-gate').val(), elem.data('type'), true, id));
     setLabelNode(elem);
     $('#dialog-gate').dialog('close');
     $('#name-gate').val('');
@@ -313,13 +316,13 @@ function checkValueVot(value) {
 }
 
 // Checks for valid name. Otherwise returns gate type + currentID
-function checkName(name, dftType, change) {
+function checkName(name, dftType, change, id) {
     if (name) {
         return name;
     } else {
         if(change) {
             var sub = dftType.substring(dftType.indexOf('.') + 1);
-            var res =  sub + '_' + (currentId);
+            var res =  sub + '_' + id;
             return res;
         } else {
             var sub = dftType.substring(dftType.indexOf('.') + 1);
@@ -515,6 +518,16 @@ cy.contextMenus({
             }
         },
         {
+            id: 'id',
+            title: 'show id',
+            selector: 'node',
+            onClickFunction: function (event) {
+                alert(event.cyTarget.id());
+                var children = event.cyTarget.data('children');
+                console.log(children);
+            }
+        },
+        {
             id: 'test',
             title: 'test',
             selector: 'node',
@@ -601,7 +614,7 @@ cy.contextMenus({
 cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
-    handleSize: 10,
+    handleSize: 30,
     handleOutlineWidth: 10,
     loopAllowed: function(node) {
         return false;

@@ -147,6 +147,7 @@ function removeNode(node) {
     node.remove();
 }
 
+
 // Get a new edge. If there already exists an edge with the same source
 // and target nodes the edge id is marked as 'idInvalid'.
 function getNewEdge(sourceNode, targetNode) {

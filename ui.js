@@ -601,6 +601,7 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                         close: function() {
                             $(this).dialog('close');
                             $('#dialog-gate').dialog('close');
+                            $('#dialog-vot').dialog('close');
                             $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
                             $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                             $('#dialog-switch').dialog('close');
@@ -624,6 +625,11 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
 
 function switchElement(type) {
     var id = switchElem.data('id');
+
+    // Save connected edges.
+    var incomers = switchElem.incomers().edges();
+    var outGoing = switchElem.outgoers().edges();
+
     removeNode(cy.getElementById(id));
 
     var storedCurrentId = currentId;
@@ -635,14 +641,31 @@ function switchElement(type) {
     }
     currentId = storedCurrentId;
 
+    // Restore edges
+    outGoing.forEach(function(edge) {
+        var sourceId = edge.data('source');
+        var targetId = edge.data('target');
+
+        addEdge(edge, cy.getElementById(sourceId), cy.getElementById(targetId));
+        cy.add(edge);
+    });
+
+    incomers.forEach(function(edge) {
+        var sourceId = edge.data('source');
+        var targetId = edge.data('target');
+
+        addEdge(edge, cy.getElementById(sourceId), cy.getElementById(targetId));
+        cy.add(edge);
+    });
+
 }
 
 
 // TEST FUNCTION
 
 function testFunction(node) {
-    var parents = node.parent();
-    if (parents != {}) alert("NULL");
-    alert(parents.data('type'));
-    $('#testField').val(parents.data('id'));
-}
+    node.outgoers().edges().forEach(function(edge) {
+        alert(edge.id());
+    });
+}   
+
