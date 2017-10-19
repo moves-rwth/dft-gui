@@ -25,6 +25,11 @@ input:invalid {
 label.error {
     color: red;
 }
+
+.red {
+    color: red;
+}
+
 #title-bar {
     width: 100%;
     height: 70px;

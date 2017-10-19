@@ -178,6 +178,14 @@ function openDialog(posX, posY, dftType, create = true, elem) {
     transferObjectEnter.type = type;
     transferObjectEnter.create = create;
 
+    if (elem) {
+        var name = elem.data('name');
+    }
+
+    if (!create) {
+        usedNames.delete(name);
+    }
+
     $('#dialog' + type).dialog({
         width: 300,
         modal: true,
@@ -192,9 +200,8 @@ function openDialog(posX, posY, dftType, create = true, elem) {
             text: 'Confirm',
             click: function() {
                 if (!validationCheck(type)) {
-                    $('.errorLabel').text('Invalid Input');
                 } else {
-                    $('.errorLabel').text('');
+                    invalidNameReset();
                     if (type == '-gate') {
                         if (create) {
                             addGate(posX, posY, dftType);                        
@@ -216,12 +223,12 @@ function openDialog(posX, posY, dftType, create = true, elem) {
         {
             text: 'Cancel',
             click: function() {
+                usedNames.add(name);
                 $(this).dialog('close');
             }
         }],
         close: function() {
             $(this).dialog('close');
-            switchElem = {};
             invalidNameReset();
         }
     });

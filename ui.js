@@ -461,13 +461,14 @@ function checkText() {
 $('.switchHelp').keydown(function (e) {
     if (e.which === 13) {
         if(switched) {
-            switchElement($('#switch-type').val());
-            switched = false;
+            if (validationCheck($('#switch-type').val())) {
+                switchElement($('#switch-type').val());
+                switched = false;
+            }
         } else {
             if (!validationCheck(transferObjectEnter.type)) {
-                $('.errorLabel').text('Invalid Input');
             } else {
-                $('.errorLabel').text('');
+                invalidNameReset();
                 if (transferObjectEnter.type == '-gate') {
                 if (transferObjectEnter.create) {
                         addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
@@ -497,12 +498,14 @@ function validationCheck(type) {
         usedNames.add(input);
         if (size == usedNames.size) {
             // Name already in use.
-            invalidName();
+            invalidName(true);
             return false;
         }
         if(regName.test(input)) {
             return true;
         } else {
+            invalidName(false);
+            usedNames.delete(input);
             return false;
         }
     } else if (type == '-be') {
@@ -511,16 +514,22 @@ function validationCheck(type) {
         usedNames.add(input);
         if (size == usedNames.size) {
             // Name already in use.
-            invalidName();
+            invalidName(true);
             return false;
         }
         if (!regName.test(input)) {
+            invalidName(false);
+            usedNames.delete(input);
             return false;
         }
         if (!regRate.test($('#failure').val()) || !regRate.test($('#repair').val())) {
+            usedNames.delete(input);
+            invalidName(false);
             return false;
         } 
         if (!regDorm.test($('#dormancy').val())) {
+            usedNames.delete(input);
+            invalidName(false);
             return false;
         }
         return true;
@@ -530,35 +539,41 @@ function validationCheck(type) {
         usedNames.add(input);
         if (size == usedNames.size) {
             // Name already in use.
-            invalidName();
+            invalidName(true);
             return false;
         }
         if (!regThresh.test($('#threshold').val())) {
+            invalidName(false);
+            usedNames.delete(input);
             return false;
         }
         if (!regName.test(input)) {
+            invalidName(false);
+            usedNames.delete(input);
             return false;
         }
         return true;
     } 
 }
 
-function invalidName() {
-    $('#be-label').text('Name already in Use!');
-    $('#vot-label').text('Name already in Use!');
-    $('#gate-label').text('Name already in Use!');
+function invalidName(name) {
+    if (name) {
+        $('.errorLabel').text('Name already in Use!');
+    } else $('.errorLabel').text('Invalid Input!');
 }
 
 function invalidNameReset() {
-    $('#be-label').text('Name');
-    $('#vot-label').text('Name');
-    $('#gate-label').text('Name');
     $('.errorLabel').text('');
 }
 
 // Gate type switch
 $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
     switched = true;
+    if (switchElem.data('type') == 'vot') {
+        $('#dialog-vot').dialog('close');
+    } else  {
+        $('#dialog-gate').dialog('close');
+    }
     $('#dialog-switch').dialog({
         width: 250,
         height: 250,
@@ -573,6 +588,7 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
             id: 'switchConfirmButton',
             text: 'Change',
             click: function() {
+                $(this).dialog('close');
                 var type = $('#switch-type').val();
                 if (type == 'vot') {
                     $('#gateSwitch-vot').addClass('nonVis');
@@ -591,8 +607,10 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                             id: 'switchConfirmButton-vot',
                             text: 'Confirm',
                             click: function() {
-                                switchElement(type);
-                                switched = false;
+                                if (validationCheck($('#switch-type').val())) {
+                                    switchElement(type);
+                                    switched = false;
+                                }
                             }
                         },
                         {
@@ -603,11 +621,6 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                         }
                         ],
                         close: function() {
-                            $('#dialog-switch').dialog('close');
-                            $('#dialog-vot').dialog('close');
-                            $('#dialog-gate').dialog('close');
-                            $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
-                            $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
                             invalidNameReset();
                         }
                     });                    
@@ -640,12 +653,6 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                         }
                         ],
                         close: function() {
-                            $(this).dialog('close');
-                            $('#dialog-gate').dialog('close');
-                            $('#dialog-vot').dialog('close');
-                            $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
-                            $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
-                            $('#dialog-switch').dialog('close');
                             invalidNameReset();
                         }
                     });
@@ -671,9 +678,7 @@ function switchElement(type) {
     // Save connected edges.
     var incomers = switchElem.incomers().edges();
     var outGoing = switchElem.outgoers().edges();
-
     removeNode(cy.getElementById(id));
-
     var storedCurrentId = currentId;
     currentId = switchElem.id() - 1;
     if (type == 'vot') {
@@ -700,6 +705,7 @@ function switchElement(type) {
         cy.add(edge);
     });
 
+    switchElem = {};
 }
 
 
