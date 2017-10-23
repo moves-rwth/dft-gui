@@ -742,7 +742,7 @@ label.error {
     box-shadow: 0 0 7px black;
   }
 
-#gateSwitch-vot, #gateSwitch-gate {
+#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep {
     border-radius: 3px;
     border: white 1px solid;
     margin: 10px 0 0 0;
@@ -754,9 +754,11 @@ label.error {
     background-image: url(img/switch.png);
     background-size: 25px auto;
 }
-#gateSwitch-vot:active, #gateSwitch-gate:active {
+#gateSwitch-vot:active, #gateSwitch-gate:active, #gateSwitch-pdep:active {
     border: gray 2px solid;
 }
+
+
 
 #switch-field {
     width: 85%;

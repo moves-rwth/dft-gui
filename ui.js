@@ -473,6 +473,10 @@ $('.switchHelp').keydown(function (e) {
                 if (transferObjectEnter.create) {
                         addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
                     } else changeGate(transferObjectEnter.elem);
+                } else if (transferObjectEnter.type == '-pdep') {
+                    if(transferObjectEnter.create) {
+                        addPDEP(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);
+                    } else changePDEP(transferObjectEnter.elem);
                 } else if (transferObjectEnter.type.indexOf('e') > -1) {
                     if (transferObjectEnter.create) {
                         addBE(transferObjectEnter.x, transferObjectEnter.y);
@@ -493,9 +497,9 @@ $('.switchHelp').keydown(function (e) {
 
 function validationCheck(type) {
     if (type == '-gate') {
-        var input = $('#name-gate').val();
+        var input = checkName($('#name-gate').val(), transferObjectEnter.dftType);
         var size = usedNames.size;
-        usedNames.add(input);
+        addName(input);
         if (size == usedNames.size) {
             // Name already in use.
             invalidName(true);
@@ -505,13 +509,14 @@ function validationCheck(type) {
             return true;
         } else {
             invalidName(false);
-            usedNames.delete(input);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         }
     } else if (type == '-be') {
-        var input = $('#name-be').val();
+        var input = checkName($('#name-be').val(), transferObjectEnter.dftType);
         var size = usedNames.size;
-        usedNames.add(input);
+        addName(input);
         if (size == usedNames.size) {
             // Name already in use.
             invalidName(true);
@@ -519,24 +524,49 @@ function validationCheck(type) {
         }
         if (!regName.test(input)) {
             invalidName(false);
-            usedNames.delete(input);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         }
         if (!regRate.test($('#failure').val()) || !regRate.test($('#repair').val())) {
-            usedNames.delete(input);
             invalidName(false);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         } 
         if (!regDorm.test($('#dormancy').val())) {
-            usedNames.delete(input);
             invalidName(false);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         }
         return true;
-    } else {
-        var input = $('#name-vot').val();
+    } else if (type == '-pdep') {
+        var input = checkName($('#name-pdep').val(), transferObjectEnter.dftType);
         var size = usedNames.size;
-        usedNames.add(input);
+        addName(input);
+        if (size == usedNames.size) {
+            // Name already in use
+            invalidName(true);
+            return false;
+        }
+        if(!regName.test(input)) {
+            invalidName(false);
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');           
+        }
+        if (!regRate.test($('#probability-pdep').val())) {
+            invalidName(false);
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
+        }
+        return true;   
+    } else {
+        var input = checkName($('#name-vot').val(), transferObjectEnter.dftType);
+        var size = usedNames.size;
+        addName(input);
         if (size == usedNames.size) {
             // Name already in use.
             invalidName(true);
@@ -544,16 +574,28 @@ function validationCheck(type) {
         }
         if (!regThresh.test($('#threshold').val())) {
             invalidName(false);
-            usedNames.delete(input);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         }
         if (!regName.test(input)) {
             invalidName(false);
-            usedNames.delete(input);
-            return false;
+            if (removeName(input)) {
+                return false;
+            } else alert('Name not found!');
         }
         return true;
     } 
+}
+
+function addName(name) {
+    if (name != "") {
+        usedNames.add(name);
+    }
+}
+
+function removeName(name) {
+    return usedNames.delete(name);
 }
 
 function invalidName(name) {
@@ -567,10 +609,12 @@ function invalidNameReset() {
 }
 
 // Gate type switch
-$('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
+$('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').on('click', function() {
     switched = true;
     if (switchElem.data('type') == 'vot') {
         $('#dialog-vot').dialog('close');
+    } else if (switchElem.data('type') == 'pdep') {
+        $('#dialog-pdep').dialog('close');
     } else  {
         $('#dialog-gate').dialog('close');
     }
@@ -624,6 +668,40 @@ $('#gateSwitch-vot, #gateSwitch-gate').on('click', function() {
                             invalidNameReset();
                         }
                     });                    
+                } else if (type == 'pdep') {
+                    $('#gateSwitch-pdep').addClass('nonVis');
+                    $('#gateSwitch-pdep').removeClass('vis');
+                    var sub = 'Change to ' + $('#switch-type').val().toUpperCase();
+                    $('#dialog-pdep').dialog({
+                        width: 300,
+                        modal: true,
+                        title: sub,
+                        resizable: false,
+                        dialogClass: 'no-close',
+                        classes: {
+                            'ui-dialog': 'highlight'
+                        },
+                        buttons: [{
+                            id: 'switchConfirmButton-pdep',
+                            text: 'Confirm',
+                            click: function() {
+                                if (validationCheck($('#switch-type').val())) {
+                                    switchElement(type);
+                                    switched = false;
+                                }
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            click: function() {
+                                $(this).dialog('close');
+                            }
+                        }
+                        ],
+                        close: function() {
+                            invalidNameReset();
+                        }
+                    });
                 } else {
                     $('#gateSwitch-gate').addClass('nonVis');
                     $('#gateSwitch-gate').removeClass('vis');
@@ -683,6 +761,8 @@ function switchElement(type) {
     currentId = switchElem.id() - 1;
     if (type == 'vot') {
         addVot(switchElem.position('x'), switchElem.position('y'), type);
+    } else if (type == 'pdep') {
+        addPDEP(switchElem.position('x'), switchElem.position('y'), type);
     } else {
         addGate(switchElem.position('x'), switchElem.position('y'), type);
     }

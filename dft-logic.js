@@ -110,6 +110,13 @@ function createVotingGate(name, votingThreshold, posX, posY) {
     return newElement;
 }
 
+// Create a new PDEP Gate
+function createPDEPGate(name, probability, posX, posY) {
+    var newElement = createGate(DftTypes.PDEP, name, posX, posY);
+    newElement.data.probability = probability;
+    return newElement;
+}
+
 // Create a new BE.
 function createBe(name, rate, repair, dorm, posX, posY) {
     var newElement = createGeneralElement(DftTypes.BE, name, posX, posY);

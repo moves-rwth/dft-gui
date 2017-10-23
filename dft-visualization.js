@@ -94,6 +94,9 @@ function setLabelNode(node) {
     } else if (node.data('type') == DftTypes.VOT) {
         var voting = node.data('voting') + "/" + node.data('children').length;
         node.data('label', elemName + ' (' + voting + ')');
+    } else if (node.data('type') == DftTypes.PDEP) {
+        var probability = node.data('probability');
+        node.data('label', elemName + ' (P: ' + probability + ')');
     } else {
         node.data('label', elemName);
     }
@@ -149,24 +152,27 @@ function openDialog(posX, posY, dftType, create = true, elem) {
     switch(dftType) {
         case DftTypes.BE: heightVal = 400; type = '-be'; break;
         case DftTypes.VOT: heightVal = 300; type = '-vot'; break;
+        case DftTypes.PDEP: heightVal = 300; type = '-pdep'; break;
         default: heightVal = 225; type = '-gate';
     };
     
     if (create) {
-        $('#gateSwitch-vot, #gateSwitch-gate').addClass('nonVis');
-        $('#gateSwitch-vot, #gateSwitch-gate').removeClass('vis');
+        $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').addClass('nonVis');
+        $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').removeClass('vis');
 
     } else {
-        $('#gateSwitch-vot, #gateSwitch-gate').addClass('vis');
-        $('#gateSwitch-vot, #gateSwitch-gate').removeClass('nonVis');
+        $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').addClass('vis');
+        $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').removeClass('nonVis');
     }
 
     if (type == '-gate' && create) {
         var sub = 'Create new ' + dftType.substring(dftType.indexOf('.') + 1).toUpperCase();
     } else if (type == '-be' && create){
         var sub = 'Create new BE';
-    } else if (create){
+    } else if (type == '-vot' && create){
         var sub = 'Create new VOT Gate';
+    } else if (create) {
+        var sub = 'Create new PDEP Gate';
     } else {
         var sub = 'Change Element'
     }
@@ -206,6 +212,10 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                         if (create) {
                             addGate(posX, posY, dftType);                        
                         } else changeGate(elem);
+                    } else if (type == '-pdep') {
+                        if (create) {
+                            addPDEP(posX, posY);
+                        } else changePDEP(elem);
                     } else if (type.indexOf('e') > -1) {
                         if (create) {
                             addBE(posX, posY);
@@ -279,6 +289,19 @@ function addVot(posX, posY) {
     }
 }
 
+function addPDEP(posX, posY) {
+    var elemName = checkName($('#name-pdep').val(), 'DftTypes.pdep', false);
+    var probability = checkValue($('#probability-pdep').val());
+    $('#dialog-pdep').dialog('close');
+    var newElement = createPDEPGate(elemName, probability, posX, posY);
+    createNode(newElement);
+    // Empty Inputs
+    var list = ['name-pdep', 'probability-pdep'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
 function changeVot(elem) {
     var id = elem.id();
     elem.data('name', checkName($('#name-vot').val(), elem.data('type'), true, id));
@@ -286,6 +309,18 @@ function changeVot(elem) {
     setLabelNode(elem);
     $('#dialog-vot').dialog('close');
     var list = ['name-vot', 'threshold'];
+    for (var i = 0; i < list.length; i++) {
+        $('#' + list[i]).val('');
+    }
+}
+
+function changePDEP(elem) {
+    var id = elem.id();
+    elem.data('name', checkName($('#name-pdep').val(), elem.data('type'), true, id));
+    elem.data('probability', checkValue($('#probability-pdep').val()));
+    setLabelNode(elem);
+    $('#dialog-pdep').dialog('close');
+    var list = ['name-pdep', 'probability-pdep'];
     for (var i = 0; i < list.length; i++) {
         $('#' + list[i]).val('');
     }
@@ -511,6 +546,9 @@ cy.contextMenus({
                 } else if (el.type == 'vot') {
                     $('#name-vot').val(el.elem.data('name'));
                     $('#threshold').val(el.elem.data('voting'));
+                } else if (el.type == 'pdep') {
+                    $('#name-pdep').val(el.elem.data('name'));
+                    $('#probability-pdep').val(el.elem.data('probability'));
                 } else {
                     $('#name-gate').val(el.elem.data('name'));
                 }

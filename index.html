@@ -249,6 +249,20 @@
             </fieldset>
     </div>
 
+    <!-- Dialog for PDEP Gate -->
+
+    <div class="nonVis switchHelp" id="dialog-pdep" title="Create new PDEP Gate">
+            <fieldset>
+                <label class="no-float" for="name" id="pdep-label">Name</label>
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-pdep" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="no-float" for="probability-pdep">Probability</label>
+                <input title="Any natural number greater than 0." class="no-float" type="text" name="probability" id="probability-pdep" placeholder="value ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
+                <label class="error errorLabel"></label>
+                <div title="switch" id="gateSwitch-pdep" class="nonVis"></div>
+            </fieldset>
+    </div>
+
+
     <!-- Dialog for other Gates -->
 
     <div class="nonVis switchHelp" id="dialog-gate" title="Create new Gate">
@@ -271,6 +285,7 @@
                     <option value="vot">VOT</option>
                     <option value="pand">PAND</option>
                     <option value="por">POR</option>
+                    <option value="pdep">PDEP</option>
                 </select>
             </fieldset>
     </div>
