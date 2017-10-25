@@ -15,6 +15,11 @@ var switched = false;
 // Name handling
 var usedNames = new Set();
 
+// Edge Adding 
+var setEdges = false;
+var sourceNode = {};
+var targetNode = {};
+
 
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
@@ -79,6 +84,10 @@ $(function() {
     $('#threshold').val('');
     $('#name-gate').val('');
 
+    // Edge Adding checkboxradio
+    $('#edge-radio').checkboxradio({
+        icon: true
+    });
 });
 
 // Dragstop events
@@ -797,3 +806,45 @@ function testFunction(node) {
     });
 }   
 
+// Edge Adding
+
+    function isEmpty(obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
+    
+    var checkbox = $('#edge-radio');
+    checkbox.change(function(event) {
+        var checkbox = event.target;
+        sourceNode = {};
+        targetNode = {};
+        if (checkbox.checked) {
+            setEdges = true;
+        } else {
+            setEdges = false;
+        }
+    });
+
+    cy.on('click', 'node', function(event) {
+        if (setEdges) {
+            if (isEmpty(sourceNode)) {
+                if (event.cyTarget.data('type') != DftTypes.BE) {
+                    sourceNode = event.cyTarget;                    
+                }
+            } else if (isEmpty(targetNode)) {
+                targetNode = event.cyTarget;
+                if (sourceNode === targetNode) {
+                    sourceNode = {};
+                    targetNode = {};
+                    alert("No selfloops");
+                } else {
+                    var newEdge = createEdge(sourceNode, targetNode);
+                    sourceNode = {};
+                    targetNode = {};
+                }
+            }
+        }
+    });

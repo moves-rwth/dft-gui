@@ -376,6 +376,7 @@ label.error {
 #dynamic-elements {
     padding: 0;
     display: inline-block;
+    margin-right: 15px;
 }
 
 #static-drags {
@@ -407,11 +408,39 @@ label.error {
 #static-field {
     width: 400px;
     height: 93px;
+    margin: 0;
 }
 
 #dynamic-field {
     width: 840px;
     height: 93px;
+    margin: 0;
+}
+
+#edge-info {
+    display: inline-block;
+    opacity: 50%;
+    border-radius: 10px;
+    border: 1px white solid;
+    padding: 3px 3px;
+}
+
+#add-edges {
+    vertical-align: top;
+    display: inline-block;
+}
+
+#edge-radio-div {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: 15%;
+}
+
+#edge-field {
+    padding: 20px 10px;
+    width: 370px;
+    height: 73px;
     margin: 0;
 }
 
