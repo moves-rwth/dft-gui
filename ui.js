@@ -88,6 +88,7 @@ $(function() {
     $('#edge-radio').checkboxradio({
         icon: true
     });
+    $('#edge-radio').prop('checked', false);
 });
 
 // Dragstop events
@@ -824,6 +825,8 @@ function testFunction(node) {
         if (checkbox.checked) {
             setEdges = true;
         } else {
+            $('#edge-info').removeClass('red');
+            $('#edge-info').text('Add edges by clicking on source and target node.');
             setEdges = false;
         }
     });
@@ -832,16 +835,23 @@ function testFunction(node) {
         if (setEdges) {
             if (isEmpty(sourceNode)) {
                 if (event.cyTarget.data('type') != DftTypes.BE) {
+                    $('#edge-info').removeClass('red');
+                    $('#edge-info').text('Add edges by clicking on source and target node.');
                     sourceNode = event.cyTarget;                    
+                } else {
+                    // BE first
+                    $('#edge-info').text('Error message: No BEs as source!');
+                    $('#edge-info').addClass('red');
                 }
             } else if (isEmpty(targetNode)) {
                 targetNode = event.cyTarget;
                 if (sourceNode === targetNode) {
                     sourceNode = {};
                     targetNode = {};
-                    alert("No selfloops");
+                    $('#edge-info').text('Error message: No self-loops allowed!');
+                    $('#edge-info').addClass('red');
                 } else {
-                    var newEdge = createEdge(sourceNode, targetNode);
+                    createEdge(sourceNode, targetNode);
                     sourceNode = {};
                     targetNode = {};
                 }

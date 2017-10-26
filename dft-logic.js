@@ -187,9 +187,23 @@ function addEdge(edge, source, target) {
 
 function createEdge(source, target) {
     var edge = getNewEdge(source, target);
-    var newEdge = cy.add(edge);
-    addEdge(newEdge, source, target);
-    return newEdge;
+    // Check if edge is valid
+    if (edge.data['id'] == 'idInvalid') {
+        $('#edge-info').text('Error message: This edge already exists.');
+        $('#edge-info').addClass('red');   
+        console.log("Already exists");
+    } else {
+        $('#edge-info').removeClass('red');
+        $('#edge-info').text('Add edges by clicking on source and target node.');
+
+        var newEdge = cy.add(edge);
+        addEdge(newEdge, source, target);
+        // Update labels
+        if (sourceNode.data('type') == DftTypes.VOT) {
+            setLabelNode(sourceNode);
+        }
+        return newEdge;
+    }
 }
 
 // Remove edge from graph and update indices.
@@ -205,6 +219,10 @@ function removeEdge(edge) {
     // Remove index entry in node
     children.splice(edgeIndex, 1);
     sourceNode.data('children', children);
+    // Update labels
+    if (sourceNode.data('type') == DftTypes.VOT) {
+        setLabelNode(sourceNode);
+    }
     // Update indices of all other edges
     var edges = sourceNode.connectedEdges();
     edges.forEach(function( edgeUpdate ){
@@ -213,6 +231,7 @@ function removeEdge(edge) {
             edgeUpdate.data('index', index-1);
         }
     });
+
     edge.remove();
 }
 

@@ -418,6 +418,7 @@ label.error {
 }
 
 #edge-info {
+    width: 200px;
     display: inline-block;
     opacity: 50%;
     border-radius: 10px;
