@@ -86,9 +86,9 @@ $(function() {
 
     // Edge Adding checkboxradio
     $('#edge-radio').checkboxradio({
-        icon: true
     });
-    $('#edge-radio').prop('checked', false);
+    $('#edge-radio').attr('checked', false);
+    $('#edge-radio').checkboxradio('refresh');
 });
 
 // Dragstop events

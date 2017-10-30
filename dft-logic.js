@@ -165,6 +165,12 @@ function getNewEdge(sourceNode, targetNode) {
     var edgeId = sourceId + 'e' + targetId;
     if (cy.edges("[id='" + edgeId + "']").length > 0) {
         edgeId = 'idInvalid';
+    } // Check for target source edges 
+    else {
+        var changedId = targetId + 'e' + sourceId;
+        if (cy. edges("[id='" + changedId + "']").length > 0) {
+            edgeId = 'idInvalid';
+        }
     }
 
     return {
