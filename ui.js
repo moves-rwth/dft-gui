@@ -89,6 +89,16 @@ $(function() {
     });
     $('#edge-radio').attr('checked', false);
     $('#edge-radio').checkboxradio('refresh');
+
+    // Parents drop down menu
+    $('#info-parents').hover(    
+        function() {
+            $('#hover-div').slideDown('medium');
+        }
+    );
+    $('#hover-div').on('mouseleave', function() {
+        $('#hover-div').slideUp('medium');
+    });
 });
 
 // Dragstop events

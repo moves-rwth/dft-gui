@@ -39,7 +39,6 @@ label.error {
     border-radius-bottom: 10px;
     margin: auto;
     background-size: cover;
-    z-index: 1;
 }
 
 #title-fill {
@@ -55,6 +54,7 @@ label.error {
 }
 
 #cy {
+    mix-blend-mode: unset;
     width: 100%;
     height: 95%;
     top: 72px;
@@ -100,6 +100,7 @@ label.error {
 
 #option-icon {
     position: absolute;
+    z-index: 30;
     right: 15px;
     top: 15px;
     height: 37.5px;
@@ -113,12 +114,13 @@ label.error {
     background-image: url(img/option_hover.png);
 }
 #option-bar {
+    position: relative;
     display: none;
     width: 100%;
     height: 150px;
     background-color: #FAF6F6;
     border-bottom: 2px solid black;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 #load{
     float: left;
@@ -686,6 +688,11 @@ label.error {
     width: calc(100% - 115px);
 }
 
+#info-data-be {
+    position: absolute;
+}
+
+
 .info-layout {
     height: 100%;
     width: 30%;
@@ -795,4 +802,28 @@ label.error {
 }
 #switch-type {
     width: 100%;
+}
+
+.hoverli, .parent-name-links{
+    list-style-type: none;
+}
+
+#hover-div {
+    position: absolute;
+    left: 250px;
+    top: 110px;
+    border-radius: 15px;
+    border: 2px solid white;
+    z-index: 5;
+    background-color: gray;
+    width: 150px;
+    height: auto;
+    color: white;
+    font-family: monospace;
+}
+
+.parent-name-links {
+    position: relative;
+    color: white;
+    z-index: 5;
 }

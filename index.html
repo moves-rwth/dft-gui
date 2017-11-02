@@ -154,9 +154,15 @@
                                     <label for="info-id" class="infoLabel">id</label>
                                     <div id="info-id" class="information"></div>
                                     <br>
-                                    <label for="info-parents" class="infoLabel">parent(s)</label>
+                                    <label for="info-parents" class="infoLabel">parents</label>
                                     <div id="info-parents" class="information"></div>
-                                </div>
+                                        <div id="hover-div" class="nonVis">
+                                                <ul class="parent-name-links">
+                                                    <li>Hallo</li>
+                                                    <li>Bye Bye</li>
+                                                </ul>
+                                        </div>
+                                    </div>
                                 <div id="info-data-be" class="info-layout">
                                     <label for="info-failure" class="infoLabel">failure</label>
                                     <div id="info-failure" class="information"></div>
@@ -229,9 +235,6 @@
 
     </div>
 
-
-    <div id="cy" class="not-Clicked"></div>
-
     <!-- Dialog for BE -->
 
     <div class="nonVis switchHelp" id="dialog-be" title="Create new BE">
@@ -301,6 +304,8 @@
                 </select>
             </fieldset>
     </div>
+
+    <div id="cy" class="not-Clicked"></div>
 
     <script src="dft-logic.js"></script>
     <script src="dft-visualization.js"></script>
