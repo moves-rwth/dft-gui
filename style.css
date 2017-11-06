@@ -18,8 +18,19 @@ input:invalid {
     display: none;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .vis {
     display: block;
+}
+
+a {
+    cursor: pointer;
+}
+a:hover {
+    color: lightblue;
 }
 
 label.error {
@@ -120,7 +131,7 @@ label.error {
     height: 150px;
     background-color: #FAF6F6;
     border-bottom: 2px solid black;
-    opacity: 0.8;
+    opacity: 0.5;
 }
 #load{
     float: left;
@@ -804,26 +815,28 @@ label.error {
     width: 100%;
 }
 
-.hoverli, .parent-name-links{
+.hoverli, .name-links{
     list-style-type: none;
 }
 
 #hover-div {
     position: absolute;
-    left: 250px;
-    top: 110px;
-    border-radius: 15px;
+    left: 50%;
+    top: 270px;
     border: 2px solid white;
-    z-index: 5;
     background-color: gray;
-    width: 150px;
-    height: auto;
+    width: 220px;
+    height: 150px;
     color: white;
     font-family: monospace;
+    font-size: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.parent-name-links {
-    position: relative;
+#hover_names {
+    width: 200px;
+    text-align: center;
     color: white;
-    z-index: 5;
+    padding-left: 5px;
 }

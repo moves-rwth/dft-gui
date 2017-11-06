@@ -3,9 +3,7 @@ cy.maxZoom(3);
 cy.minZoom(0.7);
 
 // Information Array
-var foundElements = [];
-var counter = 0;
-var maxCount = 0;
+var actualElement;
 var transferObjectEnter = {};
 
 // Switch Elements
@@ -93,14 +91,59 @@ $(function() {
     // Parents drop down menu
     $('#info-parents').hover(    
         function() {
-            $('#hover-div').slideDown('medium');
+            $('#hover_names').empty();
+            if (actualElement) {
+                var names = createParentStrings(actualElement);
+                if (names != -1) {
+                    for (var i = 0; i < names.length; i++) {
+                        var name = names[i].substring(0, names[i].indexOf(','));
+                        var type = names[i].substring(names[i].indexOf(',') + 1, names[i].indexOf(';'));
+                        var id = names[i].substring(names[i].indexOf(';') + 1);
+                        if (name.length > 10) {
+                            names[i] = name.substring(0, 8) + '..';
+                        } else if (name.length < 10) {
+                            var count = 10 - name.length;
+                            while (count != 0) {
+                                name += '&nbsp;';
+                                count -= 1;
+                            }
+                            names[i] = name;
+                        }
+                        var res = (i+1) + '. ' + names[i] + '| (' + type.toUpperCase() + ')';
+                        var count2 = 5 - type.length;
+                        while (count2 != 0) {
+                            res += '&nbsp;';
+                            count2 -= 1;
+                        }
+                        names[i] = res + id;
+                    }
+                }
+
+                // Insert parent names into div
+                $('#hover_names').append('<li class="underline">Parents: </li>');
+                for (var i = 0; i < names.length; i++) {
+                    $('#hover_names').append('<li><a onclick="switchElementID(' + names[i].substring(names[i].length - 1) + ')">' + names[i].substring(0, names[i].length - 1) + '</a></li>');
+                }
+
+                $('#hover-div').slideDown('medium');
+
+            }
         }
     );
     $('#hover-div').on('mouseleave', function() {
+        $('#hover_names').empty();
         $('#hover-div').slideUp('medium');
     });
 });
 
+$('#search-input').focus(function() {
+    // Autocomplete
+    $('#search-input').autocomplete({
+        autoFocus: true,
+        source: [...usedNames]
+    });
+});
+    
 // Dragstop events
 $('#be-elem').on('dragstart', function(event, ui) {
     if (window.outerWidth < 1500) {
@@ -329,17 +372,18 @@ function searchElement() {
     } else {
         // Found some
         eles.forEach( function(ele) {
-            foundElements.push(ele);
+            $('#search-input').val("");
+            prepareResult(ele);
         });
-        maxCount = foundElements.length - 1;
-        $('#search-input').val("");
-        prepareResult();
     }
 }
 
+function switchElementID(id) {
+    prepareResult(cy.getElementById(id));
+}
+
 // Check which type of node and change eventually gui
-function prepareResult() {
-    var elem = foundElements[counter];
+function prepareResult(elem) {
     // Check type
     var type = elem.data('type');
 
@@ -422,7 +466,12 @@ function prepareResult() {
 function showElement(elem, type) {
     $('#info-name').text(elem.data('name'));
     $('#info-id').text(elem.data('id'));
-    // Parents
+
+    var parents = createParentStrings(elem).length;
+    if (parents > 0) {
+        $('#info-parents').text(parents);
+    } else $('#info-parents').text('0');
+
 
     if (type == 'be') {
         $('#info-failure').text(elem.data('rate'));
@@ -432,27 +481,14 @@ function showElement(elem, type) {
         $('#info-threshold').text(elem.data('voting'));
     } else $('#info-threshold').text("-");
     if (type == 'vot' || type == 'pand' || type == 'por' || type == 'or' || type == 'and' || type == 'seq') {
-        $('#info-children').text("Keine");
+        $('#info-children').text(elem.data('children').length);
     }
 
-
     cy.center(elem);
+    actualElement = elem;
+    $('#hover_names').empty();
+    $('#hover-div').slideUp('medium');
 }
-
-$('#next').on('click', function() {
-    if (counter == maxCount) {
-        counter = 0;
-    } else counter++;
-    prepareResult();
-});
-
-$('#last').on('click', function() {
-    if (counter == 0) {
-        counter = maxCount;
-    } else counter--;
-    prepareResult();
-});
-
 
 // REGEX TEST
 
@@ -809,12 +845,18 @@ function switchElement(type) {
 }
 
 
-// TEST FUNCTION
+// Parents FUNCTION
 
-function testFunction(node) {
-    node.outgoers().edges().forEach(function(edge) {
-        alert(edge.id());
-    });
+function createParentStrings(node) {
+    var incomers = node.incomers('node');
+    var names = [];
+    for (var i = 0; i < incomers.length; i++) {
+        var data = incomers[i]._private.data.name + ',' + incomers[i]._private.data.type + ';' + incomers[i]._private.data.id;
+        names.push(data);
+    }
+    if(names.length > 0) {
+        return names;
+    } else return -1;
 }   
 
 // Edge Adding
@@ -866,5 +908,10 @@ function testFunction(node) {
                     targetNode = {};
                 }
             }
+        } else {
+            // Change focus
+            prepareResult(event.cyTarget);
+            $('#hover_names').empty();
+            $('#hover-div').slideUp('medium');
         }
     });
