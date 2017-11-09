@@ -91,43 +91,16 @@ $(function() {
     // Parents drop down menu
     $('#info-parents').hover(    
         function() {
+            $('#hover_names').empty();        
+            insertNamesToHover('parents');
+        }
+    );
+
+    // Children drop down menu
+    $('#info-children').hover(
+        function() {
             $('#hover_names').empty();
-            if (actualElement) {
-                var names = createParentStrings(actualElement);
-                if (names != -1) {
-                    for (var i = 0; i < names.length; i++) {
-                        var name = names[i].substring(0, names[i].indexOf(','));
-                        var type = names[i].substring(names[i].indexOf(',') + 1, names[i].indexOf(';'));
-                        var id = names[i].substring(names[i].indexOf(';') + 1);
-                        if (name.length > 10) {
-                            names[i] = name.substring(0, 8) + '..';
-                        } else if (name.length < 10) {
-                            var count = 10 - name.length;
-                            while (count != 0) {
-                                name += '&nbsp;';
-                                count -= 1;
-                            }
-                            names[i] = name;
-                        }
-                        var res = (i+1) + '. ' + names[i] + '| (' + type.toUpperCase() + ')';
-                        var count2 = 5 - type.length;
-                        while (count2 != 0) {
-                            res += '&nbsp;';
-                            count2 -= 1;
-                        }
-                        names[i] = res + id;
-                    }
-                }
-
-                // Insert parent names into div
-                $('#hover_names').append('<li class="underline">Parents: </li>');
-                for (var i = 0; i < names.length; i++) {
-                    $('#hover_names').append('<li><a onclick="switchElementID(' + names[i].substring(names[i].length - 1) + ')">' + names[i].substring(0, names[i].length - 1) + '</a></li>');
-                }
-
-                $('#hover-div').slideDown('medium');
-
-            }
+            insertNamesToHover('children');
         }
     );
     $('#hover-div').on('mouseleave', function() {
@@ -135,6 +108,58 @@ $(function() {
         $('#hover-div').slideUp('medium');
     });
 });
+
+function insertNamesToHover(type) {
+
+    $('#hover_names').empty();
+    if (actualElement) {
+        if (type == 'parents') {
+            var names = createParentStrings(actualElement);
+            // Insert parents: into div
+            $('#hover_names').append('<li class="underline">Parents: </li>');
+        } else if (type == 'children') {
+            var names = createChildrenStrings(actualElement);
+            $('#hover_names').append('<li class="underline">Children: </li>');
+        } else alert('Error in hoverdiv.');
+        if (names != -1) {
+            for (var i = 0; i < names.length; i++) {
+                var name = names[i].name;
+                var type = names[i].type;
+                var id = names[i].id;
+                if (name.length > 10) {
+                    name = name.substring(0, 8) + '..';
+                } else if (name.length < 10) {
+                    var count = 10 - name.length;
+                    while (count != 0) {
+                        name += '&nbsp;';
+                        count -= 1;
+                    }
+                }
+                if (i >= 9) {
+                    var res = (i+1) + '.&nbsp;' + name + '| (' + type.toUpperCase() + ')';
+                } else {
+                    var res = (i+1) + '.&nbsp;&nbsp;' + name + '| (' + type.toUpperCase() + ')';
+                }
+                var count2 = 5 - type.length;
+                while (count2 != 0) {
+                    res += '&nbsp;';
+                    count2 -= 1;
+                }
+
+                if (i < 9) {
+                    $('#hover_names').append('<li><a onclick="switchElementID(' + names[i].id + ')">' + res + '</a></li>');
+                } else {
+                    $('#hover_names').append('<li><a onclick="switchElementID(' + names[i].id + ')">' + res + '</a></li>');
+                }
+            }
+        }
+
+        
+
+        $('#hover-div').slideDown('medium');
+
+    }
+}
 
 $('#search-input').focus(function() {
     // Autocomplete
@@ -849,15 +874,25 @@ function switchElement(type) {
 
 function createParentStrings(node) {
     var incomers = node.incomers('node');
-    var names = [];
+    var data = [];
     for (var i = 0; i < incomers.length; i++) {
-        var data = incomers[i]._private.data.name + ',' + incomers[i]._private.data.type + ';' + incomers[i]._private.data.id;
-        names.push(data);
+        data.push(incomers[i]._private.data);
     }
-    if(names.length > 0) {
-        return names;
+    if(data.length > 0) {
+        return data;
     } else return -1;
 }   
+
+function createChildrenStrings(node) {
+    var children = node.data('children');
+    var data = [];
+    for (var i = 0; i < children.length; i++) {
+        data.push(cy.getElementById(children[i])._private.data);
+    }
+    if (children.length > 0) {
+        return data;
+    } else return -1;
+}
 
 // Edge Adding
 

@@ -34,6 +34,7 @@ function importDftFromJson(json) {
     cy.nodes().forEach(function( node ) {
         currentId = Math.max(currentId, node.id());
         setLabelNode(node);
+        usedNames.add(addName(node.data('name')));
         node.addClass(node.data('type'));
 
         if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND) {

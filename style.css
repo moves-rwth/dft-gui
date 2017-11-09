@@ -20,6 +20,7 @@ input:invalid {
 
 .underline {
     text-decoration: underline;
+    text-anchor: middle;
 }
 
 .vis {
@@ -825,7 +826,7 @@ label.error {
     top: 270px;
     border: 2px solid white;
     background-color: gray;
-    width: 220px;
+    width: 270px;
     height: 150px;
     color: white;
     font-family: monospace;
@@ -835,8 +836,6 @@ label.error {
 }
 
 #hover_names {
-    width: 200px;
-    text-align: center;
+    width: 240px;
     color: white;
-    padding-left: 5px;
 }
