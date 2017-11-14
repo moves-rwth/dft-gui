@@ -161,7 +161,7 @@ function insertNamesToHover(type) {
     }
 }
 
-$('#search-input').focus(function() {
+$('#search-input').on('focus', function() {
     // Autocomplete
     $('#search-input').autocomplete({
         autoFocus: true,
