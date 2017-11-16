@@ -86,7 +86,8 @@ function createGeneralElement(dftType, name, posX, posY) {
         data: {
             id: currentId,
             name: name,
-            type: dftType
+            type: dftType,
+            repairable: false
         },
         classes: dftType,
         position: {
@@ -123,6 +124,9 @@ function createBe(name, rate, repair, dorm, posX, posY) {
     var newElement = createGeneralElement(DftTypes.BE, name, posX, posY);
     newElement.data.rate = rate;
     newElement.data.repair = repair;
+    if (repair > 0) {
+        newElement.data.repairable = true;
+    }
     newElement.data.dorm = dorm;
     return newElement;
 }
@@ -190,6 +194,12 @@ function addEdge(edge, source, target) {
     source.data('children', children);
     edge.data('index', children.length-1);
     edge.addClass(source.data('type'));
+
+    // Update repairable
+    if (target.data('repairable')) {
+        source.data('repairable', true);
+        propagateRepairable(source);
+    }
 }
 
 function createEdge(source, target) {
@@ -239,7 +249,39 @@ function removeEdge(edge) {
         }
     });
 
+    // Update repairable
+    checkRepairable(sourceNode);
+    propagateRepairable(sourceNode);
+
     edge.remove();
+}
+
+// Check for repairable child
+function checkRepairable(node) {
+    var children = node.data('children');+
+    var check = false;
+    for (var i = 0; i < children.length; i++) {
+        if (cy.getElementById(children[i]).data('repairable')) {
+            check = true;
+            break;
+        }
+    }
+    if (!check) {
+        node.data('repairable', false);
+    } else node.data('repairable', true);
+}
+
+// Propagate repairable add/remove
+function propagateRepairable(node) {
+    var parents = node.incomers('node');
+    if (parents.length > 0) {
+        for (var i = 0; i < parents.length; i++) {
+            if (node.data('id') != parents[i].data('id')) {
+                checkRepairable(parents[i]);
+            }
+            propagateRepairable(parents[i]);
+        }
+    }
 }
 
 // Set element as toplevel element.

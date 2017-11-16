@@ -18,6 +18,9 @@ var setEdges = false;
 var sourceNode = {};
 var targetNode = {};
 
+// Timeout
+var shouldClose = false;
+
 
 $('#option-icon').on('click', function() {
     $('#cy').toggleClass('not-Clicked');
@@ -103,6 +106,11 @@ $(function() {
             insertNamesToHover('children');
         }
     );
+    $('#hover-div').on('mouseenter', function() {
+        if (shouldClose) {
+            shouldClose = false;
+        }
+    });
     $('#hover-div').on('mouseleave', function() {
         $('#hover_names').empty();
         $('#hover-div').slideUp('medium');
@@ -154,10 +162,16 @@ function insertNamesToHover(type) {
             }
         }
 
-        
-
         $('#hover-div').slideDown('medium');
+        shouldClose = true;
+        window.setTimeout(timeOutClose, 5000);
+    }
+}
 
+function timeOutClose() {
+    if (shouldClose) {
+        $('#hover-div').slideUp('medium');
+        shouldClose = false;
     }
 }
 
@@ -497,7 +511,6 @@ function showElement(elem, type) {
         $('#info-parents').text(parents);
     } else $('#info-parents').text('0');
 
-
     if (type == 'be') {
         $('#info-failure').text(elem.data('rate'));
         $('#info-repair').text(elem.data('repair'));
@@ -507,6 +520,16 @@ function showElement(elem, type) {
     } else $('#info-threshold').text("-");
     if (type == 'vot' || type == 'pand' || type == 'por' || type == 'or' || type == 'and' || type == 'seq') {
         $('#info-children').text(elem.data('children').length);
+        $('#info-repairable').text(elem.data('repairable'));
+    } else if (type == 'fdep') {
+        $('#info-children-fdep').text(elem.data('children').length);
+        $('#info-repairable-fdep').text(elem.data('repairable'));
+    } else if (type == 'pdep') {
+        $('#info-children-pdep').text(elem.data('children').length);
+        $('#info-repairable-pdep').text(elem.data('repairable'));
+    } else if (type == 'spare') {
+        $('#info-children-spare').text(elem.data('children').length);
+        $('#info-repairable-spare').text(elem.data('repairable'));
     }
 
     cy.center(elem);
