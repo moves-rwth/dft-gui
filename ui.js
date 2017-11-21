@@ -524,12 +524,25 @@ function showElement(elem, type) {
     } else if (type == 'fdep') {
         $('#info-children-fdep').text(elem.data('children').length);
         $('#info-repairable-fdep').text(elem.data('repairable'));
+        $('#info-trigger-fdep').text(cy.getElementById(elem.data('children')[0]).data('name'));
+        $('#info-trigger-fdep').on('click', function() {
+            var node = cy.getElementById(elem.data('children')[0]);
+            cy.center(node);
+            prepareResult(node);
+        });
     } else if (type == 'pdep') {
         $('#info-children-pdep').text(elem.data('children').length);
         $('#info-repairable-pdep').text(elem.data('repairable'));
+        $('#info-probability').text(elem.data('probability'));
     } else if (type == 'spare') {
         $('#info-children-spare').text(elem.data('children').length);
         $('#info-repairable-spare').text(elem.data('repairable'));
+        // Placeholder
+        if (elem.data('children').length > 1) {
+            $('#info-count').text(elem.data('children').length - 1);
+        } else {
+            $('#info-count').text(0);
+        }
     }
 
     cy.center(elem);

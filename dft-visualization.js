@@ -506,19 +506,24 @@ var cy = cytoscape({
             }
         },
         {
-            selector: 'edge.pand, edge.por, edge.spare, edge.seq',
+            selector: 'edge.pand, edge.por, edge.spare, edge.seq, edge.fdep, edge.pdep',
             css: {
-                label: 'data(index)',
+                'source-label': 'data(index)',
+                'source-text-margin-y': -25,
+                'source-text-margin-x': -10,
+                'source-text-offset': 60
             }
         },
         {
-            selector: 'edge.pdep, edge.fdep',
+            selector: 'edge.fdep[index = 0], edge.pdep[index = 0], edge.spare[index > 0]',
             css: {
-                label: 'data(index)',
+                'source-label': 'data(index)',
+                'source-text-margin-y': -25,
+                'source-text-margin-x': -10,
+                'source-text-offset': 60,
                 'line-style': 'dashed',
             }
         },
-
     ]
 });
 

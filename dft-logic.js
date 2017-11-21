@@ -198,7 +198,7 @@ function addEdge(edge, source, target) {
     // Update repairable
     if (target.data('repairable')) {
         source.data('repairable', true);
-        propagateRepairable(source);
+        propagateUp(source, checkRepairable);
     }
 }
 
@@ -251,14 +251,14 @@ function removeEdge(edge) {
 
     // Update repairable
     checkRepairable(sourceNode);
-    propagateRepairable(sourceNode);
+    propagateUp(sourceNode, checkRepairable);
 
     edge.remove();
 }
 
 // Check for repairable child
 function checkRepairable(node) {
-    var children = node.data('children');+
+    var children = node.data('children');
     var check = false;
     for (var i = 0; i < children.length; i++) {
         if (cy.getElementById(children[i]).data('repairable')) {
@@ -271,15 +271,20 @@ function checkRepairable(node) {
     } else node.data('repairable', true);
 }
 
-// Propagate repairable add/remove
-function propagateRepairable(node) {
+/*
+ *  Propagate through top of node 
+ *  @param node. Startnode.
+ *  @param func. Function in which each upper node is inserted as input.     
+ */
+
+function propagateUp(node, func) {
     var parents = node.incomers('node');
     if (parents.length > 0) {
         for (var i = 0; i < parents.length; i++) {
-            if (node.data('id') != parents[i].data('id')) {
-                checkRepairable(parents[i]);
+            if (node .data('id') != parents[i].data('id')) {
+                func(parents[i]);
             }
-            propagateRepairable(parents[i]);
+            propagateUp(parents[i]);
         }
     }
 }
