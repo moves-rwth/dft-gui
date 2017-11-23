@@ -503,6 +503,7 @@ var cy = cytoscape({
                 'line-color': 'black',
                 'target-arrow-color': 'black',
                 'curve-style': 'bezier',
+                'source-endpoint': 'outside-to-line'
             }
         },
         {
