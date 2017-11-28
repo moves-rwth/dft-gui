@@ -488,7 +488,8 @@ var cy = cytoscape({
         {
             selector: "[expanded-collapsed='expanded']",
             style: {
-                label: ''
+                label: '',
+                'background-color': '#999999'
             }
         },
         {
@@ -521,15 +522,6 @@ var cy = cytoscape({
                 'source-text-margin-x': -10,
                 'source-text-offset': 60,
                 'line-style': 'dashed',
-            }
-        },
-        {
-            selector: 'node.compound',
-            css: {
-                'border-style': 'dashed',
-                'background-color': 'red',
-                'background-image': 'none'
-
             }
         },
     ]
@@ -730,7 +722,8 @@ cy.expandCollapse({
     layoutBy: null,
     animate: false,
     fisheye: true,
-    undoable: false
+    undoable: false,
+    cueEnabled: true,
 });
 
 
