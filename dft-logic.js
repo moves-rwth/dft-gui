@@ -216,7 +216,7 @@ function createEdge(source, target) {
         var newEdge = cy.add(edge);
         addEdge(newEdge, source, target);
         // Update labels
-        if (sourceNode.data('type') == DftTypes.VOT) {
+        if (source.data('type') == DftTypes.VOT) {
             setLabelNode(sourceNode);
         }
         return newEdge;
@@ -285,6 +285,18 @@ function propagateUp(node, func) {
                 func(parents[i]);
             }
             propagateUp(parents[i]);
+        }
+    }
+}
+
+function propagateDown(node, func) {
+    var children = node.outgoers('node');
+    if (children.length > 0) {
+        for (var i = 0; i < children.length; i++) {
+            if (node.data('id') != children[i].data('id')) {
+                func(children[i]);
+            }
+            propagateDown(children[i]);
         }
     }
 }

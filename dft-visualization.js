@@ -488,9 +488,7 @@ var cy = cytoscape({
         {
             selector: "[expanded-collapsed='expanded']",
             style: {
-                label: '',
-                'background-color': 'ligthgray',
-                'shape': 'rectangle'
+                label: ''
             }
         },
         {
@@ -523,6 +521,15 @@ var cy = cytoscape({
                 'source-text-margin-x': -10,
                 'source-text-offset': 60,
                 'line-style': 'dashed',
+            }
+        },
+        {
+            selector: 'node.compound',
+            css: {
+                'border-style': 'dashed',
+                'background-color': 'red',
+                'background-image': 'none'
+
             }
         },
     ]
@@ -624,11 +631,19 @@ cy.contextMenus({
             hasTrailingDivider: true
         },
         {
-            id: 'add-block',
-            title: 'add block',
-            coreAsWell: true,
+            id: 'collapse',
+            title: 'collapse element',
+            selector: 'node[type = "compound"]',
             onClickFunction: function (event) {
-                addBlock(event);
+                event.cyTarget.collapse();
+            },
+        },
+        {
+            id: 'expand',
+            title: 'expand element',
+            selector: 'node[type = "compound"]',
+            onClickFunction: function (event) {
+                event.cyTarget.expand();
             },
         },
         {
@@ -636,7 +651,7 @@ cy.contextMenus({
             title: 'add covered fault',
             coreAsWell: true,
             onClickFunction: function (event) {
-                addCoveredFailure(event);
+                createBlock('Test', 500, 500);
             },
             hasTrailingDivider: true
         },
