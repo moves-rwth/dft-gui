@@ -954,7 +954,7 @@ function createChildrenStrings(node) {
         }
     });
 
-    cy.on('click', 'node', function(event) {
+    cy.on('click', 'node[type != "compound"]', function(event) {
         if (setEdges) {
             if (isEmpty(sourceNode)) {
                 if (event.cyTarget.data('type') != DftTypes.BE) {
@@ -986,3 +986,21 @@ function createChildrenStrings(node) {
             $('#hover-div').slideUp('medium');
         }
     });
+
+
+// Make Compound nodes
+function newCompound(gate) {
+    var dataBackUp = gate._private.data;
+    var positionBackUp = gate._private.position;
+    gate.remove();
+    var newGateElement = createGate(dataBackUp.type, dataBackUp.name, positionBackUp.x, positionBackUp.y);
+
+    var element = createGeneralElement(DftTypes.COMPOUND, newGateElement.data.name, newGateElement.position.x, newGateElement.position.y);
+
+    element.classes = DftTypes.COMPOUND + "-" + newGateElement.data.type;
+    element.data.compound = newGateElement.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    var compound = createNode(element, null);
+
+    var newGate = createNode(newGateElement, compound);
+}

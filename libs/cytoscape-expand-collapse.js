@@ -274,7 +274,6 @@ module.exports = function (params) {
         var ur;
         cy.on('tap', 'node', eTap = function (event) {
           var node = this;
-
           var expandcollapseRenderedStartX = node._private.data.expandcollapseRenderedStartX;
           var expandcollapseRenderedStartY = node._private.data.expandcollapseRenderedStartY;
           var expandcollapseRenderedRectSize = node._private.data.expandcollapseRenderedCueSize;
@@ -307,7 +306,7 @@ module.exports = function (params) {
                   nodes: node,
                   options: opts
                 });
-              else
+              else  
                 node.expand(opts);
           }
         });
@@ -650,6 +649,7 @@ return {
   //A funtion basicly expanding a node it is to be called when a node is expanded anyway
   expandNodeBaseFunction: function (node, triggerLayout, single, layoutBy) {//*//
     //check how the position of the node is changed
+    console.log(node);
     var positionDiff = {
       x: node.position('x') - node.data('position-before-collapse').x,
       y: node.position('y') - node.data('position-before-collapse').y
@@ -743,9 +743,9 @@ return {
   },
   //Expand the given nodes perform incremental layout after expandation
   expandGivenNodes: function (nodes, options) {//*//
+    console.log(nodes.length + nodes);
     if (nodes.length === 1) {
       this.expandNode(nodes[0], options.fisheye, options.animate, options.layoutBy);
-
     } else {
       this.simpleExpandGivenNodes(nodes, options.fisheye);
       this.endOperation(options.layoutBy);
@@ -907,6 +907,7 @@ return {
   //collapse the given node without making incremental layout
   simpleCollapseNode: function (node) {//*//
     if (node._private.data.collapsedChildren == null) {
+      console.log(node.position().x);
       node.data('position-before-collapse', {
         x: node.position().x,
         y: node.position().y

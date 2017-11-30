@@ -95,6 +95,7 @@ function createGeneralElement(dftType, name, posX, posY) {
             y: posY
         }
     };
+    
     return newElement;
 }
 

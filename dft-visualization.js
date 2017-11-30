@@ -625,17 +625,17 @@ cy.contextMenus({
         {
             id: 'collapse',
             title: 'collapse element',
-            selector: 'node[type = "compound"]',
+            selector: 'node[type != "compound"][type != "be"]',
             onClickFunction: function (event) {
-                event.cyTarget.collapse();
+                newCompound(event.cyTarget);
             },
         },
         {
-            id: 'expand',
-            title: 'expand element',
-            selector: 'node[type = "compound"]',
+            id: 'log',
+            title: 'show in console',
+            selector: 'node',
             onClickFunction: function (event) {
-                event.cyTarget.expand();
+                console.log(event.cyTarget);
             },
         },
         {
