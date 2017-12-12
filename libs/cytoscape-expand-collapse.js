@@ -649,17 +649,18 @@ return {
   //A funtion basicly expanding a node it is to be called when a node is expanded anyway
   expandNodeBaseFunction: function (node, triggerLayout, single, layoutBy) {//*//
     //check how the position of the node is changed
-    console.log(node);
     var positionDiff = {
-      x: node.position('x') - node.data('position-before-collapse').x,
-      y: node.position('y') - node.data('position-before-collapse').y
+      x: 0,
+      y: 0
     };
 
     node.removeData("infoLabel");
     node.data('expanded-collapsed', 'expanded');
 
     node.trigger("beforeExpand");
-    node._private.data.collapsedChildren.restore();
+    if (node._private.data.collapsedChildren) {
+      node._private.data.collapsedChildren.restore();
+    }
     this.repairEdges(node);
     node._private.data.collapsedChildren = null;
     node.trigger("afterExpand");
@@ -743,7 +744,6 @@ return {
   },
   //Expand the given nodes perform incremental layout after expandation
   expandGivenNodes: function (nodes, options) {//*//
-    console.log(nodes.length + nodes);
     if (nodes.length === 1) {
       this.expandNode(nodes[0], options.fisheye, options.animate, options.layoutBy);
     } else {
@@ -907,7 +907,6 @@ return {
   //collapse the given node without making incremental layout
   simpleCollapseNode: function (node) {//*//
     if (node._private.data.collapsedChildren == null) {
-      console.log(node.position().x);
       node.data('position-before-collapse', {
         x: node.position().x,
         y: node.position().y

@@ -992,15 +992,54 @@ function createChildrenStrings(node) {
 function newCompound(gate) {
     var dataBackUp = gate._private.data;
     var positionBackUp = gate._private.position;
+
+    // Save nodes and edges
+    var succNodes = gate.successors('node');
+    var succEdges = gate.successors('edge');
+
     gate.remove();
-    var newGateElement = createGate(dataBackUp.type, dataBackUp.name, positionBackUp.x, positionBackUp.y);
 
-    var element = createGeneralElement(DftTypes.COMPOUND, newGateElement.data.name, newGateElement.position.x, newGateElement.position.y);
+    // Create new compound gate
+    var newGateElement = createGeneralElementSameId(dataBackUp.type, dataBackUp.name, positionBackUp.x, positionBackUp.y, dataBackUp.id);
+    newGateElement.data.children = dataBackUp.children;
 
-    element.classes = DftTypes.COMPOUND + "-" + newGateElement.data.type;
-    element.data.compound = newGateElement.data.id;
-    element.data["expanded-collapsed"] = 'expanded';
-    var compound = createNode(element, null);
+    var compound = createCompoundNode(newGateElement);
+
+    console.log(succNodes);
+    console.log(succEdges);
+
 
     var newGate = createNode(newGateElement, compound);
+
+    // Add all elements
+    for (var i = 0; i < succNodes.length; i++) {
+        var el = succNodes[i]._private;
+        cy.getElementById(el.data.id).remove();
+
+        if (el.data.type == 'be') {
+            var element = createGeneralElementSameId(DftTypes.BE, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.rate = el.data.rate;
+            element.data.repair = el.data.repair;
+            if (repair > 0) {
+                element.data.repairable = true;
+            }
+            element.data.dorm = el.data.dorm;
+            createNode(element, compound);
+        } 
+        else if (el.data.type == 'vot') {
+            var element = createGeneralElementSameId(DftTypes.VOT, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.voting = el.data.voting;
+            createNode(element, compound);
+        }
+        else if (el.data.type == 'pdep') {
+            var element = createGeneralElementSameId(DftTypes.PDEP, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.probability = el.data.probability;
+            createNode(element, compound);
+        }
+        else {
+            var element = createGeneralElementSameId(el.data.type, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.children = el.data.children;
+            createNode(element, compound);
+        }
+    }
 }

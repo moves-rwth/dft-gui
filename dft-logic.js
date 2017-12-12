@@ -99,6 +99,26 @@ function createGeneralElement(dftType, name, posX, posY) {
     return newElement;
 }
 
+// Create the general information of an existing element.
+function createGeneralElementSameId(dftType, name, posX, posY, currentId) {
+    var newElement = {
+        group: 'nodes',
+        data: {
+            id: currentId,
+            name: name,
+            type: dftType,
+            repairable: false
+        },
+        classes: dftType,
+        position: {
+            x: posX,
+            y: posY
+        }
+    };
+    
+    return newElement;
+}
+
 // Create a new gate.
 function createGate(dftType, name, posX, posY) {
     var newElement = createGeneralElement(dftType, name, posX, posY);
