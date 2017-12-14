@@ -650,8 +650,8 @@ return {
   expandNodeBaseFunction: function (node, triggerLayout, single, layoutBy) {//*//
     //check how the position of the node is changed
     var positionDiff = {
-      x: 0,
-      y: 0
+      x: node.position().x - node.data('position-before-collapse').x,
+      y: node.position().y - node.data('position-before-collapse').y
     };
 
     node.removeData("infoLabel");
@@ -665,9 +665,8 @@ return {
     node._private.data.collapsedChildren = null;
     node.trigger("afterExpand");
 
-
     elementUtilities.moveNodes(positionDiff, node.children());
-    node.removeData('position-before-collapse');
+     // node.removeData('position-before-collapse');
 
     if (single)
       this.endOperation(layoutBy);

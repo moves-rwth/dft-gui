@@ -576,6 +576,7 @@ cy.contextMenus({
                 alert(event.cyTarget.id());
                 var children = event.cyTarget.data('children');
                 console.log(children);
+                console.log(event.cyTarget.position());
             }
         },
         {
@@ -721,7 +722,7 @@ cy.edgehandles({
 cy.expandCollapse({
     layoutBy: null,
     animate: false,
-    fisheye: true,
+    fisheye: false,
     undoable: false,
     cueEnabled: true,
 });

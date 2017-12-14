@@ -990,6 +990,12 @@ function createChildrenStrings(node) {
 
 // Make Compound nodes
 function newCompound(gate) {
+
+    if (!compoundCheck(gate)) {
+        alert("Not possible");
+        return;
+    }
+
     var dataBackUp = gate._private.data;
     var positionBackUp = gate._private.position;
 
@@ -1001,17 +1007,20 @@ function newCompound(gate) {
 
     // Create new compound gate
     var newGateElement = createGeneralElementSameId(dataBackUp.type, dataBackUp.name, positionBackUp.x, positionBackUp.y, dataBackUp.id);
-    newGateElement.data.children = dataBackUp.children;
+    newGateElement.data.children = [];
+    if (dataBackUp.type == 'vot') {
+        newGateElement.data.voting = dataBackUp.voting;
+    } else if (dataBackUp.type == 'pdep') {
+        newGateElement.data.probability = dataBackUp.probability;
+    }
 
     var compound = createCompoundNode(newGateElement);
-
-    console.log(succNodes);
-    console.log(succEdges);
-
 
     var newGate = createNode(newGateElement, compound);
 
     // Add all elements
+
+    // Nodes
     for (var i = 0; i < succNodes.length; i++) {
         var el = succNodes[i]._private;
         cy.getElementById(el.data.id).remove();
@@ -1028,6 +1037,7 @@ function newCompound(gate) {
         } 
         else if (el.data.type == 'vot') {
             var element = createGeneralElementSameId(DftTypes.VOT, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.children = [];
             element.data.voting = el.data.voting;
             createNode(element, compound);
         }
@@ -1038,8 +1048,27 @@ function newCompound(gate) {
         }
         else {
             var element = createGeneralElementSameId(el.data.type, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.children = el.data.children;
+            element.data.children = [];
             createNode(element, compound);
         }
     }
+
+    // Edges
+    for (var i = 0; i < succEdges.length; i++) {
+        var source = cy.getElementById(succEdges[i]._private.data.source);
+        var target = cy.getElementById(succEdges[i]._private.data.target);
+
+        var newEdge = getNewEdge(source, target);
+        var edge = cy.add(newEdge);
+        addEdge(edge, source, target);
+    }
+}
+
+function compoundCheck(gate) {
+    var succ = gate.successors('node');
+    var pre = succ.incomers('node');
+
+    if (pre.length > 1) {
+        return false;
+    } else return true;
 }
