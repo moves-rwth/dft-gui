@@ -1002,6 +1002,7 @@ function newCompound(gate) {
     // Save nodes and edges
     var succNodes = gate.successors('node');
     var succEdges = gate.successors('edge');
+    var incEdges = gate.incomers('edge');
 
     gate.remove();
 
@@ -1062,13 +1063,46 @@ function newCompound(gate) {
         var edge = cy.add(newEdge);
         addEdge(edge, source, target);
     }
+    for (var i = 0; i < incEdges.length; i++) {
+        var source = cy.getElementById(incEdges[i]._private.data.source);
+        var target = cy.getElementById(incEdges[i]._private.data.target);
+
+        var newEdge = getNewEdge(source, target);
+        var edge = cy.add(newEdge);
+        addEdge(edge, source, target);
+    }
 }
 
+// Check for children with parents outside.
 function compoundCheck(gate) {
     var succ = gate.successors('node');
-    var pre = succ.incomers('node');
+    // Save ids of succ
+    var ids = [];
+    ids.push(gate.id());
+    for (var i = 0; i < succ.length; i++) {
+        ids.push(succ[i].id());
+    }
+    console.log(ids);
 
-    if (pre.length > 1) {
-        return false;
-    } else return true;
+    // Check for other parents which are not in id
+    for (var i = 0; i < succ.length; i++) {
+        var inc = succ[i].incomers('node');
+        for (var j = 0; j < inc.length; j++) {
+            if (!contain(ids, inc[j].id())) {
+                console.log(inc[j].id());
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function contain(array, element) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == element) {
+            return true;
+        }
+    }
+    return false;
 }
