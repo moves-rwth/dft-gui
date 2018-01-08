@@ -644,7 +644,7 @@ cy.contextMenus({
             title: 'add covered fault',
             coreAsWell: true,
             onClickFunction: function (event) {
-                createBlock('Test', 500, 500);
+                createBlock('A', 500, 500);
             },
             hasTrailingDivider: true
         },

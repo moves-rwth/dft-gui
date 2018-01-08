@@ -171,6 +171,15 @@ function createCompoundNode(gate) {
     return createNode(element, null);
 }
 
+// Create nested compound for a given gate.
+function createNestedCompound(gate, parent) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
+    element.data.compound = gate.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    return createNode(element, cy.getElementById(parent));
+}
+
 // Remove a node and all connected edges.
 function removeNode(node) {
     var edges = node.connectedEdges();
@@ -350,7 +359,7 @@ function unlockAll() {
 }
 
 // Create subtree for block.
-function createBlock(name, posX, posY) {
+function createBlock2(name, posX, posY) {
     // Create nodes
     var orBlockElement = createGate(DftTypes.OR, name, posX, posY);
     var compoundNode = createCompoundNode(orBlockElement);
@@ -388,4 +397,25 @@ function createCoveredFailure(faultName, rate, coverage, safetyRate, posX, posY)
    createEdge(andNotDetected, nodeFaultCovered);
    createEdge(seqCovered, nodeSafety);
    createEdge(seqCovered, nodeFaultCovered);
+}
+
+// Create subtree for block.
+function createBlock(name, posX, posY) {
+    // Create nodes
+    var A_el = createGate(DftTypes.AND, name, posX, posY);
+    var AA = createCompoundNode(A_el);
+    var A = createNode(A_el, AA);
+    var c = createNode(createBe('c', 1.0, 0.0, 1.0, posX-150, posY+150), AA);
+
+    var B_el = createGate(DftTypes.AND, 'B', posX+150,posY+150);
+    var BB = createNestedCompound(B_el, AA);
+    var B = createNode(B_el, BB);
+    var d = createNode(createBe('d', 1, 1, 1, posX+50, posY+350), BB);
+    var e = createNode(createBe('e', 1, 1, 1, posX+250, posY+350), BB);
+
+    // Create Edges
+    createEdge(A, c);
+    createEdge(A, B);
+    createEdge(B, d);
+    createEdge(B, e);
 }

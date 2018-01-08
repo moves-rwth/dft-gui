@@ -550,25 +550,6 @@ function showElement(elem, type) {
     $('#hover_names').empty();
     $('#hover-div').slideUp('medium');
 }
-
-// REGEX TEST
-
-$('#testButton').on('click', checkText);
-
-function checkText() {
-    var input = $('#testField').val();
-    var reg = /^\w*$/;
-    $('#testField').val('');
-    if(reg.test(input)) {
-        $('#testCheck').text('True');
-        $('#testCheck').animate({paddingLeft:'+=5px'}, 'fast');
-        $('#testCheck').animate({paddingLeft:'-=5px'}, 'slow');
-    } else {
-        $('#testCheck').text('False');
-        $('#testCheck').animate({paddingLeft:'+=5px'}, 'fast');
-        $('#testCheck').animate({paddingLeft:'-=5px'}, 'slow');
-    }
-}
     // REGEXE    
     var regName = /^[a-zA-Z]\w*$|^$/; 
     var regRate = /^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$/;
@@ -990,10 +971,18 @@ function createChildrenStrings(node) {
 
 // Make Compound nodes
 function newCompound(gate) {
+    cy.expandAll();
+    var nested = false;
 
     if (!compoundCheck(gate)) {
         alert("Not possible");
         return;
+    }
+
+    // Check if nested
+    var parent = gate.parents();
+    if (parent.length > 0) {
+        nested = true;
     }
 
     var dataBackUp = gate._private.data;
@@ -1015,7 +1004,12 @@ function newCompound(gate) {
         newGateElement.data.probability = dataBackUp.probability;
     }
 
-    var compound = createCompoundNode(newGateElement);
+    if (nested) {
+        console.log(parent[0]._private.data.id);
+        var compound = createNestedCompound(newGateElement, parent[0]._private.data.id);
+    } else {
+        var compound = createCompoundNode(newGateElement);
+    }
 
     var newGate = createNode(newGateElement, compound);
 
@@ -1082,14 +1076,12 @@ function compoundCheck(gate) {
     for (var i = 0; i < succ.length; i++) {
         ids.push(succ[i].id());
     }
-    console.log(ids);
 
     // Check for other parents which are not in id
     for (var i = 0; i < succ.length; i++) {
         var inc = succ[i].incomers('node');
         for (var j = 0; j < inc.length; j++) {
             if (!contain(ids, inc[j].id())) {
-                console.log(inc[j].id());
                 return false;
             }
         }
