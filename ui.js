@@ -1005,7 +1005,6 @@ function newCompound(gate) {
     }
 
     if (nested) {
-        console.log(parent[0]._private.data.id);
         var compound = createNestedCompound(newGateElement, parent[0]._private.data.id);
     } else {
         var compound = createCompoundNode(newGateElement);
@@ -1097,4 +1096,94 @@ function contain(array, element) {
         }
     }
     return false;
+}
+
+function removeCompound(compound) {
+
+    var nested = false;
+    var descendants = compound.descendants();
+    var edges = descendants.outgoers('edge');
+
+    // Check if nested
+    var parent = compound.parents();
+    console.log(parent);
+    if (parent.length > 0) {
+        nested = true;
+    }
+    var comParent = cy.getElementById(parent.id());
+
+    // Save edge to compound
+    var comEdge = cy.getElementById(compound._private.data.compound).incomers('edge');
+
+    cy.remove(compound);
+
+    console.log(comEdge);
+
+
+    // Add nodes
+    for (var i = 0; i < descendants.length; i++) {
+        var el = descendants[i]._private;
+        cy.getElementById(el.data.id).remove();
+
+        if (el.data.type == 'be') {
+            var element = createGeneralElementSameId(DftTypes.BE, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.rate = el.data.rate;
+            element.data.repair = el.data.repair;
+            if (repair > 0) {
+                element.data.repairable = true;
+            }
+            element.data.dorm = el.data.dorm;
+            if (nested) {
+                createNode(element, comParent);
+            } else {
+                createNode(element);
+            }
+        } 
+        else if (el.data.type == 'vot') {
+            var element = createGeneralElementSameId(DftTypes.VOT, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.children = [];
+            element.data.voting = el.data.voting;
+            if (nested) {
+                createNode(element, comParent);
+            } else {
+                createNode(element);
+            }
+        }
+        else if (el.data.type == 'pdep') {
+            var element = createGeneralElementSameId(DftTypes.PDEP, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.probability = el.data.probability;
+            if (nested) {
+                createNode(element, comParent);
+            } else {
+                createNode(element);
+            }
+        }
+        else {
+            var element = createGeneralElementSameId(el.data.type, el.data.name, el.position.x, el.position.y, el.data.id);
+            element.data.children = [];
+            if (nested) {
+                createNode(element, comParent);
+            } else {
+                createNode(element);
+            }
+        }
+    }
+
+
+    // Add edges
+    for (var i = 0; i < edges.length; i++) {
+        var source = cy.getElementById(edges[i]._private.data.source);
+        var target = cy.getElementById(edges[i]._private.data.target);
+
+        var newEdge = getNewEdge(source, target);
+        var edge = cy.add(newEdge);
+        addEdge(edge, source, target);
+    }
+
+    var source = cy.getElementById(comEdge[0]._private.data.source);
+    var target = cy.getElementById(comEdge[0]._private.data.target);
+
+    var newEdge = getNewEdge(source, target);
+    var edg = cy.add(newEdge);
+    addEdge(edg, source, target);
 }

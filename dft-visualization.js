@@ -569,6 +569,48 @@ cy.contextMenus({
             }
         },
         {
+            id: 'lockNode',
+            title: 'lock node',
+            selector: 'node:unlocked',
+            onClickFunction: function (event) {
+                lockNode(event.cyTarget);
+            },
+        },
+        {
+            id: 'unlockNode',
+            title: 'unlock node',
+            selector: 'node:locked',
+            onClickFunction: function (event) {
+                unlockNode(event.cyTarget);
+            },
+        },
+        {
+            id: 'collapse',
+            title: 'collapse element',
+            selector: 'node[type != "compound"][type != "be"]',
+            onClickFunction: function (event) {
+                newCompound(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'removeCompound',
+            title: 'remove compound',
+            selector: '[expanded-collapsed="expanded"]',
+            onClickFunction: function (event) {
+                removeCompound(event.cyTarget);
+            },
+            hasTrailingDivider: true
+        },
+        {
+            id: 'log',
+            title: 'show in console',
+            selector: 'node',
+            onClickFunction: function (event) {
+                console.log(event.cyTarget);
+            },
+        },
+        {
             id: 'id',
             title: 'show id',
             selector: 'node',
@@ -578,32 +620,6 @@ cy.contextMenus({
                 console.log(children);
                 console.log(event.cyTarget.position());
             }
-        },
-        {
-            id: 'test',
-            title: 'test',
-            selector: 'node',
-            onClickFunction: function (event) {
-                testFunction(event.cyTarget);
-            }
-        },
-        {
-            id: 'lockNode',
-            title: 'lock node',
-            selector: 'node:unlocked',
-            onClickFunction: function (event) {
-                lockNode(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'unlockNode',
-            title: 'unlock node',
-            selector: 'node:locked',
-            onClickFunction: function (event) {
-                unlockNode(event.cyTarget);
-            },
-            hasTrailingDivider: true
         },
         {
             id: 'removeNode',
@@ -622,22 +638,6 @@ cy.contextMenus({
                 removeEdge(event.cyTarget);
             },
             hasTrailingDivider: true
-        },
-        {
-            id: 'collapse',
-            title: 'collapse element',
-            selector: 'node[type != "compound"][type != "be"]',
-            onClickFunction: function (event) {
-                newCompound(event.cyTarget);
-            },
-        },
-        {
-            id: 'log',
-            title: 'show in console',
-            selector: 'node',
-            onClickFunction: function (event) {
-                console.log(event.cyTarget);
-            },
         },
         {
             id: 'add-covered-failure',
