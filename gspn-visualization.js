@@ -1,14 +1,60 @@
 // Load graph
 $("#load-graph").click(function() {
-    var filePath = "examples/" + $('#input-file').val();
-    $.getJSON(filePath, function(json) {
+    if (typeof window.FileReader !== 'function') {
+        alert("The file API isn't supported on this browser yet.");
+        return;
+    }
+
+    var input = document.getElementById('input-file');
+    if (!input.files) {
+        alert("This browser doesn't seem to support the `files` property of file inputs.");
+        return;
+    }
+    if (!input.files[0]) {
+        alert("Please select a file before clicking 'Load'");
+        return;
+    }
+    var file = input.files[0];
+    var filereader = new FileReader();
+    filereader.onload = loadFile;
+    filereader.readAsText(file);
+
+    function loadFile(file) {
+        var lines = file.target.result;
+        var json = JSON.parse(lines);
         cy.load(json);
         // Set currentId as maximal id of all loaded nodes
         cy.nodes().forEach(function( node ){
             currentId = Math.max(currentId, node.id());
         });
-        console.log(json);
-    });
+    }
+});
+
+// Save graph.
+$("#save-graph").click(function() {
+    // Construct JSON
+    var json = {};
+    json = cy.elements().jsons();
+    var jsonString = JSON.stringify(json, null, 4);
+    var textFileAsBlob = new Blob([jsonString], {type:'text/plain'});
+
+    // Create link to download
+    var fileNameToSaveAs = "gspn-graph.json";
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    if (window.webkitURL != null) {
+        // Chrome allows the link to be clicked without actually adding it to the DOM.
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+    } else {
+        // Firefox requires the link to be added to the DOM
+        // before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        //downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+    downloadLink.click();
 });
 
 // Export graph as image
@@ -83,76 +129,76 @@ var cy = cytoscape({
     },
     style: [
         {
-        selector: 'node',
-        css: {
-            label: 'data(name)',
-            'height': 59,
-            'width': 48,
-            'shape': 'rectangle',
-            'background-fit': 'cover',
-        }
+            selector: 'node',
+            css: {
+                label: 'data(name)',
+                'height': 59,
+                'width': 48,
+                'shape': 'rectangle',
+                'background-fit': 'cover',
+            }
         },
         {
-        selector: 'node.place',
-        css: {
-            'height': 118,
-            'width': 126,
-            'background-image': 'images/place.png'
-        }
+            selector: 'node.place',
+            css: {
+                'height': 118,
+                'width': 126,
+                'background-image': 'images/place.png'
+            }
         },
         {
-        selector: 'node.trans_im',
-        css: {
-            'height': 32,
-            'width': 154,
-            'background-image': 'images/trans_im.png'
-        }
+            selector: 'node.trans_im',
+            css: {
+                'height': 32,
+                'width': 154,
+                'background-image': 'images/trans_im.png'
+            }
         },
         {
-        selector: 'node.trans_time',
-        css: {
-            'height': 34,
-            'width': 168,
-            'background-image': 'images/trans_time.png'
-        }
+            selector: 'node.trans_time',
+            css: {
+                'height': 34,
+                'width': 168,
+                'background-image': 'images/trans_time.png'
+            }
         },
         {
-        selector: 'edge',
-        css: {
-            label: 'data(index)',
-            'width': 2,
-            'target-arrow-shape': 'triangle',
-            'line-color': '#808080',
-            'target-arrow-color': '#808080',
-            'curve-style': 'bezier'
-        }
+            selector: 'edge',
+            css: {
+                label: 'data(index)',
+                'width': 2,
+                'line-color': '#808080',
+                'target-arrow-color': '#808080',
+                'curve-style': 'bezier',
+            }
         },
         {
-        selector: 'edge.inhibit',
-        css: {
-            label: 'data(index)',
-            'width': 2,
-            'target-arrow-shape': 'triangle',
-            'source-arrow-shape': 'circle',
-            'line-color': '#808080',
-            'target-arrow-color': '#808080',
-            'curve-style': 'bezier'
-        }
+            selector: 'edge.input',
+            css: {
+                label: 'data(index)',
+                'source-arrow-shape': 'none',
+                'target-arrow-shape': 'triangle',
+                'line-color': 'green',
+            }
         },
         {
-        selector: 'edge.both',
-        css: {
-            label: 'data(index)',
-            'width': 2,
-            'target-arrow-shape': 'triangle',
-            'source-arrow-shape': 'triangle',
-            'line-color': '#808080',
-            'target-arrow-color': '#808080',
-            'curve-style': 'bezier'
-        }
+            selector: 'edge.inhibit',
+            css: {
+                'source-arrow-shape': 'none',
+                'target-arrow-shape': 'circle',
+                'line-color': 'red',
+            }
         },
         {
-        selector: "[expanded-collapsed='collapsed']",
+            selector: 'edge.output',
+            css: {
+                'source-arrow-shape': 'triangle',
+                'target-arrow-shape': 'none',
+                'line-color': 'blue',
+            }
+        },
+        {
+            selector: "[expanded-collapsed='collapsed']",
             style: {
                 label: 'data(name)',
                 'height': 59,
@@ -162,7 +208,7 @@ var cy = cytoscape({
             }
         },
         {
-        selector: "[expanded-collapsed='expanded']",
+            selector: "[expanded-collapsed='expanded']",
             style: {
                 label: '',
                 'background-color': 'ligthgray',
