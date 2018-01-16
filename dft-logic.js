@@ -171,12 +171,31 @@ function createCompoundNode(gate) {
     return createNode(element, null);
 }
 
+// Create a new compound with existing gate
+function createCompoundNodeMove(gate) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
+    element.data.compound = gate._private.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    return createNode(element, null);
+}
+
 // Create nested compound for a given gate.
 function createNestedCompound(gate, parent) {
     var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
     element.data.compound = gate.data.id;
     element.data["expanded-collapsed"] = 'expanded';
+    return createNode(element, cy.getElementById(parent));
+}
+
+// Create nested compound with existing gate
+function createNestedCompoundMove(gate) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
+    element.data.compound = gate._private.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    var parent = gate._private.data.parent;
     return createNode(element, cy.getElementById(parent));
 }
 

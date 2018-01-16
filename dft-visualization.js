@@ -589,7 +589,7 @@ cy.contextMenus({
             title: 'collapse element',
             selector: 'node[type != "compound"][type != "be"]',
             onClickFunction: function (event) {
-                newCompound(event.cyTarget);
+                newCompoundMove(event.cyTarget);
             },
             hasTrailingDivider: true
         },

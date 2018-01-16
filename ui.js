@@ -968,104 +968,6 @@ function createChildrenStrings(node) {
         }
     });
 
-
-// Make Compound nodes
-function newCompound(gate) {
-    cy.expandAll();
-    var nested = false;
-
-    if (!compoundCheck(gate)) {
-        alert("Not possible");
-        return;
-    }
-
-    // Check if nested
-    var parent = gate.parents();
-    if (parent.length > 0) {
-        nested = true;
-    }
-
-    var dataBackUp = gate._private.data;
-    var positionBackUp = gate._private.position;
-
-    // Save nodes and edges
-    var succNodes = gate.successors('node');
-    var succEdges = gate.successors('edge');
-    var incEdges = gate.incomers('edge');
-
-    gate.remove();
-
-    // Create new compound gate
-    var newGateElement = createGeneralElementSameId(dataBackUp.type, dataBackUp.name, positionBackUp.x, positionBackUp.y, dataBackUp.id);
-    newGateElement.data.children = [];
-    if (dataBackUp.type == 'vot') {
-        newGateElement.data.voting = dataBackUp.voting;
-    } else if (dataBackUp.type == 'pdep') {
-        newGateElement.data.probability = dataBackUp.probability;
-    }
-
-    if (nested) {
-        var compound = createNestedCompound(newGateElement, parent[0]._private.data.id);
-    } else {
-        var compound = createCompoundNode(newGateElement);
-    }
-
-    var newGate = createNode(newGateElement, compound);
-
-    // Add all elements
-
-    // Nodes
-    for (var i = 0; i < succNodes.length; i++) {
-        var el = succNodes[i]._private;
-        cy.getElementById(el.data.id).remove();
-
-        if (el.data.type == 'be') {
-            var element = createGeneralElementSameId(DftTypes.BE, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.rate = el.data.rate;
-            element.data.repair = el.data.repair;
-            if (repair > 0) {
-                element.data.repairable = true;
-            }
-            element.data.dorm = el.data.dorm;
-            createNode(element, compound);
-        } 
-        else if (el.data.type == 'vot') {
-            var element = createGeneralElementSameId(DftTypes.VOT, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.children = [];
-            element.data.voting = el.data.voting;
-            createNode(element, compound);
-        }
-        else if (el.data.type == 'pdep') {
-            var element = createGeneralElementSameId(DftTypes.PDEP, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.probability = el.data.probability;
-            createNode(element, compound);
-        }
-        else {
-            var element = createGeneralElementSameId(el.data.type, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.children = [];
-            createNode(element, compound);
-        }
-    }
-
-    // Edges
-    for (var i = 0; i < succEdges.length; i++) {
-        var source = cy.getElementById(succEdges[i]._private.data.source);
-        var target = cy.getElementById(succEdges[i]._private.data.target);
-
-        var newEdge = getNewEdge(source, target);
-        var edge = cy.add(newEdge);
-        addEdge(edge, source, target);
-    }
-    for (var i = 0; i < incEdges.length; i++) {
-        var source = cy.getElementById(incEdges[i]._private.data.source);
-        var target = cy.getElementById(incEdges[i]._private.data.target);
-
-        var newEdge = getNewEdge(source, target);
-        var edge = cy.add(newEdge);
-        addEdge(edge, source, target);
-    }
-}
-
 // Check for children with parents outside.
 function compoundCheck(gate) {
     var succ = gate.successors('node');
@@ -1106,84 +1008,70 @@ function removeCompound(compound) {
 
     // Check if nested
     var parent = compound.parents();
-    console.log(parent);
     if (parent.length > 0) {
         nested = true;
     }
-    var comParent = cy.getElementById(parent.id());
+    if (nested) {
+        var comParent = cy.getElementById(parent.id());
 
-    // Save edge to compound
-    var comEdge = cy.getElementById(compound._private.data.compound).incomers('edge');
+        descendants.move({
+            parent: parent[0].id()
+        });
+    } else {
+
+        descendants.move({
+            parent: null
+        });
+    }
 
     cy.remove(compound);
+    
+}
 
-    console.log(comEdge);
+// New compound methods using the predefined .move(location) of cytoscape
+function newCompoundMove(gate) {
 
+    cy.expandAll();
+    var nested = false;
 
-    // Add nodes
-    for (var i = 0; i < descendants.length; i++) {
-        var el = descendants[i]._private;
-        cy.getElementById(el.data.id).remove();
-
-        if (el.data.type == 'be') {
-            var element = createGeneralElementSameId(DftTypes.BE, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.rate = el.data.rate;
-            element.data.repair = el.data.repair;
-            if (repair > 0) {
-                element.data.repairable = true;
-            }
-            element.data.dorm = el.data.dorm;
-            if (nested) {
-                createNode(element, comParent);
-            } else {
-                createNode(element);
-            }
-        } 
-        else if (el.data.type == 'vot') {
-            var element = createGeneralElementSameId(DftTypes.VOT, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.children = [];
-            element.data.voting = el.data.voting;
-            if (nested) {
-                createNode(element, comParent);
-            } else {
-                createNode(element);
-            }
-        }
-        else if (el.data.type == 'pdep') {
-            var element = createGeneralElementSameId(DftTypes.PDEP, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.probability = el.data.probability;
-            if (nested) {
-                createNode(element, comParent);
-            } else {
-                createNode(element);
-            }
-        }
-        else {
-            var element = createGeneralElementSameId(el.data.type, el.data.name, el.position.x, el.position.y, el.data.id);
-            element.data.children = [];
-            if (nested) {
-                createNode(element, comParent);
-            } else {
-                createNode(element);
-            }
-        }
+    if (!compoundCheck(gate)) {
+        alert("Not possible");
+        return;
     }
 
-
-    // Add edges
-    for (var i = 0; i < edges.length; i++) {
-        var source = cy.getElementById(edges[i]._private.data.source);
-        var target = cy.getElementById(edges[i]._private.data.target);
-
-        var newEdge = getNewEdge(source, target);
-        var edge = cy.add(newEdge);
-        addEdge(edge, source, target);
+    // Check if nested
+    var parent = gate.parents();
+    if (parent.length > 0) {
+        nested = true;
     }
 
-    var source = cy.getElementById(comEdge[0]._private.data.source);
-    var target = cy.getElementById(comEdge[0]._private.data.target);
+    // Check if contain other compounds
+    var comps = gate.successors('compound');
+    console.log(comps);
 
-    var newEdge = getNewEdge(source, target);
-    var edg = cy.add(newEdge);
-    addEdge(edg, source, target);
+    var dataBackUp = gate._private.data;
+    var positionBackUp = gate._private.position;
+
+    // Save nodes and edges
+    var succNodes = gate.successors('node');
+    var succEdges = gate.successors('edge');
+    var incEdges = gate.incomers('edge');
+
+    // Create new compound gate
+    if (nested) {
+        var compound = createNestedCompoundMove(gate);
+    } else {
+        var compound = createCompoundNodeMove(gate);
+    }
+    
+    console.log(compound.id());
+    var col = cy.collection();
+    col.merge(gate).merge(succNodes);
+
+    // Move to compound
+    col.move({
+        parent: compound.id()
+    });
+
+
 }
