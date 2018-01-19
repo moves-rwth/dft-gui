@@ -1,3 +1,6 @@
+// DEVELOPER MODE
+var DEVELOPER = true;
+
 // Set max/min zoomlevel
 cy.maxZoom(3);
 cy.minZoom(0.7);
@@ -34,7 +37,15 @@ function toggleOptionBar() {
     $('.not-Clicked').animate({'top': '72px'}, { start: function() { $('#cy').css('zIndex', '0'); }, done: function() {$('#option-bar').toggle(); } }, 'fast');
 }
 
+
+
 $(function() {
+    if (DEVELOPER) {
+            $('#cy').toggleClass('not-Clicked');
+            $('#cy').toggleClass('clicked');
+
+            toggleOptionBar();
+    }
     $('#tabs').tabs();
     $('#be-elem').draggable({revert: true, revertDuration: 1});
     $('#and-elem').draggable({revert: true, revertDuration: 1});
@@ -1030,15 +1041,26 @@ function removeCompound(compound) {
 
 // New compound methods using the predefined .move(location) of cytoscape
 function newCompoundMove(gate) {
-
     cy.expandAll();
     var nested = false;
+    var gates = null;
 
     if (!compoundCheck(gate)) {
         alert("Not possible");
         return;
     }
 
+    // Check if same compound already exists
+    if (gate.parent().length > 0) {
+        var parent = gate.parent();
+        if (parent[0]._private.data.compound == gate.id()) {
+            // Same compound exists. However, since new nodes could be attached, just delete the old one
+            gates = gate.successors('node');
+            removeCompound(parent[0]);
+            gate = cy.getElementById(gate.id());
+        }
+    }
+    
     // Check if nested
     var parent = gate.parents();
     if (parent.length > 0) {
@@ -1046,11 +1068,8 @@ function newCompoundMove(gate) {
     }
 
     // Check if contain other compounds
-    var comps = gate.successors('compound');
-    console.log(comps);
-
-    var dataBackUp = gate._private.data;
-    var positionBackUp = gate._private.position;
+    if (gates == null) gates = gate.successors('node[type != "be"]');
+    var comps = gates.parent();
 
     // Save nodes and edges
     var succNodes = gate.successors('node');
@@ -1064,7 +1083,6 @@ function newCompoundMove(gate) {
         var compound = createCompoundNodeMove(gate);
     }
     
-    console.log(compound.id());
     var col = cy.collection();
     col.merge(gate).merge(succNodes);
 
@@ -1073,5 +1091,6 @@ function newCompoundMove(gate) {
         parent: compound.id()
     });
 
-
+    // Delete old compounds 
+    cy.remove(comps);
 }
