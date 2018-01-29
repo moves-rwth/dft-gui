@@ -1,43 +1,300 @@
 <!doctype html>
 
-<html>
+<html lang="en">
 
 <head>
     <title>DFT Visualization</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="libs/jquery.min.js"></script>
+    <link rel="stylesheet" href="libs/jquery-ui.min.css">
+    <script src="libs/external/jquery/jquery.js"></script>
+    <script src="libs/jquery-ui.js"></script>
     <script src="libs/cytoscape.min.js"></script>
     <script src="libs/cytoscape-context-menus.js"></script>
     <link href="libs/cytoscape-context-menus.css" rel="stylesheet" type="text/css" />
     <script src="libs/cytoscape-edgehandles.js"></script>
     <script src="libs/cytoscape-expand-collapse.js"></script>
-</head>
+    <link rel="stylesheet" href="libs/jquery-ui.theme.css">
 
-<style>
-    #cy {
-        width: 100%;
-        height: 95%;
-        position: absolute;
-        top: 60px;
-        left: 0px;
-    }
-
-</style>
-
+    
 <body>
-    <div id="load">
-        <input type="file" id="input-file" />
-        <button id="load-graph">Load</button>
-        <button id="save-graph">Save</button>
+    <div id="title-bar">
+        <div id="locate"></div>
+        <div id="option-icon"></div>
     </div>
-    <div id="export">
-        <button id="export-image">Export image</button>
+    <div id="title-fill">
+        
+    </div>
+    
+
+
+
+    <div id="option-bar"> 
+
+        <div id="tabs">
+            <ul>
+                <li><a href="#options">Options</a></li>
+                <li><a href="#add-Elements">Add Elements</a></li>
+                <li><a href="#search-option">Search</a></li>
+            </ul>
+            <div id="options">
+                <div id="load">
+                        <fieldset id="load-field" class="option_tab">
+                            <legend>Load from a file</legend>
+                            <input type="file" id="input-file" />
+                            <div id="load-graph"></div>
+                         </fieldset>
+                </div>
+                <div id="save">
+                         <fieldset id="save-field" class="option_tab">
+                         <legend>Save to a file</legend>
+                            <div id="export-image"></div>
+                            <div id="save-graph"></div>
+                        </fieldset>
+                </div>
+                <div id="lockElements">
+                        <fieldset id="lock-field">
+                            <legend>Lock/Unlock</legend>
+                            <div id="lock">
+                                
+                            </div>
+                        </fieldset>
+                </div>
+            </div>
+            <div id="add-Elements">
+                <div id="static-elements">
+                    <fieldset id="static-field">
+                        <legend>Static Elements</legend>
+                        <div id="static-container">
+                            <div id="static-buttons">
+                                <div id="be-button"></div>
+                                <div id="and-button"></div>
+                                <br>
+                                <div id="or-button"></div>
+                                <div id="vot-button"></div>
+                            </div>
+                            <div id="static-drags" title="Drag & Drop">
+                                <div id="be-elem" class="drag-element, ui-widget-content" title="BE"></div>
+                                <div id="and-elem" class="drag-element, ui-widget-content" title="AND"></div>
+                                <div id="or-elem" class="drag-element, ui-widget-content" title="OR"></div>
+                                <div id="vot-elem" class="drag-element, ui-widget-content" title="VOT"></div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="dynamic-elements">
+                    <fieldset id="dynamic-field">
+                        <legend>Dynamic Elements</legend>
+                        <div id="dynamic-buttons">
+                            <div id="pand-button"></div>
+                            <div id="por-button"></div>
+                            <div id="fdep-button"></div>
+                            <div id="pdep-button"></div>
+                            <div id="spare-button"></div>
+                            <div id="seq-button"></div>
+                        </div>
+                        <div id="dynamic-drags" title="Drag & Drop">
+                            <div id="pand-elem" class="drag-element, ui-widget-content"></div>
+                            <div id="por-elem" class="drag-element, ui-widget-content"></div>
+                            <div id="fdep-elem" class="drag-element, ui-widget-content"></div>
+                            <div id="pdep-elem" class="drag-element, ui-widget-content"></div>
+                            <div id="spare-elem" class="drag-element, ui-widget-content"></div>
+                            <div id="seq-elem" class="drag-element, ui-widget-content"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="add-edges">
+                    <fieldset id="edge-field">
+                    <legend>Add Edges</legend>
+                    <div id="edge-radio-div">
+                        <label for="edge-radio">Add Edges</label>
+                        <input type="checkbox" name="edge-radiobox" id="edge-radio">       
+                    </div>
+                    <div id="edge-info">
+                        Add edges by clicking on source and target node.
+                    </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="search-option">
+                <div id="search">
+                    <input type="text" name="search" id="search-input" placeholder="Search for Name ">
+                    <button type="button" id="searchForElement">Search</button>
+                    <br>
+                    <div id="searchError"></div>
+                </div>
+                <div id="search-info">
+                    <fieldset id="search-field">
+                        <legend>Element Information</legend>
+                        <div id="info-container">
+                            <div id="info-pic-big" class="">
+                                <img src="" alt="No Element" id="info-pic-big-pic">
+                                <div id="info-pic-big-text"></div>
+                            </div>
+                            <div id="info-pic-small" class="nonViss">
+                                <img src="" alt="No Element" id="info-pic-small-pic">
+                                <div id="info-pic-small-text"></div>
+                            </div>
+                            <div id="info-data">
+                                <div id="info-data-1" class="info-layout">
+                                    <label for="info-name" class="infoLabel">name</label>
+                                    <div id="info-name" class="information"></div>
+                                    <br>
+                                    <label for="info-id" class="infoLabel">id</label>
+                                    <div id="info-id" class="information"></div>
+                                    <br>
+                                    <label for="info-parents" class="infoLabel">parents</label>
+                                    <div id="info-parents" class="information"></div>
+                                </div>
+                                <div id="info-data-be" class="info-layout">
+                                    <label for="info-failure" class="infoLabel">failure</label>
+                                    <div id="info-failure" class="information"></div>
+                                    <br>
+                                    <label for="info-repair" class="infoLabel">repair</label>
+                                    <div id="info-repair" class="information"></div>
+                                    <br>
+                                    <label for="info-dormancy" class="infoLabel">dormancy</label>
+                                    <div id="info-dormancy" class="information"></div>
+                                </div>
+                                <div id="info-data-gate" class="nonViss info-layout">
+                                    <label for="info-children" class="infoLabel">children</label>
+                                    <div id="info-children" class="information"></div>
+                                    <br>
+                                    <label for="info-repairable" class="infoLabel">repairable</label>
+                                    <div id="info-repairable" class="information"></div>
+                                    <br>
+                                    <label for="info-threshold" class="infoLabel">threshold</label>
+                                    <div id="info-threshold" class="information"></div>
+                                </div>
+                                <div id="info-data-fdep" class="nonViss info-layout">
+                                    <label for="info-children-fdep" class="infoLabel">children</label>
+                                    <div id="info-children-fdep" class="information"></div>
+                                    <br>
+                                    <label for="info-repairable-fdep" class="infoLabel">repairable</label>
+                                    <div id="info-repairable-fdep" class="information"></div>
+                                    <br>
+                                    <label for="info-trigger-fdep" class="infoLabel">trigger</label>
+                                    <div id="info-trigger-fdep" class="information"></div>
+                                </div>
+                                <div id="info-data-pdep" class="nonViss info-layout">
+                                    <label for="info-children-pdep" class="infoLabel">children</label>
+                                    <div id="info-children-pdep" class="information"></div>
+                                    <br>
+                                    <label for="info-repairable-pdep" class="infoLabel">repairable</label>
+                                    <div id="info-repairable-pdep" class="information"></div>
+                                    <br>
+                                    <label for="info-probability" class="infoLabel">probability</label>
+                                    <div id="info-probability" class="information"></div>
+                                </div>
+                                <div id="info-data-spare" class="nonViss info-layout">
+                                    <label for="info-children-spare" class="infoLabel">children</label>
+                                    <div id="info-children-spare" class="information"></div>
+                                    <br>
+                                    <label for="info-repairable-spare" class="infoLabel">repairable</label>
+                                    <div id="info-repairable-spare" class="information"></div>
+                                    <br>
+                                    <label for="info-count" class="infoLabel">sp. count</label>
+                                    <div id="info-count" class="information"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+
+        
+
+        
+
     </div>
 
-    <div id="cy"></div>
+    <!-- Dialog for BE -->
+
+    <div class="nonVis switchHelp" id="dialog-be" title="Create new BE">
+            <fieldset>
+                <label class="no-float" for="name" id="be-label">Name</label>
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-be" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="no-float" for="failure">Failure Rate</label>
+                <input title="Any number greater or equal 0. Use '.' for decimal numbers and use quotation marks to enter a parameter (e.g. 'p')." class="no-float" type="text" name="failure" id="failure" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
+                <label class="no-float" for="repair">Repair Rate</label>
+                <input title="Any number greater or equal 0. Use '.' for decimal numbers and use quotation marks to enter a parameter (e.g. 'p')." class="no-float" type="text" name="repair" id="repair" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
+                <label class="no-float" for="dormancy">Dormancy Factor</label>
+                <input title="Any number in [0,1]. Use '.' for decimal numbers and use quotation marks to enter a parameter (e.g. 'p')." class="no-float" type="text" name="dormancy" id="dormancy" placeholder="rate ..." pattern="^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$|1\.0*">
+                <label class="error errorLabel"></label>
+            </fieldset>
+    </div>
+
+    <!-- Dialog for VOT Gate -->
+
+    <div class="nonVis switchHelp" id="dialog-vot" title="Create new VOT Gate">
+            <fieldset>
+                <label class="no-float" for="name" id="vot-label">Name</label>
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-vot" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="no-float" for="threshold">Threshold</label>
+                <input title="Any natural number greater than 0." class="no-float" type="text" name="threshold" id="threshold" placeholder="value ..." pattern="^[1-9]+[0-9]*$|^[1-9]+\d*\.[0]*$|^$">
+                <label class="error errorLabel"></label>
+                <div title="switch" id="gateSwitch-vot" class="nonVis"></div>
+            </fieldset>
+    </div>
+
+    <!-- Dialog for PDEP Gate -->
+
+    <div class="nonVis switchHelp" id="dialog-pdep" title="Create new PDEP Gate">
+            <fieldset>
+                <label class="no-float" for="name" id="pdep-label">Name</label>
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-pdep" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="no-float" for="probability-pdep">Probability</label>
+                <input title="Any natural number greater than 0." class="no-float" type="text" name="probability" id="probability-pdep" placeholder="value ..." pattern="^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$">
+                <label class="error errorLabel"></label>
+                <div title="switch" id="gateSwitch-pdep" class="nonVis"></div>
+            </fieldset>
+    </div>
+
+
+    <!-- Dialog for other Gates -->
+
+    <div class="nonVis switchHelp" id="dialog-gate" title="Create new Gate">
+            <fieldset>
+                <label class="no-float"   for="name" id="gate-label">Name</label>
+                <input title="Only latin letters and '_'." class="no-float" type="text" name="name" id="name-gate" placeholder="name ..." pattern="^[a-zA-Z]\w*$|^$">
+                <label class="error errorLabel"></label>
+                <div title="switch" id="gateSwitch-gate" class="nonVis"></div>
+            </fieldset>
+    </div>
+
+    <!-- Dialog for switching gate types -->
+
+    <div class="nonVis" id="dialog-switch" title="Switch gate type">
+            <fieldset id="switch-field">
+                <label class="no-float" for="type">Select type</label>
+                <select  id="switch-type">
+                    <option value="and" selected>AND</option>
+                    <option value="or">OR</option>
+                    <option value="vot">VOT</option>
+                    <option value="pand">PAND</option>
+                    <option value="por">POR</option>
+                    <option value="pdep">PDEP</option>
+                </select>
+            </fieldset>
+    </div>
+
+    <div id="cy" class="not-Clicked"></div>
+
+    <div id="hover-div" class="nonVis">
+            <ul id="hover_names" class="name-links">
+            </ul>
+    </div>
+
     <script src="dft-logic.js"></script>
     <script src="dft-visualization.js"></script>
+    <script src="ui.js"></script>
+    <script src="compounds.js"></script>
+    <script src="gateSwitch.js"></script>
 </body>
 </html>

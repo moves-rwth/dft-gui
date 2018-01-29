@@ -274,7 +274,6 @@ module.exports = function (params) {
         var ur;
         cy.on('tap', 'node', eTap = function (event) {
           var node = this;
-
           var expandcollapseRenderedStartX = node._private.data.expandcollapseRenderedStartX;
           var expandcollapseRenderedStartY = node._private.data.expandcollapseRenderedStartY;
           var expandcollapseRenderedRectSize = node._private.data.expandcollapseRenderedCueSize;
@@ -307,7 +306,7 @@ module.exports = function (params) {
                   nodes: node,
                   options: opts
                 });
-              else
+              else  
                 node.expand(opts);
           }
         });
@@ -651,22 +650,23 @@ return {
   expandNodeBaseFunction: function (node, triggerLayout, single, layoutBy) {//*//
     //check how the position of the node is changed
     var positionDiff = {
-      x: node.position('x') - node.data('position-before-collapse').x,
-      y: node.position('y') - node.data('position-before-collapse').y
+      x: node.position().x - node.data('position-before-collapse').x,
+      y: node.position().y - node.data('position-before-collapse').y
     };
 
     node.removeData("infoLabel");
     node.data('expanded-collapsed', 'expanded');
 
     node.trigger("beforeExpand");
-    node._private.data.collapsedChildren.restore();
+    if (node._private.data.collapsedChildren) {
+      node._private.data.collapsedChildren.restore();
+    }
     this.repairEdges(node);
     node._private.data.collapsedChildren = null;
     node.trigger("afterExpand");
 
-
     elementUtilities.moveNodes(positionDiff, node.children());
-    node.removeData('position-before-collapse');
+     // node.removeData('position-before-collapse');
 
     if (single)
       this.endOperation(layoutBy);
@@ -745,7 +745,6 @@ return {
   expandGivenNodes: function (nodes, options) {//*//
     if (nodes.length === 1) {
       this.expandNode(nodes[0], options.fisheye, options.animate, options.layoutBy);
-
     } else {
       this.simpleExpandGivenNodes(nodes, options.fisheye);
       this.endOperation(options.layoutBy);

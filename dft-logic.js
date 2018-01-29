@@ -34,6 +34,7 @@ function importDftFromJson(json) {
     cy.nodes().forEach(function( node ) {
         currentId = Math.max(currentId, node.id());
         setLabelNode(node);
+        addName(node.data('name'));
         node.addClass(node.data('type'));
 
         if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND) {
@@ -85,7 +86,8 @@ function createGeneralElement(dftType, name, posX, posY) {
         data: {
             id: currentId,
             name: name,
-            type: dftType
+            type: dftType,
+            repairable: false
         },
         classes: dftType,
         position: {
@@ -93,6 +95,27 @@ function createGeneralElement(dftType, name, posX, posY) {
             y: posY
         }
     };
+    
+    return newElement;
+}
+
+// Create the general information of an existing element.
+function createGeneralElementSameId(dftType, name, posX, posY, currentId) {
+    var newElement = {
+        group: 'nodes',
+        data: {
+            id: currentId,
+            name: name,
+            type: dftType,
+            repairable: false
+        },
+        classes: dftType,
+        position: {
+            x: posX,
+            y: posY
+        }
+    };
+    
     return newElement;
 }
 
@@ -110,10 +133,21 @@ function createVotingGate(name, votingThreshold, posX, posY) {
     return newElement;
 }
 
+// Create a new PDEP Gate
+function createPDEPGate(name, probability, posX, posY) {
+    var newElement = createGate(DftTypes.PDEP, name, posX, posY);
+    newElement.data.probability = probability;
+    return newElement;
+}
+
 // Create a new BE.
-function createBe(name, rate, dorm, posX, posY) {
+function createBe(name, rate, repair, dorm, posX, posY) {
     var newElement = createGeneralElement(DftTypes.BE, name, posX, posY);
     newElement.data.rate = rate;
+    newElement.data.repair = repair;
+    if (repair > 0) {
+        newElement.data.repairable = true;
+    }
     newElement.data.dorm = dorm;
     return newElement;
 }
@@ -137,14 +171,45 @@ function createCompoundNode(gate) {
     return createNode(element, null);
 }
 
+// Create a new compound with existing gate
+function createCompoundNodeMove(gate) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
+    element.data.compound = gate._private.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    return createNode(element, null);
+}
+
+// Create nested compound for a given gate.
+function createNestedCompound(gate, parent) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
+    element.data.compound = gate.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    return createNode(element, cy.getElementById(parent));
+}
+
+// Create nested compound with existing gate
+function createNestedCompoundMove(gate) {
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
+    element.data.compound = gate._private.data.id;
+    element.data["expanded-collapsed"] = 'expanded';
+    var parent = gate._private.data.parent;
+    return createNode(element, cy.getElementById(parent));
+}
+
 // Remove a node and all connected edges.
 function removeNode(node) {
     var edges = node.connectedEdges();
     edges.forEach(function( edge ){
         removeEdge(edge);
     });
+    // Delete name from usedNames.
+    usedNames.delete(node.data('name'));
     node.remove();
 }
+
 
 // Get a new edge. If there already exists an edge with the same source
 // and target nodes the edge id is marked as 'idInvalid'.
@@ -154,6 +219,12 @@ function getNewEdge(sourceNode, targetNode) {
     var edgeId = sourceId + 'e' + targetId;
     if (cy.edges("[id='" + edgeId + "']").length > 0) {
         edgeId = 'idInvalid';
+    } // Check for target source edges 
+    else {
+        var changedId = targetId + 'e' + sourceId;
+        if (cy. edges("[id='" + changedId + "']").length > 0) {
+            edgeId = 'idInvalid';
+        }
     }
 
     return {
@@ -172,13 +243,33 @@ function addEdge(edge, source, target) {
     source.data('children', children);
     edge.data('index', children.length-1);
     edge.addClass(source.data('type'));
+
+    // Update repairable
+    if (target.data('repairable')) {
+        source.data('repairable', true);
+        propagateUp(source, checkRepairable);
+    }
 }
 
 function createEdge(source, target) {
     var edge = getNewEdge(source, target);
-    var newEdge = cy.add(edge);
-    addEdge(newEdge, source, target);
-    return newEdge;
+    // Check if edge is valid
+    if (edge.data['id'] == 'idInvalid') {
+        $('#edge-info').text('Error message: This edge already exists.');
+        $('#edge-info').addClass('red');   
+        console.log("Already exists");
+    } else {
+        $('#edge-info').removeClass('red');
+        $('#edge-info').text('Add edges by clicking on source and target node.');
+
+        var newEdge = cy.add(edge);
+        addEdge(newEdge, source, target);
+        // Update labels
+        if (source.data('type') == DftTypes.VOT) {
+            setLabelNode(sourceNode);
+        }
+        return newEdge;
+    }
 }
 
 // Remove edge from graph and update indices.
@@ -194,6 +285,10 @@ function removeEdge(edge) {
     // Remove index entry in node
     children.splice(edgeIndex, 1);
     sourceNode.data('children', children);
+    // Update labels
+    if (sourceNode.data('type') == DftTypes.VOT) {
+        setLabelNode(sourceNode);
+    }
     // Update indices of all other edges
     var edges = sourceNode.connectedEdges();
     edges.forEach(function( edgeUpdate ){
@@ -202,7 +297,57 @@ function removeEdge(edge) {
             edgeUpdate.data('index', index-1);
         }
     });
+
+    // Update repairable
+    checkRepairable(sourceNode);
+    propagateUp(sourceNode, checkRepairable);
+
     edge.remove();
+}
+
+// Check for repairable child
+function checkRepairable(node) {
+    var children = node.data('children');
+    var check = false;
+    for (var i = 0; i < children.length; i++) {
+        if (cy.getElementById(children[i]).data('repairable')) {
+            check = true;
+            break;
+        }
+    }
+    if (!check) {
+        node.data('repairable', false);
+    } else node.data('repairable', true);
+}
+
+/*
+ *  Propagate through top of node 
+ *  @param node. Startnode.
+ *  @param func. Function in which each upper node is inserted as input.     
+ */
+
+function propagateUp(node, func) {
+    var parents = node.incomers('node');
+    if (parents.length > 0) {
+        for (var i = 0; i < parents.length; i++) {
+            if (node .data('id') != parents[i].data('id')) {
+                func(parents[i]);
+            }
+            propagateUp(parents[i]);
+        }
+    }
+}
+
+function propagateDown(node, func) {
+    var children = node.outgoers('node');
+    if (children.length > 0) {
+        for (var i = 0; i < children.length; i++) {
+            if (node.data('id') != children[i].data('id')) {
+                func(children[i]);
+            }
+            propagateDown(children[i]);
+        }
+    }
 }
 
 // Set element as toplevel element.
@@ -210,13 +355,35 @@ function setToplevelId(node) {
     topLevelId = node.data('id');
 }
 
+// Lock position of specific node 
+function lockNode(node) {
+    node.lock();
+}
+
+// Unlock position of specific node 
+function unlockNode(node) {
+    node.unlock();
+}
+
+function lockAll() {
+    cy.nodes().forEach(function(node) {
+        lockNode(node);
+    });
+}
+
+function unlockAll() {
+    cy.nodes().forEach(function(node) {
+        unlockNode(node);
+    });
+}
+
 // Create subtree for block.
-function createBlock(name, posX, posY) {
+function createBlock2(name, posX, posY) {
     // Create nodes
     var orBlockElement = createGate(DftTypes.OR, name, posX, posY);
     var compoundNode = createCompoundNode(orBlockElement);
     var orBlock = createNode(orBlockElement, compoundNode);
-    var nodeInternal = createNode(createBe(name + " internal", "r" + name + "Int", 1.0, posX-150, posY+100), compoundNode);
+    var nodeInternal = createNode(createBe(name + " internal", "r" + name + "Int", 0.0, 1.0, posX-150, posY+100), compoundNode);
     var orWrongNominal = createNode(createGate(DftTypes.OR, name + " wrong Nominal Value", posX, posY+100), compoundNode);
     var orWrongPotential = createNode(createGate(DftTypes.OR, name + " wrong Potential", posX+150, posY+100), compoundNode);
     var orHW = createNode(createGate(DftTypes.OR, "HW-"+ name, posX, posY+600))
@@ -236,11 +403,11 @@ function createCoveredFailure(faultName, rate, coverage, safetyRate, posX, posY)
     var orFaultElement = createGate(DftTypes.OR, faultName, posX, posY);
     var compoundNode = createCompoundNode(orFaultElement);
     var orFault = createNode(orFaultElement, compoundNode);
-    var nodeFaultNotCovered = createNode(createBe(faultName + "NotCov", rate * (1-coverage), 1.0, posX-75, posY+100), compoundNode);
+    var nodeFaultNotCovered = createNode(createBe(faultName + "NotCov", rate * (1-coverage), 0.0, 1.0, posX-75, posY+100), compoundNode);
     var andNotDetected = createNode(createGate(DftTypes.AND, faultName + "NotDet", posX+75, posY+100), compoundNode);
     var seqCovered = createNode(createGate(DftTypes.SEQ, "seq" + faultName, posX+150, posY+100), compoundNode);
-    var nodeSafety = createNode(createBe(faultName + "SafeMech", safetyRate, 1.0, posX+50, posY+200), compoundNode);
-    var nodeFaultCovered = createNode(createBe(faultName + "Cov", rate * coverage, 1.0, posX+150, posY+200), compoundNode);
+    var nodeSafety = createNode(createBe(faultName + "SafeMech", safetyRate, 0.0, 1.0, posX+50, posY+200), compoundNode);
+    var nodeFaultCovered = createNode(createBe(faultName + "Cov", rate * coverage, 0.0, 1.0, posX+150, posY+200), compoundNode);
 
     // Create edges.
    createEdge(orFault, nodeFaultNotCovered);
@@ -249,4 +416,25 @@ function createCoveredFailure(faultName, rate, coverage, safetyRate, posX, posY)
    createEdge(andNotDetected, nodeFaultCovered);
    createEdge(seqCovered, nodeSafety);
    createEdge(seqCovered, nodeFaultCovered);
+}
+
+// Create subtree for block.
+function createBlock(name, posX, posY) {
+    // Create nodes
+    var A_el = createGate(DftTypes.AND, name, posX, posY);
+    var AA = createCompoundNode(A_el);
+    var A = createNode(A_el, AA);
+    var c = createNode(createBe('c', 1.0, 0.0, 1.0, posX-150, posY+150), AA);
+
+    var B_el = createGate(DftTypes.AND, 'B', posX+150,posY+150);
+    var BB = createNestedCompound(B_el, AA);
+    var B = createNode(B_el, BB);
+    var d = createNode(createBe('d', 1, 1, 1, posX+50, posY+350), BB);
+    var e = createNode(createBe('e', 1, 1, 1, posX+250, posY+350), BB);
+
+    // Create Edges
+    createEdge(A, c);
+    createEdge(A, B);
+    createEdge(B, d);
+    createEdge(B, e);
 }
