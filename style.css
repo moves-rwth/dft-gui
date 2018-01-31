@@ -503,6 +503,10 @@ label.error {
     background-image: url(img/Buttons/vot_press.png);
 }
 
+#mutex-button {
+    cursor: pointer;
+}
+
 #pand-button {
     width: 92px;
     height: 38px;
