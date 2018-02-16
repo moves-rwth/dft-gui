@@ -446,22 +446,3 @@ function createBlock(name, posX, posY) {
     createEdge(B, d);
     createEdge(B, e);
 }
-
-// Create Mutexblock
-function createMutex(posX, posY) {
-    var comp = createCompoundNode
-
-    var seqEl = createGate(DftTypes.SEQ, '', posX, posY);
-    var comp = createCompoundNode(seqEl);
-    var seq = createNode(seqEl, comp);
-    var bottom = createNode(createBot('', posX-85, posY+95), comp);
-    var and = createNode(createGate(DftTypes.AND, '', posX+65, posY+100), comp);
-    var be1 = createNode(createBe('', 0, 0, 1, posX+30, posY+225), comp);
-    var be2 = createNode(createBe('', 0, 0, 1, posX+110, posY+225), comp);
-
-    createEdge(seq, bottom);
-    createEdge(seq, and);
-    createEdge(and, be1);
-    createEdge(and, be2);
-
-}

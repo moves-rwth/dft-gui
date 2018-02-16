@@ -808,8 +808,3 @@ function contain(array, element) {
     return false;
 }
 
-
-// Mutex
-$('#mutex-button').on('click', function() {
-    createMutex(cy.width()/2, cy.height()/2);
-});
