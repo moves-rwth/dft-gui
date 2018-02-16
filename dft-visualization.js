@@ -89,6 +89,8 @@ function setLabelNode(node) {
         } else {
             node.data('label', elemName + ' (\u03BB: ' + rate + ')');
         }
+    } else if (node.data('type') == DftTypes.BOT) {
+        node.data('label', elemName);
     } else if (node.data('type') == DftTypes.COMPOUND) {
         node.data('label', elemName);
     } else if (node.data('type') == DftTypes.VOT) {
@@ -411,6 +413,14 @@ var cy = cytoscape({
                 'height': 42,
                 'width': 42,
                 'background-image': 'img/beInv.png'            
+            }
+        },
+        {
+            selector: 'node.bot',
+            css: {
+                'height': 42,
+                'width': 42,
+                'background-image': 'img/bot.png'
             }
         },
         {

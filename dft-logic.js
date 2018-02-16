@@ -13,6 +13,7 @@ var DftTypes = Object.freeze({
     SPARE:  'spare',
     SEQ:    'seq',
     COMPOUND: 'compound',
+    BOT:    'bot', 
 });
 
 // Currently highest used id.
@@ -37,7 +38,7 @@ function importDftFromJson(json) {
         addName(node.data('name'));
         node.addClass(node.data('type'));
 
-        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND) {
+        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND && node.data('type') != DftTypes.BOT) {
             // Add edges for gates
             var sourceId = node.data('id');
             var children = node.data('children');
@@ -81,6 +82,7 @@ function exportDftToJSON() {
 // Create the general information of a new element.
 function createGeneralElement(dftType, name, posX, posY) {
     currentId += 1;
+    if (name == '') name = dftType + '_' + currentId;
     var newElement = {
         group: 'nodes',
         data: {
@@ -149,6 +151,12 @@ function createBe(name, rate, repair, dorm, posX, posY) {
         newElement.data.repairable = true;
     }
     newElement.data.dorm = dorm;
+    return newElement;
+}
+
+// Create a new BOT.
+function createBot(name, posX, posY) {
+    var newElement = createGeneralElement(DftTypes.BOT, name, posX, posY);
     return newElement;
 }
 
@@ -437,4 +445,23 @@ function createBlock(name, posX, posY) {
     createEdge(A, B);
     createEdge(B, d);
     createEdge(B, e);
+}
+
+// Create Mutexblock
+function createMutex(posX, posY) {
+    var comp = createCompoundNode
+
+    var seqEl = createGate(DftTypes.SEQ, '', posX, posY);
+    var comp = createCompoundNode(seqEl);
+    var seq = createNode(seqEl, comp);
+    var bottom = createNode(createBot('', posX-85, posY+95), comp);
+    var and = createNode(createGate(DftTypes.AND, '', posX+65, posY+100), comp);
+    var be1 = createNode(createBe('', 0, 0, 1, posX+30, posY+225), comp);
+    var be2 = createNode(createBe('', 0, 0, 1, posX+110, posY+225), comp);
+
+    createEdge(seq, bottom);
+    createEdge(seq, and);
+    createEdge(and, be1);
+    createEdge(and, be2);
+
 }
