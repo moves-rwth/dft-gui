@@ -155,7 +155,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
         case DftTypes.PDEP: heightVal = 300; type = '-pdep'; break;
         default: heightVal = 225; type = '-gate';
     };
-    
+
     if (create) {
         $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').addClass('nonVis');
         $('#gateSwitch-vot, #gateSwitch-gate, #gateSwitch-pdep').removeClass('vis');
@@ -210,7 +210,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                     invalidNameReset();
                     if (type == '-gate') {
                         if (create) {
-                            addGate(posX, posY, dftType);                        
+                            addGate(posX, posY, dftType);
                         } else changeGate(elem);
                     } else if (type == '-pdep') {
                         if (create) {
@@ -250,7 +250,7 @@ function addBE(posX, posY) {
     var elemName = checkName($('#name-be').val(), 'DftTypes.be', false);
     var rate = checkValue($('#failure').val());
     var repair = checkValue($('#repair').val());
-    var dorm = checkValue($('#dormancy').val()); 
+    var dorm = checkValue($('#dormancy').val());
     $('#dialog-be').dialog('close');
     var newElement = createBe(elemName, rate, repair, dorm, posX, posY);
     createNode(newElement);
@@ -410,7 +410,7 @@ var cy = cytoscape({
             css: {
                 'height': 42,
                 'width': 42,
-                'background-image': 'img/beInv.png'            
+                'background-image': 'img/beInv.png'
             }
         },
         {
@@ -667,7 +667,7 @@ cy.contextMenus({
                 });
             }
         }
-    ]                            
+    ]
 });
 
 // Initialize edgehandles.
@@ -728,4 +728,3 @@ cy.expandCollapse({
 });
 
 
-        

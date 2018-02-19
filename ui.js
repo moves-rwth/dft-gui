@@ -16,7 +16,7 @@ var switched = false;
 // Name handling
 var usedNames = new Set();
 
-// Edge Adding 
+// Edge Adding
 var setEdges = false;
 var sourceNode = {};
 var targetNode = {};
@@ -58,7 +58,7 @@ $(function() {
     $('#spare-elem').draggable({revert: true, revertDuration: 1});
     $('#seq-elem').draggable({revert: true, revertDuration: 1});
 
-    // Search field 
+    // Search field
     $('#search-input').val("");
 
     // Tooltipps
@@ -103,9 +103,9 @@ $(function() {
     $('#edge-radio').checkboxradio('refresh');
 
     // Parents drop down menu
-    $('#info-parents').hover(    
+    $('#info-parents').hover(
         function() {
-            $('#hover_names').empty();        
+            $('#hover_names').empty();
             insertNamesToHover('parents');
         }
     );
@@ -193,7 +193,7 @@ $('#search-input').on('focus', function() {
         source: [...usedNames]
     });
 });
-    
+
 // Dragstop events
 $('#be-elem').on('dragstart', function(event, ui) {
     if (window.outerWidth < 1500) {
@@ -282,7 +282,7 @@ $('#pdep-elem').on('dragstop', function(event, ui) {
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
-}); 
+});
 $('#spare-elem').on('dragstart', function(event, ui) {
     if (window.outerWidth < 1500) {
         dragHelperStartDyn();
@@ -304,7 +304,7 @@ $('#seq-elem').on('dragstop', function(event, ui) {
     if (window.outerWidth < 1500) {
         dragHelperStopDyn();
     }
-}); 
+});
 
 function dragHelperStart() {
     $('.ui-tabs').css('overflow', 'visible');
@@ -399,7 +399,7 @@ $('#searchForElement').on('click', function() {
     } else {
         foundElements = [];
         counter = 0;
-        searchElement();        
+        searchElement();
     }
 });
 $('#search-input').on('input', function() {
@@ -561,8 +561,8 @@ function showElement(elem, type) {
     $('#hover_names').empty();
     $('#hover-div').slideUp('medium');
 }
-    // REGEXE    
-    var regName = /^[a-zA-Z]\w*$|^$/; 
+    // REGEXE
+    var regName = /^[a-zA-Z]\w*$|^$/;
     var regRate = /^'[a-zA-Z]+\w*'$|^\d*\.?\d*$|^$/;
     var regDorm = /^'[a-zA-Z]+\w*'$|^0?\.\d*$|^[01]$|^$|1\.0*/;
     var regThresh = /^[1-9]+[0-9]*$|^[1-9]+\d*\.[0]*$|^$/;
@@ -580,7 +580,7 @@ $('.switchHelp').keydown(function (e) {
                 invalidNameReset();
                 if (transferObjectEnter.type == '-gate') {
                 if (transferObjectEnter.create) {
-                        addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);                        
+                        addGate(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);
                     } else changeGate(transferObjectEnter.elem);
                 } else if (transferObjectEnter.type == '-pdep') {
                     if(transferObjectEnter.create) {
@@ -596,13 +596,13 @@ $('.switchHelp').keydown(function (e) {
                     } else changeVot(transferObjectEnter.elem);
                 } else {
                     alert("HERE");
-                }   
+                }
             }
         }
     }
 });
 
-// ValidationCheck 
+// ValidationCheck
 
 function validationCheck(type) {
     if (type == '-gate') {
@@ -642,7 +642,7 @@ function validationCheck(type) {
             if (removeName(input)) {
                 return false;
             } else alert('Name not found!');
-        } 
+        }
         if (!regDorm.test($('#dormancy').val())) {
             invalidName(false);
             if (removeName(input)) {
@@ -663,7 +663,7 @@ function validationCheck(type) {
             invalidName(false);
             if (removeName(input)) {
                 return false;
-            } else alert('Name not found!');           
+            } else alert('Name not found!');
         }
         if (!regRate.test($('#probability-pdep').val())) {
             invalidName(false);
@@ -671,7 +671,7 @@ function validationCheck(type) {
                 return false;
             } else alert('Name not found!');
         }
-        return true;   
+        return true;
     } else {
         var input = checkName($('#name-vot').val(), transferObjectEnter.dftType);
         var size = usedNames.size;
@@ -694,7 +694,7 @@ function validationCheck(type) {
             } else alert('Name not found!');
         }
         return true;
-    } 
+    }
 }
 
 function addName(name) {
@@ -728,7 +728,7 @@ function createParentStrings(node) {
     if(data.length > 0) {
         return data;
     } else return -1;
-}   
+}
 
 function createChildrenStrings(node) {
     var children = node.data('children');
@@ -750,7 +750,7 @@ function createChildrenStrings(node) {
         }
         return true;
     }
-    
+
     var checkbox = $('#edge-radio');
     checkbox.change(function(event) {
         var checkbox = event.target;
@@ -771,7 +771,7 @@ function createChildrenStrings(node) {
                 if (event.cyTarget.data('type') != DftTypes.BE) {
                     $('#edge-info').removeClass('red');
                     $('#edge-info').text('Add edges by clicking on source and target node.');
-                    sourceNode = event.cyTarget;                    
+                    sourceNode = event.cyTarget;
                 } else {
                     // BE first
                     $('#edge-info').text('Error message: No BEs as source!');

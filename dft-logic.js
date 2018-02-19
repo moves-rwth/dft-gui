@@ -95,7 +95,7 @@ function createGeneralElement(dftType, name, posX, posY) {
             y: posY
         }
     };
-    
+
     return newElement;
 }
 
@@ -115,7 +115,7 @@ function createGeneralElementSameId(dftType, name, posX, posY, currentId) {
             y: posY
         }
     };
-    
+
     return newElement;
 }
 
@@ -219,7 +219,7 @@ function getNewEdge(sourceNode, targetNode) {
     var edgeId = sourceId + 'e' + targetId;
     if (cy.edges("[id='" + edgeId + "']").length > 0) {
         edgeId = 'idInvalid';
-    } // Check for target source edges 
+    } // Check for target source edges
     else {
         var changedId = targetId + 'e' + sourceId;
         if (cy. edges("[id='" + changedId + "']").length > 0) {
@@ -256,7 +256,7 @@ function createEdge(source, target) {
     // Check if edge is valid
     if (edge.data['id'] == 'idInvalid') {
         $('#edge-info').text('Error message: This edge already exists.');
-        $('#edge-info').addClass('red');   
+        $('#edge-info').addClass('red');
         console.log("Already exists");
     } else {
         $('#edge-info').removeClass('red');
@@ -321,9 +321,9 @@ function checkRepairable(node) {
 }
 
 /*
- *  Propagate through top of node 
+ *  Propagate through top of node
  *  @param node. Startnode.
- *  @param func. Function in which each upper node is inserted as input.     
+ *  @param func. Function in which each upper node is inserted as input.
  */
 
 function propagateUp(node, func) {
@@ -355,12 +355,12 @@ function setToplevelId(node) {
     topLevelId = node.data('id');
 }
 
-// Lock position of specific node 
+// Lock position of specific node
 function lockNode(node) {
     node.lock();
 }
 
-// Unlock position of specific node 
+// Unlock position of specific node
 function unlockNode(node) {
     node.unlock();
 }
