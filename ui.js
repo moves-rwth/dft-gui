@@ -1,9 +1,7 @@
-// DEVELOPER MODE
-var DEVELOPER = true;
 
 // Set max/min zoomlevel
 cy.maxZoom(3);
-cy.minZoom(0.7);
+cy.minZoom(0.4);
 
 // Information Array
 var actualElement;
@@ -40,12 +38,12 @@ function toggleOptionBar() {
 
 
 $(function() {
-    if (DEVELOPER) {
-            $('#cy').toggleClass('not-Clicked');
-            $('#cy').toggleClass('clicked');
+    // Initialize option bar
+    $('#cy').toggleClass('not-Clicked');
+    $('#cy').toggleClass('clicked');
 
-            toggleOptionBar();
-    }
+    toggleOptionBar();
+
     $('#tabs').tabs();
     $('#be-elem').draggable({revert: true, revertDuration: 1});
     $('#and-elem').draggable({revert: true, revertDuration: 1});
@@ -324,10 +322,21 @@ function dragHelperStopDyn() {
 }
 
 window.onresize = function(event) {
-    if (window.outerWidth > 1500) {
+    if (window.outerWidth > 1765) {
         $('.ui-tabs').css('overflow', 'visible');
     } else $('.ui-tabs').css('overflow', 'scroll');
+
+    // 1280 * 720
+    if (window.outerWidth < 1300) {
+        $('.ui-tabs').css('overflow', 'visible');
+    }
+
+    if (window.outerWidth < 1200) {
+        $('.ui-tabs').css('overflow', 'scroll');
+    }
 }
+
+
 
 // ADD Buttons
 

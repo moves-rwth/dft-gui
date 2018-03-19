@@ -1,5 +1,8 @@
 // Cytoscape graph visualization.
 
+// DEVELOPER MODE
+const DEVELOPER = true;
+
 // Load graph.
 $("#load-graph").click(function() {
     if (typeof window.FileReader !== 'function') {
@@ -538,147 +541,291 @@ var cy = cytoscape({
 });
 
 // Initialize context menu
-cy.contextMenus({
-    menuItems: [
-        {
-            id: 'change',
-            title: 'change element',
-            selector: 'node[type != "compound"]',
-            onClickFunction: function (event) {
-                var el = {
-                    x: event.cyTarget.position('x'),
-                    y: event.cyTarget.position('y'),
-                    type: event.cyTarget.data('type'),
-                    create: false,
-                    elem: event.cyTarget
-                };
-                // Insert actual values
-                if (el.type == 'be') {
-                    $('#name-be').val(el.elem.data('name'));
-                    $('#failure').val(el.elem.data('rate'));
-                    $('#repair').val(el.elem.data('repair'));
-                    $('#dormancy').val(el.elem.data('dorm'));
-                } else if (el.type == 'vot') {
-                    $('#name-vot').val(el.elem.data('name'));
-                    $('#threshold').val(el.elem.data('voting'));
-                } else if (el.type == 'pdep') {
-                    $('#name-pdep').val(el.elem.data('name'));
-                    $('#probability-pdep').val(el.elem.data('probability'));
-                } else {
-                    $('#name-gate').val(el.elem.data('name'));
+
+if (DEVELOPER) {
+    cy.contextMenus({
+        menuItems: [
+            {
+                id: 'change',
+                title: 'change element',
+                selector: 'node[type != "compound"]',
+                onClickFunction: function (event) {
+                    var el = {
+                        x: event.cyTarget.position('x'),
+                        y: event.cyTarget.position('y'),
+                        type: event.cyTarget.data('type'),
+                        create: false,
+                        elem: event.cyTarget
+                    };
+                    // Insert actual values
+                    if (el.type == 'be') {
+                        $('#name-be').val(el.elem.data('name'));
+                        $('#failure').val(el.elem.data('rate'));
+                        $('#repair').val(el.elem.data('repair'));
+                        $('#dormancy').val(el.elem.data('dorm'));
+                    } else if (el.type == 'vot') {
+                        $('#name-vot').val(el.elem.data('name'));
+                        $('#threshold').val(el.elem.data('voting'));
+                    } else if (el.type == 'pdep') {
+                        $('#name-pdep').val(el.elem.data('name'));
+                        $('#probability-pdep').val(el.elem.data('probability'));
+                    } else {
+                        $('#name-gate').val(el.elem.data('name'));
+                    }
+                    openDialog(el.x, el.y, el.type, el.create, el.elem);
+                },
+            },
+            {
+                id: 'toplevel',
+                title: 'set as toplevel',
+                selector: 'node[type != "compound"]',
+                onClickFunction: function (event) {
+                    setToplevel(event.cyTarget);
                 }
-                openDialog(el.x, el.y, el.type, el.create, el.elem);
             },
-        },
-        {
-            id: 'toplevel',
-            title: 'set as toplevel',
-            selector: 'node[type != "compound"]',
-            onClickFunction: function (event) {
-                setToplevel(event.cyTarget);
-            }
-        },
-        {
-            id: 'lockNode',
-            title: 'lock node',
-            selector: 'node:unlocked',
-            onClickFunction: function (event) {
-                lockNode(event.cyTarget);
+            {
+                id: 'lockNode',
+                title: 'lock node',
+                selector: 'node:unlocked',
+                onClickFunction: function (event) {
+                    lockNode(event.cyTarget);
+                },
             },
-        },
-        {
-            id: 'unlockNode',
-            title: 'unlock node',
-            selector: 'node:locked',
-            onClickFunction: function (event) {
-                unlockNode(event.cyTarget);
+            {
+                id: 'unlockNode',
+                title: 'unlock node',
+                selector: 'node:locked',
+                onClickFunction: function (event) {
+                    unlockNode(event.cyTarget);
+                },
             },
-        },
-        {
-            id: 'collapse',
-            title: 'collapse element',
-            selector: 'node[type != "compound"][type != "be"]',
-            onClickFunction: function (event) {
-                newCompoundMove(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'removeCompound',
-            title: 'remove compound',
-            selector: '[expanded-collapsed="expanded"]',
-            onClickFunction: function (event) {
-                removeCompound(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'log',
-            title: 'show in console',
-            selector: 'node',
-            onClickFunction: function (event) {
-                console.log(event.cyTarget);
-            },
-        },
-        {
-            id: 'id',
-            title: 'show id',
-            selector: 'node',
-            onClickFunction: function (event) {
-                alert(event.cyTarget.id());
-                var children = event.cyTarget.data('children');
-                console.log(children);
-                console.log(event.cyTarget.position());
-            }
-        },
-        {
-            id: 'removeNode',
-            title: 'remove',
-            selector: 'node',
-            onClickFunction: function (event) {
-                removeNode(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'removeEdge',
-            title: 'remove',
-            selector: 'edge',
-            onClickFunction: function (event) {
-                removeEdge(event.cyTarget);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'add-covered-failure',
-            title: 'add covered fault',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                createBlock('A', 500, 500);
-            },
-            hasTrailingDivider: true
-        },
-        {
-            id: 'layout-bfs',
-            title: 'layout via BFS',
-            coreAsWell: true,
-            onClickFunction: function (event) {
-                var root = undefined;
-                if (topLevelId >= 0) {
-                    root = cy.getElementById(topLevelId);
+            {
+                id: 'copyPaste',
+                title: 'clone elements',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    copyPaste(event.cyTarget);
                 }
-                cy.layout({
-                    name: 'breadthfirst',
-                    directed: true,
-                    padding: 10,
-                    roots: root,
-                    avoidOverlap: true,
-                    fit: true,
-                });
+            },
+            {
+                id: 'collapse',
+                title: 'collapse element',
+                selector: 'node[type != "compound"][type != "be"]',
+                onClickFunction: function (event) {
+                    newCompoundMove(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'removeCompound',
+                title: 'remove compound',
+                selector: '[expanded-collapsed="expanded"]',
+                onClickFunction: function (event) {
+                    removeCompound(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'log',
+                title: 'show in console',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    console.log(event.cyTarget);
+                },
+            },
+            {
+                id: 'id',
+                title: 'show id',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    alert(event.cyTarget.id());
+                    var children = event.cyTarget.data('children');
+                    console.log(children);
+                    console.log(event.cyTarget.position());
+                }
+            },
+            {
+                id: 'removeNode',
+                title: 'remove',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    removeNode(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'removeEdge',
+                title: 'remove',
+                selector: 'edge',
+                onClickFunction: function (event) {
+                    removeEdge(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'add-covered-failure',
+                title: 'add covered fault',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    createBlock('A', 500, 500);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'layout-bfs',
+                title: 'layout via BFS',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var root = undefined;
+                    if (topLevelId >= 0) {
+                        root = cy.getElementById(topLevelId);
+                    }
+                    cy.layout({
+                        name: 'breadthfirst',
+                        directed: true,
+                        padding: 10,
+                        roots: root,
+                        avoidOverlap: true,
+                        fit: true,
+                    });
+                }
             }
-        }
-    ]                            
-});
+        ]                            
+    });
+} 
+// Normal mode
+else {
+    cy.contextMenus({
+        menuItems: [
+            {
+                id: 'change',
+                title: 'change element',
+                selector: 'node[type != "compound"]',
+                onClickFunction: function (event) {
+                    var el = {
+                        x: event.cyTarget.position('x'),
+                        y: event.cyTarget.position('y'),
+                        type: event.cyTarget.data('type'),
+                        create: false,
+                        elem: event.cyTarget
+                    };
+                    // Insert actual values
+                    if (el.type == 'be') {
+                        $('#name-be').val(el.elem.data('name'));
+                        $('#failure').val(el.elem.data('rate'));
+                        $('#repair').val(el.elem.data('repair'));
+                        $('#dormancy').val(el.elem.data('dorm'));
+                    } else if (el.type == 'vot') {
+                        $('#name-vot').val(el.elem.data('name'));
+                        $('#threshold').val(el.elem.data('voting'));
+                    } else if (el.type == 'pdep') {
+                        $('#name-pdep').val(el.elem.data('name'));
+                        $('#probability-pdep').val(el.elem.data('probability'));
+                    } else {
+                        $('#name-gate').val(el.elem.data('name'));
+                    }
+                    openDialog(el.x, el.y, el.type, el.create, el.elem);
+                },
+            },
+            {
+                id: 'toplevel',
+                title: 'set as toplevel',
+                selector: 'node[type != "compound"]',
+                onClickFunction: function (event) {
+                    setToplevel(event.cyTarget);
+                }
+            },
+            {
+                id: 'lockNode',
+                title: 'lock node',
+                selector: 'node:unlocked',
+                onClickFunction: function (event) {
+                    lockNode(event.cyTarget);
+                },
+            },
+            {
+                id: 'unlockNode',
+                title: 'unlock node',
+                selector: 'node:locked',
+                onClickFunction: function (event) {
+                    unlockNode(event.cyTarget);
+                },
+            },
+            {
+                id: 'copyPaste',
+                title: 'clone elements',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    copyPaste(event.cyTarget);
+                }
+            },
+            {
+                id: 'collapse',
+                title: 'collapse element',
+                selector: 'node[type != "compound"][type != "be"]',
+                onClickFunction: function (event) {
+                    newCompoundMove(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'removeCompound',
+                title: 'remove compound',
+                selector: '[expanded-collapsed="expanded"]',
+                onClickFunction: function (event) {
+                    removeCompound(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'removeNode',
+                title: 'remove',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    removeNode(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'removeEdge',
+                title: 'remove',
+                selector: 'edge',
+                onClickFunction: function (event) {
+                    removeEdge(event.cyTarget);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'add-covered-failure',
+                title: 'add covered fault',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    createBlock('A', 500, 500);
+                },
+                hasTrailingDivider: true
+            },
+            {
+                id: 'layout-bfs',
+                title: 'layout via BFS',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    var root = undefined;
+                    if (topLevelId >= 0) {
+                        root = cy.getElementById(topLevelId);
+                    }
+                    cy.layout({
+                        name: 'breadthfirst',
+                        directed: true,
+                        padding: 10,
+                        roots: root,
+                        avoidOverlap: true,
+                        fit: true,
+                    });
+                }
+            }
+        ]                            
+    });
+}
 
 // Initialize edgehandles.
 cy.edgehandles({
