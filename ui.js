@@ -446,7 +446,7 @@ function prepareResult(elem) {
     // Check type
     var type = elem.data('type');
 
-    if (type == 'be') {
+    if (type == 'be' || type == 'bot') {
 
         $('#info-data-be').removeClass('nonViss');
         $('#info-data-gate').addClass('nonViss');
@@ -456,7 +456,9 @@ function prepareResult(elem) {
 
         $('#info-pic-big').addClass('nonViss');
         $('#info-pic-small').removeClass('nonViss');
-        $('#info-pic-small-pic').attr('src', 'img/beInv.png');
+        if (type == 'be') {
+           $('#info-pic-small-pic').attr('src', 'img/beInv.png'); 
+       } else $('#info-pic-small-pic').attr('src', 'img/bot.png');
         $('#info-pic-small-text').text(type.toUpperCase());
 
     } else if (type == 'vot' || type == 'pand' || type == 'por' || type == 'or' || type == 'and' || type == 'seq') {
@@ -535,6 +537,10 @@ function showElement(elem, type) {
         $('#info-failure').text(elem.data('rate'));
         $('#info-repair').text(elem.data('repair'));
         $('#info-dormancy').text(elem.data('dorm'));
+    } else if (type == 'bot') {
+        $('#info-failure').text('-');
+        $('#info-repair').text('-');
+        $('#info-dormancy').text('-');        
     } else if (type == 'vot') {
         $('#info-threshold').text(elem.data('voting'));
     } else $('#info-threshold').text("-");

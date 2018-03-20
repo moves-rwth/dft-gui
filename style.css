@@ -332,6 +332,19 @@ label.error {
 #export-image:active {
     background-image: url(img/Buttons/export_press.png);
 }
+#search-input {
+    width: 70%;
+}
+#search-info {
+    display: inline-block;
+    width: 60%;
+}
+#search-field {
+    height: 105px;
+    width: 97%;
+    padding: 0 3px 3px 3px;
+    position: relative;
+}
 
 @media screen and (max-width: 1759px) {
     #load{
@@ -370,6 +383,52 @@ label.error {
         padding: 0;
         margin-right: 0;
         margin-left: -254px;
+    }
+    #load{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -150px;
+    }
+    #save{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -190px;
+    }
+    #lockElements{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -85px;
+    }
+    #search-info{
+        transform: scale(0.7);
+        width: 900px;
+        padding: 0;
+        margin: 0;
+    }
+    #search{
+        width: 200px;
+        margin: 0;
+        padding: 0;
+    }
+    #search-input{
+        width: 100px;
+        margin: 0;
+        padding: 0;
+    }
+    #info-data {
+        transform: scale(0.9);
+        float: left;
+        display: inline-block;
+        padding: 0;
+        margin-left: 1px;
+        height: 75px;
+        position: absolute;
     }
     
 }
@@ -605,9 +664,9 @@ label.error {
 }
 
 #locate {
-    position: absolute;
-    right: 4px;
-    bottom: 5px;
+    position: fixed;
+    right: 5px;
+    bottom: 4px;
     display: inline-block;
     height: 37.5px;
     width: 50px;
@@ -635,19 +694,7 @@ label.error {
 #searchError {
     padding-top: 10px;
 }
-#search-input {
-    width: 70%;
-}
-#search-info {
-    display: inline-block;
-    width: 60%;
-}
-#search-field {
-    height: 105px;
-    width: 97%;
-    padding: 0 3px 3px 3px;
-    position: relative;
-}
+
 #info-container {
     height: 75px;
     width: calc(100% - 10px);

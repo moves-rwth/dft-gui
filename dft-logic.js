@@ -167,6 +167,7 @@ function createNode(element, parent) {
     }
     var node = cy.add(element);
     setLabelNode(node);
+    addName(element.data.name);
     return node;
 }
 
