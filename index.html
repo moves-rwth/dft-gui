@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="infobox.css">
 
     <script src="libs/jquery.min.js"></script>
     <link rel="stylesheet" href="libs/jquery-ui.min.css">
@@ -27,9 +28,7 @@
     <div id="title-bar">
         <div id="option-icon"></div>
     </div>
-    <div id="title-fill">
-        
-    </div>
+    <div id="title-fill"></div>
     
 
 
@@ -296,12 +295,46 @@
             </ul>
     </div>
 
+
+    <div id="box">
+      <div id="close_info" class="close"></div>
+
+      <div id="pic"></div>
+
+      <div id="type">FDEP</div>
+
+      <div id="name-container" class="container">Name: <div id="name-info" class="information-Box"></div></div>
+      <div id="id-container" class="container">ID: <div id="element-id" class="information-Box"></div></div>
+      <div id="fail-container" class="container">Failure Rate: <div id="failure-rate" class="information-Box"></div></div>
+      <div id="repair-container" class="container">Repair Rate: <div id="repair-rate" class="information-Box"></div></div>
+      <div id="dorm-container" class="container">Dormancy: <div id="dorm-rate" class="information-Box"></div></div>
+      <div id="threshold-container" class="container">Threshold: <div id="threshold-value" class="information-Box"></div></div>
+      <div id="probability-container" class="container">Probability: <div id="probability-value" class="information-Box"></div></div>
+      <div id="repairable-container" class="container">Repairable: <div id="repairable-bool" class="information-Box"></div></div>
+      <div id="children-container" class="container">Children: <div id="childrens-count" class="information-Box"></div></div>
+      <div id="parent-container" class="container">Parents: <div id="parents-count" class="information-Box"></div></div>
+
+    </div>
+
+    <div id="scroll-menu">
+      <div id="close_switch" class="close"></div>
+      <div id="scroll-type">Children</div>
+
+      <div id="select-menu" class="custom-select">
+
+      </div>
+
+      <button id="switch-button">Switch</button>
+    </div>
+
+
     <script src="dft-logic.js"></script>
     <script src="dft-visualization.js"></script>
     <script src="ui.js"></script>
     <script src="compounds.js"></script>
     <script src="gateSwitch.js"></script>
     <script src="copy.js"></script>
+    <script src="infobox.js"></script>
 
 </body>
 </html>

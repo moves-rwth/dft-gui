@@ -7,6 +7,9 @@ cy.minZoom(0.4);
 var actualElement;
 var transferObjectEnter = {};
 
+// Information Box
+var infoboxElement;
+
 // Switch Elements
 var switchElem = {};
 var switched = false;
@@ -123,6 +126,30 @@ $(function() {
     $('#hover-div').on('mouseleave', function() {
         $('#hover_names').empty();
         $('#hover-div').slideUp('medium');
+    });
+
+    $('#box').draggable();
+    $('#scroll-menu').draggable();
+
+    $('#close_info').on('click', function() {
+        $('#box').css('display', 'none');
+    });
+    $('#close_switch').on('click', function() {
+        $('#scroll-menu').css('display', 'none');
+    });
+
+    $('#parent-container').on('click', function() {
+        if (infoboxElement.incomers('node').length > 0) {
+            prepareParents(infoboxElement);
+            $('#scroll-menu').css('display', 'block');
+        }
+    });
+
+    $('#children-container').on('click', function() {
+        if (infoboxElement.data('children').length > 0) {
+            prepareChildren(infoboxElement);
+            $('#scroll-menu').css('display', 'block');
+        }
     });
 });
 

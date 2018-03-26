@@ -257,7 +257,7 @@ function addEdge(edge, source, target) {
     if (target.data('repairable')) {
         source.data('repairable', true);
         propagateUp(source, checkRepairable);
-    }
+    } else checkRepairable(source);
 }
 
 function createEdge(source, target) {
@@ -337,12 +337,13 @@ function checkRepairable(node) {
 
 function propagateUp(node, func) {
     var parents = node.incomers('node');
+    console.log(parents);
     if (parents.length > 0) {
         for (var i = 0; i < parents.length; i++) {
-            if (node .data('id') != parents[i].data('id')) {
+            if (node.data('id') != parents[i].data('id')) {
                 func(parents[i]);
             }
-            propagateUp(parents[i]);
+            propagateUp(parents[i], func);
         }
     }
 }
@@ -354,7 +355,7 @@ function propagateDown(node, func) {
             if (node.data('id') != children[i].data('id')) {
                 func(children[i]);
             }
-            propagateDown(children[i]);
+            propagateDown(children[i], func);
         }
     }
 }

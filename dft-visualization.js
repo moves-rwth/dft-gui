@@ -215,7 +215,7 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                     invalidNameReset();
                     if (type == '-gate') {
                         if (create) {
-                            addGate(posX, posY, dftType);                        
+                            addGate(posX, posY, dftType); 
                         } else changeGate(elem);
                     } else if (type == '-pdep') {
                         if (create) {
@@ -231,6 +231,9 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                         } else changeVot(elem);
                     } else {
                         alert("HERE");
+                    }
+                    if (!create) {
+                        propagateUp(elem, checkRepairable);
                     }
                 }
             }
@@ -279,6 +282,9 @@ function changeBE(elem) {
     for (var i = 0; i < list.length; i++) {
         $('#' + list[i]).val('');
     }
+    if (elem.data('repair') > 0) {
+        elem.data('repairable', true);
+    } else elem.data('repairable', false);
 }
 
 function addVot(posX, posY) {
@@ -584,6 +590,15 @@ if (DEVELOPER) {
                 }
             },
             {
+                id: 'information',
+                title: 'show info',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    infoboxElement = event.cyTarget;
+                    fillInfoBox(event.cyTarget);
+                }
+            },
+            {
                 id: 'lockNode',
                 title: 'lock node',
                 selector: 'node:unlocked',
@@ -733,6 +748,14 @@ else {
                 selector: 'node[type != "compound"]',
                 onClickFunction: function (event) {
                     setToplevel(event.cyTarget);
+                }
+            },
+            {
+                id: 'information',
+                title: 'show info',
+                selector: 'node',
+                onClickFunction: function (event) {
+                    fillInfoBox(event.cyTarget);
                 }
             },
             {
