@@ -594,7 +594,6 @@ if (DEVELOPER) {
                 title: 'show info',
                 selector: 'node',
                 onClickFunction: function (event) {
-                    infoboxElement = event.cyTarget;
                     fillInfoBox(event.cyTarget);
                 }
             },

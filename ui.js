@@ -133,6 +133,7 @@ $(function() {
 
     $('#close_info').on('click', function() {
         $('#box').css('display', 'none');
+        $('#scroll-menu').css('display', 'none');
     });
     $('#close_switch').on('click', function() {
         $('#scroll-menu').css('display', 'none');
@@ -151,6 +152,13 @@ $(function() {
             $('#scroll-menu').css('display', 'block');
         }
     });
+
+    $('#switch-button').on('click', function() {
+        fillInfoBox(cy.getElementById($('#selectMenu').val()));
+        $('#scroll-menu').css('display', 'none');
+    });
+
+
 });
 
 function insertNamesToHover(type) {

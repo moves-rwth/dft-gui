@@ -33,17 +33,17 @@
 	background-repeat: no-repeat;
 }
 
-#type{
-	width: 70px;
+#name-div{
+	width: 200px;
 	height: 20px;
 	position: absolute;
 	top: 70px;
-	left: 77.5px;
+	left: 12.5px;
 	text-align: center;
 	font-weight: bolder;
 }
 
-#name-container{
+#type-container{
 	top: calc(var(--top_var) + 65px);
 }
 #id-container{
@@ -123,6 +123,7 @@
 	left: 12.5px;
 	text-align: left;
 	padding-left: 2px;
+	padding-top: 2px;
 	margin: 0;
 	position: absolute;
 	border-style: outset;
@@ -131,6 +132,7 @@
 	border-top-color: white;
 	font-weight: bold;
 	display: block;
+	font-size: 14px;
 }
 .information-Box{
 	padding-left: 2px;
