@@ -25,7 +25,7 @@ function fillInfoBox(element) {
 		$('#pic').css('left', '90px');
 		document.getElementById('name-div').innerHTML = element.data('name');
 
-	} else {
+	} else if (type != DftTypes.BOT && type != DftTypes.BE) {
 		document.getElementById('failure-rate').innerHTML = '-';
 		document.getElementById('repair-rate').innerHTML = '-';
 		document.getElementById('dorm-rate').innerHTML = '-';
@@ -61,7 +61,7 @@ function fillInfoBox(element) {
 
 	if (type == DftTypes.BOT) {
 		document.getElementById('childrens-count').innerHTML = '-';
-		document.getElementById('parents-count').innerHTML = '-';
+		document.getElementById('parents-count').innerHTML = element.incomers('node').length;
 
 		// Name and Pic
 		$('#pic').css('background-image', 'url("img/bot.png")');

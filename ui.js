@@ -441,8 +441,6 @@ $('#searchForElement').on('click', function() {
         $('#searchError').animate({paddingLeft: '+=10'}, 'fast');
         $('#searchError').animate({paddingLeft: '-=10'}, 'slow');
     } else {
-        foundElements = [];
-        counter = 0;
         searchElement();        
     }
 });
@@ -467,7 +465,9 @@ function searchElement() {
         // Found some
         eles.forEach( function(ele) {
             $('#search-input').val("");
+            console.log(ele);
             prepareResult(ele);
+            fillInfoBox(ele);
         });
     }
 }

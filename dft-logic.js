@@ -173,7 +173,7 @@ function createNode(element, parent) {
 
 // Create a new compound for a given gate.
 function createCompoundNode(gate) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name + '_comp', gate.position.x, gate.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
     element.data.compound = gate.data.id;
     element.data["expanded-collapsed"] = 'expanded';
@@ -182,7 +182,7 @@ function createCompoundNode(gate) {
 
 // Create a new compound with existing gate
 function createCompoundNodeMove(gate) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name + '_comp', gate._private.position.x, gate._private.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
     element.data.compound = gate._private.data.id;
     element.data["expanded-collapsed"] = 'expanded';
@@ -191,7 +191,7 @@ function createCompoundNodeMove(gate) {
 
 // Create nested compound for a given gate.
 function createNestedCompound(gate, parent) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name + '_comp', gate.position.x, gate.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
     element.data.compound = gate.data.id;
     element.data["expanded-collapsed"] = 'expanded';
