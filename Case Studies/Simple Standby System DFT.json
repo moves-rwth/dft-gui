@@ -1,0 +1,243 @@
+{
+    "toplevel": "0",
+    "parameters": {},
+    "nodes": [
+        {
+            "data": {
+                "id": "0",
+                "name": "SF",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "1",
+                    "3"
+                ],
+                "label": "SF"
+            },
+            "position": {
+                "x": 897,
+                "y": 108
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and toplevel"
+        },
+        {
+            "data": {
+                "id": "1",
+                "name": "OmP",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "6",
+                    "9"
+                ],
+                "label": "OmP"
+            },
+            "position": {
+                "x": 788.4888573182824,
+                "y": 809.2660036839302
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "2",
+                "name": "IF",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "5",
+                    "7"
+                ],
+                "label": "IF"
+            },
+            "position": {
+                "x": 938,
+                "y": 323
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "3",
+                "name": "OmS",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "2",
+                    "4",
+                    "9"
+                ],
+                "label": "OmS"
+            },
+            "position": {
+                "x": 1144,
+                "y": 193
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "4",
+                "name": "Om",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "8",
+                    "1"
+                ],
+                "label": "Om"
+            },
+            "position": {
+                "x": 1082,
+                "y": 324
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "5",
+                "name": "ST",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "1",
+                    "8"
+                ],
+                "label": "ST"
+            },
+            "position": {
+                "x": 896,
+                "y": 449
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "6",
+                "name": "PFail",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "PFail (λ: 0)"
+            },
+            "position": {
+                "x": 773.0445707268705,
+                "y": 998.3982951872491
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "7",
+                "name": "SFail",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "SFail (λ: 0)"
+            },
+            "position": {
+                "x": 966,
+                "y": 443
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "8",
+                "name": "SensFail",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "SensFail (λ: 0)"
+            },
+            "position": {
+                "x": 1020,
+                "y": 709
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "9",
+                "name": "NoInput",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "NoInput (λ: 0)"
+            },
+            "position": {
+                "x": 1139.6225694988937,
+                "y": 1004.9985793227077
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": true,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        }
+    ]
+}

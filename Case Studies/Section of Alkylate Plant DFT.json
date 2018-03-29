@@ -5,20 +5,18 @@
         {
             "data": {
                 "id": "0",
-                "name": "HECS",
-                "type": "or",
+                "name": "TE",
+                "type": "pand",
                 "repairable": false,
                 "children": [
-                    "2",
-                    "3",
-                    "4",
-                    "1"
+                    "1",
+                    "2"
                 ],
-                "label": "HECS"
+                "label": "TE"
             },
             "position": {
-                "x": 925,
-                "y": 245
+                "x": 871,
+                "y": 158
             },
             "group": "nodes",
             "removed": false,
@@ -26,23 +24,144 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "or toplevel"
+            "classes": "pand toplevel"
         },
         {
             "data": {
                 "id": "1",
-                "name": "PSF",
+                "name": "IE2",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "3",
+                    "12"
+                ],
+                "label": "IE2"
+            },
+            "position": {
+                "x": 745,
+                "y": 296
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "2",
+                "name": "IE1",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "4",
+                    "5"
+                ],
+                "label": "IE1"
+            },
+            "position": {
+                "x": 1001,
+                "y": 300
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "3",
+                "name": "BE2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE2 (λ: 0)"
+            },
+            "position": {
+                "x": 802,
+                "y": 422
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "4",
+                "name": "IE3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "6",
+                    "7"
+                ],
+                "label": "IE3"
+            },
+            "position": {
+                "x": 890,
+                "y": 428
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "5",
+                "name": "IE4",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "8",
+                    "9",
+                    "10",
+                    "11"
+                ],
+                "label": "IE4"
+            },
+            "position": {
+                "x": 1195,
+                "y": 422
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "6",
+                "name": "IE9",
                 "type": "and",
                 "repairable": false,
                 "children": [
-                    "5",
-                    "6"
+                    "13",
+                    "14"
                 ],
-                "label": "PSF"
+                "label": "IE9"
             },
             "position": {
-                "x": 572.3163976449501,
-                "y": 392.7536681265336
+                "x": 825,
+                "y": 572
             },
             "group": "nodes",
             "removed": false,
@@ -54,142 +173,18 @@
         },
         {
             "data": {
-                "id": "2",
-                "name": "IF",
-                "type": "or",
-                "repairable": false,
-                "children": [
-                    "7",
-                    "8"
-                ],
-                "label": "IF"
-            },
-            "position": {
-                "x": 837.5690765005814,
-                "y": 402.3563615566209
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "or"
-        },
-        {
-            "data": {
-                "id": "3",
-                "name": "BSF",
-                "type": "or",
-                "repairable": false,
-                "children": [
-                    "9",
-                    "10"
-                ],
-                "label": "BSF"
-            },
-            "position": {
-                "x": 1014.7521981365253,
-                "y": 401.29628225681927
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "or"
-        },
-        {
-            "data": {
-                "id": "4",
-                "name": "MSF",
-                "type": "vot",
-                "repairable": false,
-                "children": [
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15"
-                ],
-                "voting": "3",
-                "label": "MSF (3/5)"
-            },
-            "position": {
-                "x": 1254.8066879209532,
-                "y": 398.56260204569674
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "vot"
-        },
-        {
-            "data": {
-                "id": "5",
-                "name": "P1",
-                "type": "spare",
-                "repairable": false,
-                "children": [
-                    "16",
-                    "18"
-                ],
-                "label": "P1"
-            },
-            "position": {
-                "x": 492.14680534192195,
-                "y": 566.2711527012247
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "spare"
-        },
-        {
-            "data": {
-                "id": "6",
-                "name": "P2",
-                "type": "spare",
-                "repairable": false,
-                "children": [
-                    "17",
-                    "18"
-                ],
-                "label": "P2"
-            },
-            "position": {
-                "x": 652.3182667709827,
-                "y": 565.8953126310369
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "spare"
-        },
-        {
-            "data": {
                 "id": "7",
-                "name": "HW",
+                "name": "BE3",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00005",
-                "repair": "0",
-                "dorm": "0",
-                "label": "HW (λ: 0.00005)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE3 (λ: 0)"
             },
             "position": {
-                "x": 754.738654179866,
-                "y": 530.2792946499487
+                "x": 926,
+                "y": 577
             },
             "group": "nodes",
             "removed": false,
@@ -202,17 +197,18 @@
         {
             "data": {
                 "id": "8",
-                "name": "SW",
-                "type": "be",
+                "name": "IE5",
+                "type": "or",
                 "repairable": false,
-                "rate": "0.03",
-                "repair": "0",
-                "dorm": "0",
-                "label": "SW (λ: 0.03)"
+                "children": [
+                    "12",
+                    "15"
+                ],
+                "label": "IE5"
             },
             "position": {
-                "x": 882.2182377800232,
-                "y": 562.9110200047232
+                "x": 1039,
+                "y": 576
             },
             "group": "nodes",
             "removed": false,
@@ -220,22 +216,23 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "be"
+            "classes": "or"
         },
         {
             "data": {
                 "id": "9",
-                "name": "BUS1",
-                "type": "be",
+                "name": "IE6",
+                "type": "or",
                 "repairable": false,
-                "rate": "0.000001",
-                "repair": "0",
-                "dorm": "0",
-                "label": "BUS1 (λ: 0.000001)"
+                "children": [
+                    "16",
+                    "17"
+                ],
+                "label": "IE6"
             },
             "position": {
-                "x": 974.065483913864,
-                "y": 540.2673704127151
+                "x": 1164,
+                "y": 569
             },
             "group": "nodes",
             "removed": false,
@@ -243,22 +240,23 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "be"
+            "classes": "or"
         },
         {
             "data": {
                 "id": "10",
-                "name": "BUS2",
-                "type": "be",
+                "name": "IE7",
+                "type": "or",
                 "repairable": false,
-                "rate": "0.000001",
-                "repair": "0",
-                "dorm": "0",
-                "label": "BUS2 (λ: 0.000001)"
+                "children": [
+                    "18",
+                    "19"
+                ],
+                "label": "IE7"
             },
             "position": {
-                "x": 1069.8346608602867,
-                "y": 562.1302014092946
+                "x": 1305,
+                "y": 569
             },
             "group": "nodes",
             "removed": false,
@@ -266,22 +264,23 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "be"
+            "classes": "or"
         },
         {
             "data": {
                 "id": "11",
-                "name": "M1",
-                "type": "be",
+                "name": "IE8",
+                "type": "spare",
                 "repairable": false,
-                "rate": "0.00006",
-                "repair": "0",
-                "dorm": "0",
-                "label": "M1 (λ: 0.00006)"
+                "children": [
+                    "20",
+                    "21"
+                ],
+                "label": "IE8"
             },
             "position": {
-                "x": 1037.9112541878092,
-                "y": 675.7787481907039
+                "x": 1457,
+                "y": 565
             },
             "group": "nodes",
             "removed": false,
@@ -289,22 +288,22 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "be"
+            "classes": "spare"
         },
         {
             "data": {
                 "id": "12",
-                "name": "M2",
+                "name": "BE1",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00006",
-                "repair": "0",
-                "dorm": "0",
-                "label": "M2 (λ: 0.00006)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE1 (λ: 0)"
             },
             "position": {
-                "x": 1152.1863630098553,
-                "y": 676.6572020760149
+                "x": 740,
+                "y": 877
             },
             "group": "nodes",
             "removed": false,
@@ -317,17 +316,17 @@
         {
             "data": {
                 "id": "13",
-                "name": "M3",
+                "name": "BE4",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00006",
-                "repair": "0",
-                "dorm": "0",
-                "label": "M3 (λ: 0.00006)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE4 (λ: 0)"
             },
             "position": {
-                "x": 1269.1202185688687,
-                "y": 676.288512936568
+                "x": 792,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -340,17 +339,17 @@
         {
             "data": {
                 "id": "14",
-                "name": "M4",
+                "name": "BE5",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00006",
-                "repair": "0",
-                "dorm": "0",
-                "label": "M4 (λ: 0.00006)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE5 (λ: 0)"
             },
             "position": {
-                "x": 1387.6591957871938,
-                "y": 676.1718700807443
+                "x": 871,
+                "y": 697
             },
             "group": "nodes",
             "removed": false,
@@ -363,17 +362,17 @@
         {
             "data": {
                 "id": "15",
-                "name": "M5",
+                "name": "BE6",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00006",
-                "repair": "0",
-                "dorm": "0",
-                "label": "M5 (λ: 0.00006)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE6 (λ: 0)"
             },
             "position": {
-                "x": 1504.430968547221,
-                "y": 676.4075336808564
+                "x": 1061,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -386,17 +385,17 @@
         {
             "data": {
                 "id": "16",
-                "name": "A1",
+                "name": "BE7",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.0001",
-                "repair": "0",
-                "dorm": "0",
-                "label": "A1 (λ: 0.0001)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE7 (λ: 0)"
             },
             "position": {
-                "x": 491.3892271662764,
-                "y": 674.5152224824357
+                "x": 1133,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -409,17 +408,17 @@
         {
             "data": {
                 "id": "17",
-                "name": "A2",
+                "name": "BE8",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.0001",
-                "repair": "0",
-                "dorm": "0",
-                "label": "A2 (λ: 0.0001)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE8 (λ: 0)"
             },
             "position": {
-                "x": 651.3024199843874,
-                "y": 676.8216627634662
+                "x": 1206,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -432,17 +431,17 @@
         {
             "data": {
                 "id": "18",
-                "name": "AS",
+                "name": "BE9",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.0001",
-                "repair": "0",
-                "dorm": "0",
-                "label": "AS (λ: 0.0001)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE9 (λ: 0)"
             },
             "position": {
-                "x": 823.5166276346605,
-                "y": 674.5152224824358
+                "x": 1279,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -455,18 +454,17 @@
         {
             "data": {
                 "id": "19",
-                "name": "MIU",
-                "type": "and",
+                "name": "BE10",
+                "type": "be",
                 "repairable": false,
-                "children": [
-                    "20",
-                    "21"
-                ],
-                "label": "MIU"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE10 (λ: 0)"
             },
             "position": {
-                "x": 1262.5090944574554,
-                "y": 828.2779078844653
+                "x": 1357,
+                "y": 698
             },
             "group": "nodes",
             "removed": false,
@@ -474,22 +472,22 @@
             "selectable": true,
             "locked": false,
             "grabbable": true,
-            "classes": "and"
+            "classes": "be"
         },
         {
             "data": {
                 "id": "20",
-                "name": "MIU1",
+                "name": "BE11",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00005",
-                "repair": "0",
-                "dorm": "0",
-                "label": "MIU1 (λ: 0.00005)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE11 (λ: 0)"
             },
             "position": {
-                "x": 1212.041640688407,
-                "y": 952.2925332332114
+                "x": 1445,
+                "y": 697
             },
             "group": "nodes",
             "removed": false,
@@ -502,99 +500,25 @@
         {
             "data": {
                 "id": "21",
-                "name": "MIU2",
+                "name": "BE12",
                 "type": "be",
                 "repairable": false,
-                "rate": "0.00005",
-                "repair": "0",
-                "dorm": "0",
-                "label": "MIU2 (λ: 0.00005)"
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "BE12 (λ: 0)"
             },
             "position": {
-                "x": 1345.2550852543475,
-                "y": 952.3543558598848
+                "x": 1533,
+                "y": 699
             },
             "group": "nodes",
             "removed": false,
-            "selected": false,
+            "selected": true,
             "selectable": true,
             "locked": false,
             "grabbable": true,
             "classes": "be"
-        },
-        {
-            "data": {
-                "id": "22",
-                "name": "FDEP_A",
-                "type": "fdep",
-                "repairable": false,
-                "children": [
-                    "19",
-                    "13"
-                ],
-                "label": "FDEP_A"
-            },
-            "position": {
-                "x": 1422.422287275566,
-                "y": 855.1863778298208
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "fdep"
-        },
-        {
-            "data": {
-                "id": "23",
-                "name": "FDEP_B",
-                "type": "fdep",
-                "repairable": false,
-                "children": [
-                    "20",
-                    "11",
-                    "12"
-                ],
-                "label": "FDEP_B"
-            },
-            "position": {
-                "x": 1040.3220140515223,
-                "y": 900.5463700234193
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "fdep"
-        },
-        {
-            "data": {
-                "id": "24",
-                "name": "FDEP_C",
-                "type": "fdep",
-                "repairable": false,
-                "children": [
-                    "21",
-                    "15",
-                    "14"
-                ],
-                "label": "FDEP_C"
-            },
-            "position": {
-                "x": 1638.5038663777611,
-                "y": 852.5324068833877
-            },
-            "group": "nodes",
-            "removed": false,
-            "selected": false,
-            "selectable": true,
-            "locked": false,
-            "grabbable": true,
-            "classes": "fdep"
         }
     ]
 }

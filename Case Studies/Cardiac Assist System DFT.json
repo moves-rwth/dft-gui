@@ -1,0 +1,478 @@
+{
+    "toplevel": "0",
+    "parameters": {},
+    "nodes": [
+        {
+            "data": {
+                "id": "0",
+                "name": "SYSTEM",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "1",
+                    "2",
+                    "3"
+                ],
+                "label": "SYSTEM"
+            },
+            "position": {
+                "x": 741,
+                "y": 105
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or toplevel"
+        },
+        {
+            "data": {
+                "id": "1",
+                "name": "CPU",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "4",
+                    "5"
+                ],
+                "label": "CPU"
+            },
+            "position": {
+                "x": 503,
+                "y": 312
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "2",
+                "name": "PUMPS",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "6",
+                    "7"
+                ],
+                "label": "PUMPS"
+            },
+            "position": {
+                "x": 743,
+                "y": 304
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "3",
+                "name": "MOTOR",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "8",
+                    "9"
+                ],
+                "label": "MOTOR"
+            },
+            "position": {
+                "x": 980,
+                "y": 311
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "4",
+                "name": "P",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "P (λ: 0)"
+            },
+            "position": {
+                "x": 441,
+                "y": 467
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "5",
+                "name": "B",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "B (λ: 0)"
+            },
+            "position": {
+                "x": 563,
+                "y": 470
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": true,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "6",
+                "name": "PUMP1",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "13",
+                    "15"
+                ],
+                "label": "PUMP1"
+            },
+            "position": {
+                "x": 685,
+                "y": 464
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "7",
+                "name": "PUMP2",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "14",
+                    "15"
+                ],
+                "label": "PUMP2"
+            },
+            "position": {
+                "x": 818,
+                "y": 463
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "8",
+                "name": "SWITCH",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "16",
+                    "17"
+                ],
+                "label": "SWITCH"
+            },
+            "position": {
+                "x": 950,
+                "y": 454
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "9",
+                "name": "MOTORS",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "17",
+                    "18"
+                ],
+                "label": "MOTORS"
+            },
+            "position": {
+                "x": 1078,
+                "y": 458
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "10",
+                "name": "TRIGGER",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "11",
+                    "12"
+                ],
+                "label": "TRIGGER"
+            },
+            "position": {
+                "x": 291,
+                "y": 471
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "11",
+                "name": "CS",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "CS (λ: 0)"
+            },
+            "position": {
+                "x": 253,
+                "y": 607
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "12",
+                "name": "SS",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "SS (λ: 0)"
+            },
+            "position": {
+                "x": 345,
+                "y": 607
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "13",
+                "name": "PA",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "PA (λ: 0)"
+            },
+            "position": {
+                "x": 665,
+                "y": 595
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "14",
+                "name": "PB",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "PB (λ: 0)"
+            },
+            "position": {
+                "x": 788,
+                "y": 594
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "15",
+                "name": "PS",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "PS (λ: 0)"
+            },
+            "position": {
+                "x": 863,
+                "y": 594
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "16",
+                "name": "MS",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "MS (λ: 0)"
+            },
+            "position": {
+                "x": 948,
+                "y": 593
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "17",
+                "name": "MA",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "MA (λ: 0)"
+            },
+            "position": {
+                "x": 1039,
+                "y": 594
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "18",
+                "name": "MB",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "MB (λ: 0)"
+            },
+            "position": {
+                "x": 1149,
+                "y": 598
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "19",
+                "name": "FDEP",
+                "type": "fdep",
+                "repairable": false,
+                "children": [
+                    "10",
+                    "4",
+                    "5"
+                ],
+                "label": "FDEP"
+            },
+            "position": {
+                "x": 298,
+                "y": 316
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "fdep"
+        }
+    ]
+}
