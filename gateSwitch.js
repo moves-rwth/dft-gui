@@ -159,15 +159,19 @@ function switchElement(type) {
     // Save connected edges.
     var incomers = switchElem.incomers().edges();
     var outGoing = switchElem.outgoers().edges();
+
+    // Get parent if parent exist
+    var parent = switchElem.parent();
+
     removeNode(cy.getElementById(id));
     var storedCurrentId = currentId;
     currentId = switchElem.id() - 1;
     if (type == 'vot') {
-        addVot(switchElem.position('x'), switchElem.position('y'), type);
+        addVot(switchElem.position('x'), switchElem.position('y'), parent);
     } else if (type == 'pdep') {
-        addPDEP(switchElem.position('x'), switchElem.position('y'), type);
+        addPDEP(switchElem.position('x'), switchElem.position('y'), parent);
     } else {
-        addGate(switchElem.position('x'), switchElem.position('y'), type);
+        addGate(switchElem.position('x'), switchElem.position('y'), type, parent);
     }
     currentId = storedCurrentId;
 

@@ -105,7 +105,7 @@ function fillInfoBox(element) {
 		document.getElementById('name-div').innerHTML = element.data('name');
 	}
  	
-	$('#box').css('display', 'block');
+	$('#box').dialog('open');
 }
 
 
@@ -134,4 +134,3 @@ function prepareChildren(elem) {
 	string += '</select>';
 	document.getElementById('select-menu').innerHTML = string;
 }
-

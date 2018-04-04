@@ -93,14 +93,8 @@ label.error {
     }
 }
 
-
-
-.no-close .ui-dialog-titlebar-close {
-    display: none;
-}
-
-.switchHelp {
-
+.ui-dialog-buttonpane {
+    background-color: #999999;
 }
 
 .no-float {

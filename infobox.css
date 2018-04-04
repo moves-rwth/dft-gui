@@ -5,10 +5,9 @@
 /* Information Box */
 
 #box{
-	position: absolute;
 	height: 400px;
 	width: 225px;
-	background-color: #e1e3e8;
+	background-color: #999999;
 	opacity: 1;
 	margin: auto;
 	border-width: 2px;
@@ -17,8 +16,7 @@
 	border-right-color: #999999;
 	border-bottom-color: #999999;
 	border-style: inset;
-	top: 500px;
-	right: 500px;
+	color: black;
 	display: none;
 }
 
@@ -81,12 +79,9 @@
 /* Children and Parent scroll menu */
 
 #scroll-menu{
-	right: 200px;
-	top: 600px;
-	position: absolute;
 	height: 125px;
 	width: 225px;
-	background-color: #e1e3e8;
+	background-color: #999999;
 	opacity: 1;
 	margin: auto;
 	border-width: 2px;
@@ -96,6 +91,7 @@
 	border-bottom-color: #999999;
 	border-style: inset;
 	display: none;
+	color: black;
 }
 
 #scroll-type{
@@ -109,7 +105,7 @@
 }
 
 #switch-button{
-	width: 70px;
+	width: 80px;
 	position: absolute;
 	top: 85px;
 	left: 72.5px;
@@ -133,6 +129,7 @@
 	font-weight: bold;
 	display: block;
 	font-size: 14px;
+	background-color: #a5a5a5;
 }
 .information-Box{
 	padding-left: 2px;

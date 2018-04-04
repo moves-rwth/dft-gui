@@ -7,8 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
     <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="infobox.css">
+
 
     <script src="libs/jquery.min.js"></script>
     <link rel="stylesheet" href="libs/jquery-ui.min.css">
@@ -21,6 +20,8 @@
     <script src="libs/cytoscape-expand-collapse.js"></script>
     <link rel="stylesheet" href="libs/jquery-ui.theme.css">
 
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="infobox.css">
     
 <body>
     <div id="locate"></div>
@@ -131,83 +132,6 @@
                     <br>
                     <div id="searchError"></div>
                 </div>
-                <div id="search-info">
-                    <fieldset id="search-field">
-                        <legend>Element Information</legend>
-                        <div id="info-container">
-                            <div id="info-pic-big" class="">
-                                <img src="" alt="No Element" id="info-pic-big-pic">
-                                <div id="info-pic-big-text"></div>
-                            </div>
-                            <div id="info-pic-small" class="nonViss">
-                                <img src="" alt="No Element" id="info-pic-small-pic">
-                                <div id="info-pic-small-text"></div>
-                            </div>
-                            <div id="info-data">
-                                <div id="info-data-1" class="info-layout">
-                                    <label for="info-name" class="infoLabel">name</label>
-                                    <div id="info-name" class="information"></div>
-                                    <br>
-                                    <label for="info-id" class="infoLabel">id</label>
-                                    <div id="info-id" class="information"></div>
-                                    <br>
-                                    <label for="info-parents" class="infoLabel">parents</label>
-                                    <div id="info-parents" class="information"></div>
-                                </div>
-                                <div id="info-data-be" class="info-layout">
-                                    <label for="info-failure" class="infoLabel">failure</label>
-                                    <div id="info-failure" class="information"></div>
-                                    <br>
-                                    <label for="info-repair" class="infoLabel">repair</label>
-                                    <div id="info-repair" class="information"></div>
-                                    <br>
-                                    <label for="info-dormancy" class="infoLabel">dormancy</label>
-                                    <div id="info-dormancy" class="information"></div>
-                                </div>
-                                <div id="info-data-gate" class="nonViss info-layout">
-                                    <label for="info-children" class="infoLabel">children</label>
-                                    <div id="info-children" class="information"></div>
-                                    <br>
-                                    <label for="info-repairable" class="infoLabel">repairable</label>
-                                    <div id="info-repairable" class="information"></div>
-                                    <br>
-                                    <label for="info-threshold" class="infoLabel">threshold</label>
-                                    <div id="info-threshold" class="information"></div>
-                                </div>
-                                <div id="info-data-fdep" class="nonViss info-layout">
-                                    <label for="info-children-fdep" class="infoLabel">children</label>
-                                    <div id="info-children-fdep" class="information"></div>
-                                    <br>
-                                    <label for="info-repairable-fdep" class="infoLabel">repairable</label>
-                                    <div id="info-repairable-fdep" class="information"></div>
-                                    <br>
-                                    <label for="info-trigger-fdep" class="infoLabel">trigger</label>
-                                    <div id="info-trigger-fdep" class="information"></div>
-                                </div>
-                                <div id="info-data-pdep" class="nonViss info-layout">
-                                    <label for="info-children-pdep" class="infoLabel">children</label>
-                                    <div id="info-children-pdep" class="information"></div>
-                                    <br>
-                                    <label for="info-repairable-pdep" class="infoLabel">repairable</label>
-                                    <div id="info-repairable-pdep" class="information"></div>
-                                    <br>
-                                    <label for="info-probability" class="infoLabel">probability</label>
-                                    <div id="info-probability" class="information"></div>
-                                </div>
-                                <div id="info-data-spare" class="nonViss info-layout">
-                                    <label for="info-children-spare" class="infoLabel">children</label>
-                                    <div id="info-children-spare" class="information"></div>
-                                    <br>
-                                    <label for="info-repairable-spare" class="infoLabel">repairable</label>
-                                    <div id="info-repairable-spare" class="information"></div>
-                                    <br>
-                                    <label for="info-count" class="infoLabel">sp. count</label>
-                                    <div id="info-count" class="information"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
             </div>
         </div>
 
@@ -296,28 +220,24 @@
     </div>
 
 
-    <div id="box">
-      <div id="close_info" class="close"></div>
+    <div id="box" title="Information" class="buttonpane">
+          <div id="pic"></div>
 
-      <div id="pic"></div>
+          <div id="name-div"></div>
 
-      <div id="name-div"></div>
-
-      <div id="type-container" class="container">Type: <div id="type-info" class="information-Box"></div></div>
-      <div id="id-container" class="container">ID: <div id="element-id" class="information-Box"></div></div>
-      <div id="fail-container" class="container">Failure Rate: <div id="failure-rate" class="information-Box"></div></div>
-      <div id="repair-container" class="container">Repair Rate: <div id="repair-rate" class="information-Box"></div></div>
-      <div id="dorm-container" class="container">Dormancy: <div id="dorm-rate" class="information-Box"></div></div>
-      <div id="threshold-container" class="container">Threshold: <div id="threshold-value" class="information-Box"></div></div>
-      <div id="probability-container" class="container">Probability: <div id="probability-value" class="information-Box"></div></div>
-      <div id="repairable-container" class="container">Repairable: <div id="repairable-bool" class="information-Box"></div></div>
-      <div id="children-container" class="container">Children: <div id="childrens-count" class="information-Box"></div></div>
-      <div id="parent-container" class="container">Parents: <div id="parents-count" class="information-Box"></div></div>
-
+          <div id="type-container" class="container">Type: <div id="type-info" class="information-Box"></div></div>
+          <div id="id-container" class="container">ID: <div id="element-id" class="information-Box"></div></div>
+          <div id="fail-container" class="container">Failure Rate: <div id="failure-rate" class="information-Box"></div></div>
+          <div id="repair-container" class="container">Repair Rate: <div id="repair-rate" class="information-Box"></div></div>
+          <div id="dorm-container" class="container">Dormancy: <div id="dorm-rate" class="information-Box"></div></div>
+          <div id="threshold-container" class="container">Threshold: <div id="threshold-value" class="information-Box"></div></div>
+          <div id="probability-container" class="container">Probability: <div id="probability-value" class="information-Box"></div></div>
+          <div id="repairable-container" class="container">Repairable: <div id="repairable-bool" class="information-Box"></div></div>
+          <div id="children-container" class="container">Children: <div id="childrens-count" class="information-Box"></div></div>
+          <div id="parent-container" class="container">Parents: <div id="parents-count" class="information-Box"></div></div>
     </div>
 
-    <div id="scroll-menu">
-      <div id="close_switch" class="close"></div>
+    <div id="scroll-menu" title="Change element">
       <div id="scroll-type">Children</div>
 
       <div id="select-menu" class="custom-select">

@@ -289,7 +289,7 @@ function removeEdge(edge) {
     var sourceNode = cy.getElementById(sourceId);
     var children = sourceNode.data('children');
     if (children.length <= edgeIndex || children[edgeIndex] != targetId) {
-        throw new Error('Indices do not match');
+        //throw new Error('Indices do not match');
     }
     // Remove index entry in node
     children.splice(edgeIndex, 1);

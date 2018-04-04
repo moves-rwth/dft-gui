@@ -287,12 +287,16 @@ function changeBE(elem) {
     } else elem.data('repairable', false);
 }
 
-function addVot(posX, posY) {
+function addVot(posX, posY, parent) {
     var elemName = checkName($('#name-vot').val(), 'DftTypes.vot', false);
     var threshold = checkValueVot($('#threshold').val());
     $('#dialog-vot').dialog('close');
     var newElement = createVotingGate(elemName, threshold, posX, posY);
-    createNode(newElement);
+    if (parent != null) {
+        createNode(newElement, parent);
+    } else {
+        createNode(newElement);
+    }
     // Empty inputs
     var list = ['name-vot', 'threshold'];
     for (var i = 0; i < list.length; i++) {
@@ -300,12 +304,16 @@ function addVot(posX, posY) {
     }
 }
 
-function addPDEP(posX, posY) {
+function addPDEP(posX, posY, parent) {
     var elemName = checkName($('#name-pdep').val(), 'DftTypes.pdep', false);
     var probability = checkValue($('#probability-pdep').val());
     $('#dialog-pdep').dialog('close');
     var newElement = createPDEPGate(elemName, probability, posX, posY);
-    createNode(newElement);
+    if (parent != null) {
+        createNode(newElement, parent);
+    } else {
+        createNode(newElement);
+    }
     // Empty Inputs
     var list = ['name-pdep', 'probability-pdep'];
     for (var i = 0; i < list.length; i++) {
@@ -337,11 +345,15 @@ function changePDEP(elem) {
     }
 }
 
-function addGate(posX, posY, type) {
+function addGate(posX, posY, type, parent) {
     var elemName = checkName($('#name-gate').val(), type, false);
     $('#dialog-gate').dialog('close');
     var newElement = createGate(type, elemName, posX, posY);
-    createNode(newElement);
+    if (parent != null) {
+        createNode(newElement, parent);
+    } else {
+        createNode(newElement);
+    }
     $('#name-gate').val('');
 }
 
@@ -563,22 +575,7 @@ if (DEVELOPER) {
                         create: false,
                         elem: event.cyTarget
                     };
-                    // Insert actual values
-                    if (el.type == 'be') {
-                        $('#name-be').val(el.elem.data('name'));
-                        $('#failure').val(el.elem.data('rate'));
-                        $('#repair').val(el.elem.data('repair'));
-                        $('#dormancy').val(el.elem.data('dorm'));
-                    } else if (el.type == 'vot') {
-                        $('#name-vot').val(el.elem.data('name'));
-                        $('#threshold').val(el.elem.data('voting'));
-                    } else if (el.type == 'pdep') {
-                        $('#name-pdep').val(el.elem.data('name'));
-                        $('#probability-pdep').val(el.elem.data('probability'));
-                    } else {
-                        $('#name-gate').val(el.elem.data('name'));
-                    }
-                    openDialog(el.x, el.y, el.type, el.create, el.elem);
+                    fillInfoDialog(el);
                 },
             },
             {
@@ -595,6 +592,7 @@ if (DEVELOPER) {
                 selector: 'node',
                 onClickFunction: function (event) {
                     fillInfoBox(event.cyTarget);
+
                 }
             },
             {
