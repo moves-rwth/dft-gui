@@ -1,7 +1,7 @@
 // Cytoscape graph visualization.
 
 // DEVELOPER MODE
-const DEVELOPER = false;
+const DEVELOPER = true;
 
 // Load graph.
 $("#load-graph").click(function() {
@@ -86,12 +86,12 @@ function setLabelNode(node) {
     var elemName = node.data('name');
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
-        if (rate < 0.001) {
+        if (rate < 0.001 && rate != 0) {
             var num = new Number(rate);
             rate = num.toExponential();
         }
         var repair = node.data('repair');
-        if (repair < 0.001) {
+        if (repair < 0.001 && repair != 0) {
             var num = new Number(repair);
             repair = num.toExponential();
         }
