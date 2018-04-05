@@ -728,9 +728,7 @@ function createChildrenStrings(node) {
             }
         } else {
             // Change focus
-            prepareResult(event.cyTarget);
-            $('#hover_names').empty();
-            $('#hover-div').slideUp('medium');
+            cy.center(event.cyTarget);
         }
     });
 

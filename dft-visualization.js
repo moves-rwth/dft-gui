@@ -86,7 +86,15 @@ function setLabelNode(node) {
     var elemName = node.data('name');
     if (node.data('type') == DftTypes.BE) {
         var rate = node.data('rate');
+        if (rate < 0.001) {
+            var num = new Number(rate);
+            rate = num.toExponential();
+        }
         var repair = node.data('repair');
+        if (repair < 0.001) {
+            var num = new Number(repair);
+            repair = num.toExponential();
+        }
         if (repair != 0) {
             node.data('label', elemName + ' (\u03BB: ' + rate + ', r: ' + repair + ')');
         } else {
@@ -235,6 +243,9 @@ function openDialog(posX, posY, dftType, create = true, elem) {
                     if (!create) {
                         propagateUp(elem, checkRepairable);
                     }
+                }
+                if (elem) {
+                    fillInfoBox(elem);
                 }
             }
         }, 

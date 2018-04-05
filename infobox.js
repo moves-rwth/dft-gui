@@ -9,8 +9,18 @@ function fillInfoBox(element) {
 	document.getElementById('element-id').innerHTML = element.data('id');
 
 	if (type == DftTypes.BE) {
-		document.getElementById('failure-rate').innerHTML = element.data('rate');
-		document.getElementById('repair-rate').innerHTML = element.data('repair');
+		if (element.data('rate') < 0.0000001) {
+			var num = new Number(element.data('rate'));
+			document.getElementById('failure-rate').innerHTML = num.toExponential();
+		} else  {
+			document.getElementById('failure-rate').innerHTML = element.data('rate');
+		}
+		if (element.data('repair') < 0.0000001 || element.data('repair').length > 10) {
+			var num = new Number(element.data('repair'));
+			document.getElementById('repair-rate').innerHTML = num.toExponential();
+		} else  {
+			document.getElementById('repair-rate').innerHTML = element.data('repair');
+		}
 		document.getElementById('dorm-rate').innerHTML = element.data('dorm');		
 		if (element.data('repair') > 0) {
 			document.getElementById('repairable-bool').innerHTML = 'True';
