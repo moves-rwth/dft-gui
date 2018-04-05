@@ -1,7 +1,7 @@
 // Cytoscape graph visualization.
 
 // DEVELOPER MODE
-const DEVELOPER = true;
+const DEVELOPER = false;
 
 // Load graph.
 $("#load-graph").click(function() {
@@ -823,15 +823,6 @@ else {
                 selector: 'edge',
                 onClickFunction: function (event) {
                     removeEdge(event.cyTarget);
-                },
-                hasTrailingDivider: true
-            },
-            {
-                id: 'add-covered-failure',
-                title: 'add covered fault',
-                coreAsWell: true,
-                onClickFunction: function (event) {
-                    createBlock('A', 500, 500);
                 },
                 hasTrailingDivider: true
             },
