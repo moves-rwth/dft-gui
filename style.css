@@ -68,7 +68,7 @@ label.error {
 #cy {
     mix-blend-mode: unset;
     width: 100%;
-    height: 95%;
+    height: 100%;
     top: 72px;
     left: 0px;
     position: absolute;
@@ -93,14 +93,8 @@ label.error {
     }
 }
 
-
-
-.no-close .ui-dialog-titlebar-close {
-    display: none;
-}
-
-.switchHelp {
-
+.ui-dialog-buttonpane {
+    background-color: #999999;
 }
 
 .no-float {
@@ -332,8 +326,21 @@ label.error {
 #export-image:active {
     background-image: url(img/Buttons/export_press.png);
 }
+#search-input {
+    width: 70%;
+}
+#search-info {
+    display: inline-block;
+    width: 60%;
+}
+#search-field {
+    height: 105px;
+    width: 97%;
+    padding: 0 3px 3px 3px;
+    position: relative;
+}
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1759px) {
     #load{
         display: inline-block;
         width: auto;
@@ -349,6 +356,77 @@ label.error {
     }
 }
 
+@media screen and (max-width: 1300px) {
+    #static-elements{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 15px;
+        margin-left: -90px;
+    }
+    #dynamic-elements{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 15px;
+        margin-left: -260px;
+    }
+    #add-edges{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -254px;
+    }
+    #load{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -150px;
+    }
+    #save{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -190px;
+    }
+    #lockElements{
+        transform: scale(0.6);
+        display: inline-block;
+        padding: 0;
+        margin-right: 0;
+        margin-left: -85px;
+    }
+    #search-info{
+        transform: scale(0.7);
+        width: 900px;
+        padding: 0;
+        margin: 0;
+    }
+    #search{
+        width: 200px;
+        margin: 0;
+        padding: 0;
+    }
+    #search-input{
+        width: 100px;
+        margin: 0;
+        padding: 0;
+    }
+    #info-data {
+        transform: scale(0.9);
+        float: left;
+        display: inline-block;
+        padding: 0;
+        margin-left: 1px;
+        height: 75px;
+        position: absolute;
+    }
+    
+}
+
 @media screen and (max-width: 800px) {
     #load{
         display: inline-block;
@@ -360,7 +438,7 @@ label.error {
     #load-graph {
     }
 }
-@media screen and (min-width: 1500px) {
+@media screen and (min-width: 1760px) {
     .ui-tabs {
         overflow: visible;
     }
@@ -503,6 +581,10 @@ label.error {
     background-image: url(img/Buttons/vot_press.png);
 }
 
+#mutex-button {
+    cursor: pointer;
+}
+
 #pand-button {
     width: 92px;
     height: 38px;
@@ -576,9 +658,9 @@ label.error {
 }
 
 #locate {
-    position: absolute;
-    right: 4px;
-    bottom: 5px;
+    position: fixed;
+    right: 5px;
+    bottom: 4px;
     display: inline-block;
     height: 37.5px;
     width: 50px;
@@ -606,19 +688,7 @@ label.error {
 #searchError {
     padding-top: 10px;
 }
-#search-input {
-    width: 70%;
-}
-#search-info {
-    display: inline-block;
-    width: 60%;
-}
-#search-field {
-    height: 105px;
-    width: 97%;
-    padding: 0 3px 3px 3px;
-    position: relative;
-}
+
 #info-container {
     height: 75px;
     width: calc(100% - 10px);

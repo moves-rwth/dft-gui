@@ -1,0 +1,173 @@
+:root{
+	--top_var: 30px;
+}
+
+/* Information Box */
+
+#box{
+	height: 400px;
+	width: 225px;
+	background-color: #999999;
+	opacity: 1;
+	margin: auto;
+	border-width: 2px;
+	border-top-color: black;
+	border-left-color: black;
+	border-right-color: #999999;
+	border-bottom-color: #999999;
+	border-style: inset;
+	color: black;
+	display: none;
+}
+
+#pic{
+	width: 100px;
+	height: 50px;
+	background-image: url("img/fdep.png");
+	background-size: 100%;
+	position: absolute;
+	top: 15px;
+	left: 62.5px;
+	background-repeat: no-repeat;
+}
+
+#name-div{
+	width: 200px;
+	height: 20px;
+	position: absolute;
+	top: 70px;
+	left: 12.5px;
+	text-align: center;
+	font-weight: bolder;
+}
+
+#type-container{
+	top: calc(var(--top_var) + 65px);
+}
+#id-container{
+	top: calc(var(--top_var) * 2 + 65px);
+}
+#fail-container{
+	top: calc(var(--top_var) * 3 + 65px);
+}
+#repair-container{
+	top: calc(var(--top_var) * 4 + 65px);
+}
+#dorm-container{
+	top: calc(var(--top_var) * 5 + 65px);
+}
+#threshold-container{
+	top: calc(var(--top_var) * 6 + 65px);
+}
+#probability-container{
+	top: calc(var(--top_var) * 7 + 65px);
+}
+#repairable-container{
+	top: calc(var(--top_var) * 8 + 65px);
+}
+#children-container{
+	top: calc(var(--top_var) * 9 + 65px);
+}
+#children-container:hover , #parent-container:hover{
+	color: red;
+	cursor: pointer;
+}
+#parent-container{
+	top: calc(var(--top_var) * 10 + 65px);
+}
+
+/* Children and Parent scroll menu */
+
+#scroll-menu{
+	height: 125px;
+	width: 225px;
+	background-color: #999999;
+	opacity: 1;
+	margin: auto;
+	border-width: 2px;
+	border-top-color: black;
+	border-left-color: black;
+	border-right-color: #999999;
+	border-bottom-color: #999999;
+	border-style: inset;
+	display: none;
+	color: black;
+}
+
+#scroll-type{
+	height: 20px;
+	width: 70px;
+	position: absolute;
+	left: 72.5px;
+	text-align: center;
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+#switch-button{
+	width: 80px;
+	position: absolute;
+	top: 85px;
+	left: 72.5px;
+}
+
+/* classes */
+
+.container {
+	width: 200px;
+	height: 22px;
+	left: 12.5px;
+	text-align: left;
+	padding-left: 2px;
+	padding-top: 2px;
+	margin: 0;
+	position: absolute;
+	border-style: outset;
+	border: 1px solid;
+	border-left-color: white;
+	border-top-color: white;
+	font-weight: bold;
+	display: block;
+	font-size: 14px;
+	background-color: #a5a5a5;
+}
+.information-Box{
+	padding-left: 2px;
+	text-align: center;
+	font-size: 12px;
+	padding-top: 2px;
+	width: 80px;
+	height: 16px;
+	position: absolute;
+	right: 1px;
+	top: 1px;
+	border: 1px solid black;
+	font-weight: normal;
+	background-color: white;
+}
+
+.close{
+	margin: auto;
+	height: 15px;
+	width: 15px;
+	background-image: url("close_Button.png");
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	cursor: pointer;
+}
+
+.close:hover{
+	background-image: url("close_Button_hover.png");
+}
+
+.custom-select{
+	position: absolute;
+	top: 40px;
+	left: 37.5px;
+}
+
+.custom-select select{
+	width: 150px;
+}

@@ -13,6 +13,7 @@ var DftTypes = Object.freeze({
     SPARE:  'spare',
     SEQ:    'seq',
     COMPOUND: 'compound',
+    BOT:    'bot', 
 });
 
 // Currently highest used id.
@@ -37,7 +38,7 @@ function importDftFromJson(json) {
         addName(node.data('name'));
         node.addClass(node.data('type'));
 
-        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND) {
+        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND && node.data('type') != DftTypes.BOT) {
             // Add edges for gates
             var sourceId = node.data('id');
             var children = node.data('children');
@@ -81,6 +82,7 @@ function exportDftToJSON() {
 // Create the general information of a new element.
 function createGeneralElement(dftType, name, posX, posY) {
     currentId += 1;
+    if (name == '') name = dftType + '_' + currentId;
     var newElement = {
         group: 'nodes',
         data: {
@@ -152,6 +154,12 @@ function createBe(name, rate, repair, dorm, posX, posY) {
     return newElement;
 }
 
+// Create a new BOT.
+function createBot(name, posX, posY) {
+    var newElement = createGeneralElement(DftTypes.BOT, name, posX, posY);
+    return newElement;
+}
+
 // Add element to graph.
 function createNode(element, parent) {
     if (parent != null) {
@@ -159,12 +167,13 @@ function createNode(element, parent) {
     }
     var node = cy.add(element);
     setLabelNode(node);
+    addName(element.data.name);
     return node;
 }
 
 // Create a new compound for a given gate.
 function createCompoundNode(gate) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name + '_comp', gate.position.x, gate.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
     element.data.compound = gate.data.id;
     element.data["expanded-collapsed"] = 'expanded';
@@ -173,7 +182,7 @@ function createCompoundNode(gate) {
 
 // Create a new compound with existing gate
 function createCompoundNodeMove(gate) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name, gate._private.position.x, gate._private.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate._private.data.name + '_comp', gate._private.position.x, gate._private.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate._private.data.type;
     element.data.compound = gate._private.data.id;
     element.data["expanded-collapsed"] = 'expanded';
@@ -182,7 +191,7 @@ function createCompoundNodeMove(gate) {
 
 // Create nested compound for a given gate.
 function createNestedCompound(gate, parent) {
-    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name, gate.position.x, gate.position.y);
+    var element = createGeneralElement(DftTypes.COMPOUND, gate.data.name + '_comp', gate.position.x, gate.position.y);
     element.classes = DftTypes.COMPOUND + "-" + gate.data.type;
     element.data.compound = gate.data.id;
     element.data["expanded-collapsed"] = 'expanded';
@@ -248,7 +257,7 @@ function addEdge(edge, source, target) {
     if (target.data('repairable')) {
         source.data('repairable', true);
         propagateUp(source, checkRepairable);
-    }
+    } else checkRepairable(source);
 }
 
 function createEdge(source, target) {
@@ -280,7 +289,7 @@ function removeEdge(edge) {
     var sourceNode = cy.getElementById(sourceId);
     var children = sourceNode.data('children');
     if (children.length <= edgeIndex || children[edgeIndex] != targetId) {
-        throw new Error('Indices do not match');
+        //throw new Error('Indices do not match');
     }
     // Remove index entry in node
     children.splice(edgeIndex, 1);
@@ -328,12 +337,13 @@ function checkRepairable(node) {
 
 function propagateUp(node, func) {
     var parents = node.incomers('node');
+    console.log(parents);
     if (parents.length > 0) {
         for (var i = 0; i < parents.length; i++) {
-            if (node .data('id') != parents[i].data('id')) {
+            if (node.data('id') != parents[i].data('id')) {
                 func(parents[i]);
             }
-            propagateUp(parents[i]);
+            propagateUp(parents[i], func);
         }
     }
 }
@@ -345,7 +355,7 @@ function propagateDown(node, func) {
             if (node.data('id') != children[i].data('id')) {
                 func(children[i]);
             }
-            propagateDown(children[i]);
+            propagateDown(children[i], func);
         }
     }
 }

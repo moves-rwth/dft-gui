@@ -1,0 +1,1345 @@
+{
+    "toplevel": "0",
+    "parameters": {},
+    "nodes": [
+        {
+            "data": {
+                "id": "0",
+                "name": "MAS",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "1",
+                    "10",
+                    "5",
+                    "13",
+                    "30",
+                    "17"
+                ],
+                "label": "MAS"
+            },
+            "position": {
+                "x": 929,
+                "y": 87
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or toplevel"
+        },
+        {
+            "data": {
+                "id": "1",
+                "name": "DB",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "2",
+                    "3",
+                    "4"
+                ],
+                "label": "DB"
+            },
+            "position": {
+                "x": 561,
+                "y": 256
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "2",
+                "name": "DB1",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "DB1 (λ: 0)"
+            },
+            "position": {
+                "x": 468,
+                "y": 387
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "3",
+                "name": "DB2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "DB2 (λ: 0)"
+            },
+            "position": {
+                "x": 558,
+                "y": 387
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "4",
+                "name": "DB3",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "DB3 (λ: 0)"
+            },
+            "position": {
+                "x": 641,
+                "y": 387
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "5",
+                "name": "MB",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "7",
+                    "8",
+                    "9"
+                ],
+                "label": "MB"
+            },
+            "position": {
+                "x": 1248,
+                "y": 262
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "7",
+                "name": "MB1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "MB1 (λ: 0)"
+            },
+            "position": {
+                "x": 1155,
+                "y": 393
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "8",
+                "name": "MB2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "MB2 (λ: 0)"
+            },
+            "position": {
+                "x": 1245,
+                "y": 393
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "9",
+                "name": "MB3",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "MB3 (λ: 0)"
+            },
+            "position": {
+                "x": 1328,
+                "y": 393
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "10",
+                "name": "VMB",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "11",
+                    "12"
+                ],
+                "label": "VMB"
+            },
+            "position": {
+                "x": 988,
+                "y": 252
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "11",
+                "name": "VMB1",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VMB1 (λ: 0)"
+            },
+            "position": {
+                "x": 944,
+                "y": 389
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "12",
+                "name": "VMB2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VMB2 (λ: 0)"
+            },
+            "position": {
+                "x": 1048,
+                "y": 387
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "13",
+                "name": "MEM",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "15",
+                    "16"
+                ],
+                "label": "MEM"
+            },
+            "position": {
+                "x": 1494,
+                "y": 261
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "15",
+                "name": "MM1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "MM1 (λ: 0)"
+            },
+            "position": {
+                "x": 1450,
+                "y": 398
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "16",
+                "name": "MM2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "MM2 (λ: 0)"
+            },
+            "position": {
+                "x": 1554,
+                "y": 396
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "17",
+                "name": "VMS",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "18",
+                    "19"
+                ],
+                "label": "VMS"
+            },
+            "position": {
+                "x": 798,
+                "y": 252
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "18",
+                "name": "VM1",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "20",
+                    "21"
+                ],
+                "label": "VM1"
+            },
+            "position": {
+                "x": 725,
+                "y": 462
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "19",
+                "name": "VM2",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "22",
+                    "23"
+                ],
+                "label": "VM2"
+            },
+            "position": {
+                "x": 861,
+                "y": 463
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "20",
+                "name": "VM1A",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "24",
+                    "28",
+                    "29"
+                ],
+                "label": "VM1A"
+            },
+            "position": {
+                "x": 566,
+                "y": 610
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "21",
+                "name": "VM1B",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "25",
+                    "28",
+                    "29"
+                ],
+                "label": "VM1B"
+            },
+            "position": {
+                "x": 724,
+                "y": 606
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "22",
+                "name": "VM2A",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "26",
+                    "28",
+                    "29"
+                ],
+                "label": "VM2A"
+            },
+            "position": {
+                "x": 873,
+                "y": 603
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "23",
+                "name": "VM2B",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "27",
+                    "28",
+                    "29"
+                ],
+                "label": "VM2B"
+            },
+            "position": {
+                "x": 1033,
+                "y": 603
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "24",
+                "name": "VM1A_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VM1A_ev (λ: 0)"
+            },
+            "position": {
+                "x": 561,
+                "y": 857
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "25",
+                "name": "VM1B_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VM1B_ev (λ: 0)"
+            },
+            "position": {
+                "x": 720,
+                "y": 857
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "26",
+                "name": "VM2A_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VM2A_ev (λ: 0)"
+            },
+            "position": {
+                "x": 873,
+                "y": 857
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "27",
+                "name": "VM2B_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VM2B_ev (λ: 0)"
+            },
+            "position": {
+                "x": 1034,
+                "y": 856
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "28",
+                "name": "VMS1",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VMS1 (λ: 0)"
+            },
+            "position": {
+                "x": 1269,
+                "y": 856
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "29",
+                "name": "VMS2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "VMS2 (λ: 0)"
+            },
+            "position": {
+                "x": 1453,
+                "y": 843
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "30",
+                "name": "CPU",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "31",
+                    "32",
+                    "35",
+                    "37",
+                    "39"
+                ],
+                "label": "CPU"
+            },
+            "position": {
+                "x": 2699,
+                "y": 169
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "31",
+                "name": "CW",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "41",
+                    "42"
+                ],
+                "label": "CW"
+            },
+            "position": {
+                "x": 2098,
+                "y": 309
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "32",
+                "name": "SO1",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "46",
+                    "49"
+                ],
+                "label": "SO1"
+            },
+            "position": {
+                "x": 2393,
+                "y": 306
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "35",
+                "name": "SO2",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "52",
+                    "55"
+                ],
+                "label": "SO2"
+            },
+            "position": {
+                "x": 2704,
+                "y": 316
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "37",
+                "name": "PG",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "58",
+                    "61"
+                ],
+                "label": "PG"
+            },
+            "position": {
+                "x": 3000,
+                "y": 318
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "39",
+                "name": "SM",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "64",
+                    "65"
+                ],
+                "label": "SM"
+            },
+            "position": {
+                "x": 3282,
+                "y": 324
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "41",
+                "name": "CWA",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "44",
+                    "67",
+                    "68"
+                ],
+                "label": "CWA"
+            },
+            "position": {
+                "x": 2010,
+                "y": 459
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "42",
+                "name": "CWB",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "45",
+                    "67",
+                    "68"
+                ],
+                "label": "CWB"
+            },
+            "position": {
+                "x": 2157,
+                "y": 457
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "44",
+                "name": "CWA_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "CWA_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2009,
+                "y": 589
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "45",
+                "name": "CWB_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "CWB_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2158,
+                "y": 586
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "46",
+                "name": "SO1A",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "48",
+                    "67",
+                    "68"
+                ],
+                "label": "SO1A"
+            },
+            "position": {
+                "x": 2323,
+                "y": 457
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "48",
+                "name": "SO1A_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SO1A_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2322,
+                "y": 593
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "49",
+                "name": "SO1B",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "51",
+                    "67",
+                    "68"
+                ],
+                "label": "SO1B"
+            },
+            "position": {
+                "x": 2468,
+                "y": 458
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "51",
+                "name": "SO1B_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SO1B_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2467,
+                "y": 588
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "52",
+                "name": "SO2A",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "54",
+                    "67",
+                    "68"
+                ],
+                "label": "SO2A"
+            },
+            "position": {
+                "x": 2602,
+                "y": 459
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "54",
+                "name": "SO2A_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SO2A_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2601,
+                "y": 589
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "55",
+                "name": "SO2B",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "57",
+                    "67",
+                    "68"
+                ],
+                "label": "SO2B"
+            },
+            "position": {
+                "x": 2768,
+                "y": 457
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "57",
+                "name": "SO2B_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SO2B_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2768,
+                "y": 596
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "58",
+                "name": "PGA",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "60",
+                    "67",
+                    "68"
+                ],
+                "label": "PGA"
+            },
+            "position": {
+                "x": 2904,
+                "y": 460
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "60",
+                "name": "PGA_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "PGA_ev (λ: 0)"
+            },
+            "position": {
+                "x": 2904,
+                "y": 599
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "61",
+                "name": "PGB",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "63",
+                    "67",
+                    "68"
+                ],
+                "label": "PGB"
+            },
+            "position": {
+                "x": 3069,
+                "y": 463
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "63",
+                "name": "PGB_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "PGB_ev (λ: 0)"
+            },
+            "position": {
+                "x": 3069,
+                "y": 602
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "64",
+                "name": "SMA",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "69",
+                    "67",
+                    "68"
+                ],
+                "label": "SMA"
+            },
+            "position": {
+                "x": 3141,
+                "y": 751
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "65",
+                "name": "SMB",
+                "type": "spare",
+                "repairable": false,
+                "children": [
+                    "70",
+                    "67",
+                    "68"
+                ],
+                "label": "SMB"
+            },
+            "position": {
+                "x": 3375,
+                "y": 751
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "spare"
+        },
+        {
+            "data": {
+                "id": "67",
+                "name": "S1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "S1 (λ: 0)"
+            },
+            "position": {
+                "x": 2436,
+                "y": 1050
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "68",
+                "name": "S2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "S2 (λ: 0)"
+            },
+            "position": {
+                "x": 2674,
+                "y": 1050
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "69",
+                "name": "SMA_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SMA_ev (λ: 0)"
+            },
+            "position": {
+                "x": 3138,
+                "y": 908
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "70",
+                "name": "SMB_ev",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SMB_ev (λ: 0)"
+            },
+            "position": {
+                "x": 3382,
+                "y": 910
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        }
+    ]
+}

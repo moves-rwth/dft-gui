@@ -1,0 +1,1125 @@
+{
+    "toplevel": "0",
+    "parameters": {},
+    "nodes": [
+        {
+            "data": {
+                "id": "0",
+                "name": "SF",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "1",
+                    "2"
+                ],
+                "label": "SF"
+            },
+            "position": {
+                "x": 926,
+                "y": 98
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or toplevel"
+        },
+        {
+            "data": {
+                "id": "1",
+                "name": "E1",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "3",
+                    "9"
+                ],
+                "label": "E1"
+            },
+            "position": {
+                "x": 802,
+                "y": 218
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "2",
+                "name": "E2",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "10",
+                    "4"
+                ],
+                "label": "E2"
+            },
+            "position": {
+                "x": 1051,
+                "y": 213
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "3",
+                "name": "NFE1",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "6",
+                    "5"
+                ],
+                "label": "NFE1"
+            },
+            "position": {
+                "x": 793,
+                "y": 377
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "4",
+                "name": "NFE2",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "7",
+                    "8"
+                ],
+                "label": "NFE2"
+            },
+            "position": {
+                "x": 1060,
+                "y": 359
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "5",
+                "name": "NFE1NP3",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "11",
+                    "15"
+                ],
+                "label": "NFE1NP3"
+            },
+            "position": {
+                "x": 731,
+                "y": 525
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "6",
+                "name": "NFE1WP3",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "14",
+                    "15",
+                    "17"
+                ],
+                "label": "NFE1WP3"
+            },
+            "position": {
+                "x": 842,
+                "y": 522
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "7",
+                "name": "NFE2WP3",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "13",
+                    "8",
+                    "16",
+                    "17"
+                ],
+                "label": "NFE2WP3"
+            },
+            "position": {
+                "x": 1005,
+                "y": 528
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "8",
+                "name": "NFE2NP3",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "12",
+                    "16"
+                ],
+                "label": "NFE2NP3"
+            },
+            "position": {
+                "x": 1105,
+                "y": 529
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "9",
+                "name": "IE1",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "IE1 (λ: 0)"
+            },
+            "position": {
+                "x": 881,
+                "y": 313
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "10",
+                "name": "IE2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "IE2 (λ: 0)"
+            },
+            "position": {
+                "x": 969,
+                "y": 315
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "11",
+                "name": "NE1P3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "17",
+                    "13",
+                    "48"
+                ],
+                "label": "NE1P3"
+            },
+            "position": {
+                "x": 513,
+                "y": 618
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "12",
+                "name": "NE2P3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "17",
+                    "14",
+                    "50"
+                ],
+                "label": "NE2P3"
+            },
+            "position": {
+                "x": 1344,
+                "y": 636
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "13",
+                "name": "E2P3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "18",
+                    "19"
+                ],
+                "label": "E2P3"
+            },
+            "position": {
+                "x": 588,
+                "y": 781
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "14",
+                "name": "E1P3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "21",
+                    "23"
+                ],
+                "label": "E1P3"
+            },
+            "position": {
+                "x": 1240,
+                "y": 791
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "15",
+                "name": "P1",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "P1 (λ: 0)"
+            },
+            "position": {
+                "x": 812,
+                "y": 748
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "16",
+                "name": "P2",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "P2 (λ: 0)"
+            },
+            "position": {
+                "x": 1042,
+                "y": 749
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "17",
+                "name": "P3",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "P3 (λ: 0)"
+            },
+            "position": {
+                "x": 927,
+                "y": 923
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "18",
+                "name": "P1TP2X",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "25",
+                    "34"
+                ],
+                "label": "P1TP2X"
+            },
+            "position": {
+                "x": 482,
+                "y": 925
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "19",
+                "name": "P2BP1X",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "41",
+                    "34"
+                ],
+                "label": "P2BP1X"
+            },
+            "position": {
+                "x": 641,
+                "y": 923
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "21",
+                "name": "P1BP2X",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "43",
+                    "34"
+                ],
+                "label": "P1BP2X"
+            },
+            "position": {
+                "x": 1161,
+                "y": 938
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "23",
+                "name": "P2TP1X",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "26",
+                    "32"
+                ],
+                "label": "P2TP1X"
+            },
+            "position": {
+                "x": 1351,
+                "y": 937
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "25",
+                "name": "P1TP2NC",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "28",
+                    "37"
+                ],
+                "label": "P1TP2NC"
+            },
+            "position": {
+                "x": 479.00242594471734,
+                "y": 1090.857842824478
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "26",
+                "name": "P2TP1NC",
+                "type": "and",
+                "repairable": false,
+                "children": [
+                    "30",
+                    "39"
+                ],
+                "label": "P2TP1NC"
+            },
+            "position": {
+                "x": 1362.3857157319285,
+                "y": 1094.015261045817
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "and"
+        },
+        {
+            "data": {
+                "id": "28",
+                "name": "NP1BP3",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "32",
+                    "66"
+                ],
+                "label": "NP1BP3"
+            },
+            "position": {
+                "x": 507.55713408588053,
+                "y": 1234.286868370073
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "30",
+                "name": "NP2BP3",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "34",
+                    "67"
+                ],
+                "label": "NP2BP3"
+            },
+            "position": {
+                "x": 1323.7412762794672,
+                "y": 1219.192666257341
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "34",
+                "name": "NP2CP3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "47",
+                    "50"
+                ],
+                "label": "NP2CP3"
+            },
+            "position": {
+                "x": 1014.9619106094133,
+                "y": 1402.3774305011063
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "32",
+                "name": "NP1CP3",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "48",
+                    "47"
+                ],
+                "label": "NP1CP3"
+            },
+            "position": {
+                "x": 860.8138150789424,
+                "y": 1400.8792504919556
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "37",
+                "name": "P1TP2",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "66",
+                    "67"
+                ],
+                "label": "P1TP2"
+            },
+            "position": {
+                "x": 716.2990324155262,
+                "y": 1608.1229688124506
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "39",
+                "name": "P2TP1",
+                "type": "pand",
+                "repairable": false,
+                "children": [
+                    "67",
+                    "66"
+                ],
+                "label": "P2TP1"
+            },
+            "position": {
+                "x": 1152.5176240180012,
+                "y": 1608.7915297155073
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "pand"
+        },
+        {
+            "data": {
+                "id": "41",
+                "name": "P2BP1",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "67",
+                    "66"
+                ],
+                "label": "P2BP1"
+            },
+            "position": {
+                "x": 837.5844801083068,
+                "y": 1606.6247888033001
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "43",
+                "name": "P1BP2",
+                "type": "por",
+                "repairable": false,
+                "children": [
+                    "66",
+                    "67"
+                ],
+                "label": "P1BP2"
+            },
+            "position": {
+                "x": 1030.7246736252018,
+                "y": 1609.7822070246393
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "por"
+        },
+        {
+            "data": {
+                "id": "47",
+                "name": "cloneOf_P3",
+                "type": "be",
+                "repairable": false,
+                "rate": 0,
+                "repair": 0,
+                "dorm": 0,
+                "label": "cloneOf_P3 (λ: 0)"
+            },
+            "position": {
+                "x": 932.200568270917,
+                "y": 1601.8512824193508
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "48",
+                "name": "RE1",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "52",
+                    "56",
+                    "57"
+                ],
+                "label": "RE1"
+            },
+            "position": {
+                "x": 274.1120488673547,
+                "y": 1658.7297342841923
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "50",
+                "name": "RE2",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "60",
+                    "61",
+                    "62"
+                ],
+                "label": "RE2"
+            },
+            "position": {
+                "x": 1504.6065582991193,
+                "y": 1674.036803905295
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "52",
+                "name": "VE1",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "54",
+                    "55"
+                ],
+                "label": "VE1"
+            },
+            "position": {
+                "x": 151.99698206848007,
+                "y": 1839.425641209675
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "54",
+                "name": "V1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "V1 (λ: 0)"
+            },
+            "position": {
+                "x": 101.14507759895066,
+                "y": 1960.4695898863674
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "55",
+                "name": "V3",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "V3 (λ: 0)"
+            },
+            "position": {
+                "x": 199.26298575241017,
+                "y": 1961.5220626268137
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "56",
+                "name": "SF1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SF1 (λ: 0)"
+            },
+            "position": {
+                "x": 271.66270161695167,
+                "y": 1828.1762401800108
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "57",
+                "name": "CF",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "CF (λ: 0)"
+            },
+            "position": {
+                "x": 385.54337278619965,
+                "y": 1829.2287129204572
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "61",
+                "name": "SF2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "SF2 (λ: 0)"
+            },
+            "position": {
+                "x": 1505.9748732819799,
+                "y": 1847.0964214171383
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "62",
+                "name": "cloneOf_CF",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "cloneOf_CF (λ: 0)"
+            },
+            "position": {
+                "x": 1374.2882890473652,
+                "y": 1848.1488941575847
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "60",
+                "name": "VE2",
+                "type": "or",
+                "repairable": false,
+                "children": [
+                    "63",
+                    "64"
+                ],
+                "label": "VE2"
+            },
+            "position": {
+                "x": 1655.9353632141006,
+                "y": 1852.538488704144
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "or"
+        },
+        {
+            "data": {
+                "id": "63",
+                "name": "V2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "V2 (λ: 0)"
+            },
+            "position": {
+                "x": 1605.083458744571,
+                "y": 1972.7528182747449
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "64",
+                "name": "V4",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "V4 (λ: 0)"
+            },
+            "position": {
+                "x": 1703.2013668980305,
+                "y": 1973.8052910151912
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "66",
+                "name": "cloneOf_P1",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "cloneOf_P1 (λ: 0)"
+            },
+            "position": {
+                "x": 566.1253863121051,
+                "y": 1907.354069679883
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": false,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        },
+        {
+            "data": {
+                "id": "67",
+                "name": "cloneOf_P2",
+                "type": "be",
+                "repairable": false,
+                "rate": "0",
+                "repair": "0",
+                "dorm": "0",
+                "label": "cloneOf_P2 (λ: 0)"
+            },
+            "position": {
+                "x": 1218.811602585515,
+                "y": 1895.0764939982973
+            },
+            "group": "nodes",
+            "removed": false,
+            "selected": true,
+            "selectable": true,
+            "locked": false,
+            "grabbable": true,
+            "classes": "be"
+        }
+    ]
+}
