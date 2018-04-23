@@ -66,7 +66,7 @@ function fillInfoBox(element) {
 		$('#pic').css('background-image', 'url("img/pdep.png")');
 		$('#pic').css('background-size', '100px 50px');
 		$('#pic').css('left', '62.5px');
-		document.getElementById('type').innerHTML = 'PDEP';
+		document.getElementById('name-div').innerHTML = element.data('name');
 	} else document.getElementById('probability-value').innerHTML = '-';
 
 	if (type == DftTypes.BOT) {
