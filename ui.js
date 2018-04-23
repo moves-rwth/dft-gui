@@ -520,7 +520,7 @@ $('.switchHelp').keydown(function (e) {
                     } else changeGate(transferObjectEnter.elem);
                 } else if (transferObjectEnter.type == '-pdep') {
                     if(transferObjectEnter.create) {
-                        addPDEP(transferObjectEnter.x, transferObjectEnter.y, transferObjectEnter.dftType);
+                        addPDEP(transferObjectEnter.x, transferObjectEnter.y);
                     } else changePDEP(transferObjectEnter.elem);
                 } else if (transferObjectEnter.type.indexOf('e') > -1) {
                     if (transferObjectEnter.create) {

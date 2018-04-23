@@ -1,7 +1,9 @@
 // Cytoscape graph visualization.
 
 // DEVELOPER MODE
-const DEVELOPER = false;
+const DEVELOPER = true;
+// TopNode set?
+var topNodeSet = false;
 
 // Load graph.
 $("#load-graph").click(function() {
@@ -34,26 +36,28 @@ $("#load-graph").click(function() {
 
 // Save graph.
 $("#save-graph").click(function() {
-    var json = exportDftToJSON();
-    var textFileAsBlob = new Blob([json], {type:'text/plain'});
+    if (topNodeSet) {
+        var json = exportDftToJSON();
+        var textFileAsBlob = new Blob([json], {type:'text/plain'});
 
-    // Create link to download
-    var fileNameToSaveAs = "dft-graph.json";
-    var downloadLink = document.createElement("a");
-    downloadLink.download = fileNameToSaveAs;
-    downloadLink.innerHTML = "Download File";
-    if (window.webkitURL != null) {
-        // Chrome allows the link to be clicked without actually adding it to the DOM.
-        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-    } else {
-        // Firefox requires the link to be added to the DOM
-        // before it can be clicked.
-        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-        //downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
-    }
-    downloadLink.click();
+        // Create link to download
+        var fileNameToSaveAs = "dft-graph.json";
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+            // Chrome allows the link to be clicked without actually adding it to the DOM.
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+        } else {
+            // Firefox requires the link to be added to the DOM
+            // before it can be clicked.
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            //downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+        }
+        downloadLink.click();
+    } else alert("No top element found!");
 });
 
 // Export graph as image.
@@ -124,6 +128,7 @@ function setToplevel(node) {
     node.addClass('toplevel');
     // Set new toplevel element
     setToplevelId(node);
+    topNodeSet = true;
 }
 
 // Add subtree for block
@@ -379,14 +384,14 @@ function changeGate(elem) {
 // Checks for undefined values. If some undefined found -> change to 0
 function checkValue(value) {
     if (value) {
-        return value;
+        return parseInt(value);
     } else {
         return 0;
     }
 }
 function checkValueVot(value) {
     if (value) {
-        return value;
+        return parseInt(value);
     } else {
         return 1;
     }

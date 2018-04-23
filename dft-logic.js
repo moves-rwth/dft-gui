@@ -72,7 +72,7 @@ function importDftFromJson(json) {
 function exportDftToJSON() {
     // Construct JSON
     var json = {};
-    json.toplevel = topLevelId;
+    json.toplevel = parseInt(topLevelId);
     json.parameters = parameters;
     json.nodes = cy.nodes().jsons();
     var jsonString = JSON.stringify(json, null, 4);
@@ -82,19 +82,21 @@ function exportDftToJSON() {
 // Create the general information of a new element.
 function createGeneralElement(dftType, name, posX, posY) {
     currentId += 1;
-    if (name == '') name = dftType + '_' + currentId;
+    if (name == '') {
+        name = dftType + '_' + currentId;
+    }
     var newElement = {
         group: 'nodes',
         data: {
-            id: currentId,
-            name: name,
-            type: dftType,
-            repairable: false
+            "id": currentId,
+            "name": name,
+            "type": dftType,
+            "repairable": false
         },
         classes: dftType,
         position: {
-            x: posX,
-            y: posY
+            "x": posX,
+            "y": posY
         }
     };
 
@@ -103,6 +105,7 @@ function createGeneralElement(dftType, name, posX, posY) {
 
 // Create the general information of an existing element.
 function createGeneralElementSameId(dftType, name, posX, posY, currentId) {
+
     var newElement = {
         group: 'nodes',
         data: {
@@ -210,6 +213,9 @@ function createNestedCompoundMove(gate) {
 
 // Remove a node and all connected edges.
 function removeNode(node) {
+    if (node.data("id") == topLevelId) {
+        topNodeSet = false;
+    }
     var edges = node.connectedEdges();
     edges.forEach(function( edge ){
         removeEdge(edge);
@@ -337,7 +343,6 @@ function checkRepairable(node) {
 
 function propagateUp(node, func) {
     var parents = node.incomers('node');
-    console.log(parents);
     if (parents.length > 0) {
         for (var i = 0; i < parents.length; i++) {
             if (node.data('id') != parents[i].data('id')) {
