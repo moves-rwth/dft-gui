@@ -1,7 +1,7 @@
 // Cytoscape graph visualization.
 
 // DEVELOPER MODE
-const DEVELOPER = true;
+const DEVELOPER = false;
 // TopNode set?
 var topNodeSet = false;
 
