@@ -529,7 +529,7 @@ var cy = cytoscape({
             css: {
                 'height': 26,
                 'width': 49,
-                'background-image': 'img/seqInv.png'
+                'background-image': 'img/seq.png'
             }
         },
         {
