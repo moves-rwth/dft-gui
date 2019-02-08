@@ -382,9 +382,10 @@ function changeGate(elem) {
 }
 
 // Checks for undefined values. If some undefined found -> change to 0
+//TODO Check if renaming to more general expression is desired (since it technically only parses and sets undefined to 0)
 function checkValue(value) {
     if (value) {
-        return parseInt(value);
+        return parseFloat(value);
     } else {
         return 0;
     }
@@ -434,7 +435,7 @@ var cy = cytoscape({
                 'width': 48,
                 'shape': 'rectangle',
                 'background-fit': 'cover',
-            }
+}
         },
         {
             selector: 'node.toplevel',
