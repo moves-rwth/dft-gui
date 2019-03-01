@@ -434,6 +434,7 @@ var cy = cytoscape({
                 'height': 59,
                 'width': 48,
                 'shape': 'rectangle',
+                'background-opacity': 0,
                 'background-fit': 'cover',
 }
         },
@@ -859,6 +860,9 @@ else {
 cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
+    handlePosition: function( node ){
+        return 'middle bottom';
+    },
     handleSize: 30,
     handleOutlineWidth: 10,
     loopAllowed: function(node) {
@@ -871,6 +875,10 @@ cy.edgehandles({
         }
         if (sourceNode.data('type') == DftTypes.COMPOUND || targetNode.data('type') == DftTypes.COMPOUND) {
             // No edges from compound nodes
+            return null;
+        }
+        if (targetNode.data('type') == DftTypes.SEQ) {
+            // SEQs are not allowed to be children of other nodes
             return null;
         }
         return 'flat';
