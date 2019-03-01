@@ -860,9 +860,6 @@ else {
 cy.edgehandles({
     toggleOffOnLeave: true,
     handleNodes: "node",
-    handlePosition: function( node ){
-        return 'middle bottom';
-    },
     handleSize: 30,
     handleOutlineWidth: 10,
     loopAllowed: function(node) {
@@ -898,8 +895,9 @@ cy.edgehandles({
         }
 
         // Check if edge is valid
-        if (addedEdge.data('id') == 'idInvalid') {
-            console.log("Already exists");
+        //TODO Give some kinda feedback to indicate failure due to invalid edge
+        if (addedEdge.data('id') == 'idInvalid' || addedEdge.data('id') == 'cycle') {
+            console.log("Edge invalid");
             cy.remove(addedEdge);
         } else {
             addEdge(addedEdge, sourceNode, targetNode);

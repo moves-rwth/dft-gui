@@ -245,6 +245,14 @@ function getNewEdge(sourceNode, targetNode) {
         var changedId = targetId + 'e' + sourceId;
         if (cy. edges("[id='" + changedId + "']").length > 0) {
             edgeId = 'idInvalid';
+        } else {
+            // Check if creating the edge causes the DFT to be cyclic
+            var containsCycle = sourceNode.predecessors('node').some(function (ele) {
+                return ele.data('id') == targetNode.data('id');
+            });
+            if (containsCycle) {
+                edgeId = 'cycle';
+            }
         }
     }
 
@@ -276,9 +284,13 @@ function createEdge(source, target) {
     var edge = getNewEdge(source, target);
     // Check if edge is valid
     if (edge.data['id'] == 'idInvalid') {
-        $('#edge-info').text('Error message: This edge already exists.');
+        $('#edge-info').text('The edge already exists!');
         $('#edge-info').addClass('red');
         console.log("Already exists");
+    } else if (edge.data['id'] == 'cycle') {
+        $('#edge-info').text('The edge causes a cycle!');
+        $('#edge-info').addClass('red');
+        console.log("Cycle caused");
     } else {
         $('#edge-info').removeClass('red');
         $('#edge-info').text('Add edges by clicking on source and target node.');
