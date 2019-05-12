@@ -1,7 +1,7 @@
 
 // Set max/min zoomlevel
-cy.maxZoom(3);
-cy.minZoom(0.05);
+cy.maxZoom(2);
+cy.minZoom(0.005);
 
 // Information Array
 var actualElement;
