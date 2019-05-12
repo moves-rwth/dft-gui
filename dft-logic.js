@@ -2,7 +2,7 @@
 
 // Available types of DFT gates.
 var DftTypes = Object.freeze({
-    BE:     'be',
+    BE:     'be_exp',
     AND:    'and',
     OR:     'or',
     VOT:    'vot',
@@ -13,7 +13,7 @@ var DftTypes = Object.freeze({
     SPARE:  'spare',
     SEQ:    'seq',
     COMPOUND: 'compound',
-    BOT:    'bot', 
+    BOT:    'be_const',
 });
 
 // Currently highest used id.
@@ -36,9 +36,15 @@ function importDftFromJson(json) {
         currentId = Math.max(currentId, node.id());
         setLabelNode(node);
         addName(node.data('name'));
-        node.addClass(node.data('type'));
+        type = node.data('type');
+        // Handle old BE type
+        if (type == 'be') {
+            type = DftTypes.BE;
+            node.data['type'] = type;
+        }
+        node.addClass(type);
 
-        if (node.data('type') != DftTypes.BE && node.data('type') != DftTypes.COMPOUND && node.data('type') != DftTypes.BOT) {
+        if (type != DftTypes.BE && type != DftTypes.COMPOUND && type != DftTypes.BOT) {
             // Add edges for gates
             var sourceId = node.data('id');
             var children = node.data('children');
@@ -58,7 +64,7 @@ function importDftFromJson(json) {
                         target: targetId,
                         index: i,
                     },
-                    classes: node.data('type'),
+                    classes: type,
                 });
             }
         }

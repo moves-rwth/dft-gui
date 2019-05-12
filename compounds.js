@@ -108,7 +108,7 @@ function newCompoundMove(gate) {
     }
 
     // Check if contain other compounds
-    if (gates == null) gates = gate.successors('node[type != "be"]');
+    if (gates == null) gates = gate.successors('node[type != "be_exp"]');
     var comps = gates.parent();
 
     // Save nodes and edges

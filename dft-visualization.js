@@ -446,7 +446,7 @@ var cy = cytoscape({
             }
         },
         {
-            selector: 'node.be',
+            selector: 'node.be_exp',
             css: {
                 'height': 42,
                 'width': 42,
@@ -454,7 +454,7 @@ var cy = cytoscape({
             }
         },
         {
-            selector: 'node.bot',
+            selector: 'node.be_const',
             css: {
                 'height': 42,
                 'width': 42,
@@ -639,7 +639,7 @@ if (DEVELOPER) {
             {
                 id: 'collapse',
                 title: 'collapse element',
-                selector: 'node[type != "compound"][type != "be"]',
+                selector: 'node[type != "compound"][type != "be_exp"]',
                 onClickFunction: function (event) {
                     newCompoundMove(event.cyTarget);
                 },
@@ -739,15 +739,15 @@ else {
                         elem: event.cyTarget
                     };
                     // Insert actual values
-                    if (el.type == 'be') {
+                    if (el.type == DftTypes.BE) {
                         $('#name-be').val(el.elem.data('name'));
                         $('#failure').val(el.elem.data('rate'));
                         $('#repair').val(el.elem.data('repair'));
                         $('#dormancy').val(el.elem.data('dorm'));
-                    } else if (el.type == 'vot') {
+                    } else if (el.type == DftTypes.VOT) {
                         $('#name-vot').val(el.elem.data('name'));
                         $('#threshold').val(el.elem.data('voting'));
-                    } else if (el.type == 'pdep') {
+                    } else if (el.type == DftTypes.PDEP) {
                         $('#name-pdep').val(el.elem.data('name'));
                         $('#probability-pdep').val(el.elem.data('probability'));
                     } else {
@@ -799,7 +799,7 @@ else {
             {
                 id: 'collapse',
                 title: 'collapse element',
-                selector: 'node[type != "compound"][type != "be"]',
+                selector: 'node[type != "compound"][type != "be_exp"]',
                 onClickFunction: function (event) {
                     newCompoundMove(event.cyTarget);
                 },

@@ -745,15 +745,15 @@ function contain(array, element) {
 
 function fillInfoDialog(el) {
     // Insert actual values
-    if (el.type == 'be') {
+    if (el.type == DftTypes.BE) {
         $('#name-be').val(el.elem.data('name'));
         $('#failure').val(el.elem.data('rate'));
         $('#repair').val(el.elem.data('repair'));
         $('#dormancy').val(el.elem.data('dorm'));
-    } else if (el.type == 'vot') {
+    } else if (el.type == DftTypes.VOT) {
         $('#name-vot').val(el.elem.data('name'));
         $('#threshold').val(el.elem.data('voting'));
-    } else if (el.type == 'pdep') {
+    } else if (el.type == DftTypes.PDEP) {
         $('#name-pdep').val(el.elem.data('name'));
         $('#probability-pdep').val(el.elem.data('probability'));
     } else {
