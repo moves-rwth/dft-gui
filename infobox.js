@@ -15,14 +15,18 @@ function fillInfoBox(element) {
 		} else  {
 			document.getElementById('failure-rate').innerHTML = element.data('rate');
 		}
-		if (element.data('repair') < 0.0000001 || element.data('repair').length > 10) {
+		var repair = 0;
+		if (element.data('repair')) {
+			repair = element.data('repair');
+		}
+		if (repair > 0 && (repair < 0.0000001 || repair.length > 10)) {
 			var num = new Number(element.data('repair'));
 			document.getElementById('repair-rate').innerHTML = num.toExponential();
 		} else  {
-			document.getElementById('repair-rate').innerHTML = element.data('repair');
+			document.getElementById('repair-rate').innerHTML = repair;
 		}
 		document.getElementById('dorm-rate').innerHTML = element.data('dorm');		
-		if (element.data('repair') > 0) {
+		if (repair > 0) {
 			document.getElementById('repairable-bool').innerHTML = 'True';
 		} else document.getElementById('repairable-bool').innerHTML = 'False';
 		document.getElementById('childrens-count').innerHTML = '-';

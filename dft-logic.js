@@ -40,7 +40,7 @@ function importDftFromJson(json) {
         // Handle old BE type
         if (type == 'be') {
             type = DftTypes.BE;
-            node.data['type'] = type;
+            node.data('type', type);
         }
         node.addClass(type);
 
