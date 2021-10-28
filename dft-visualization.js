@@ -719,10 +719,22 @@ if (DEVELOPER) {
                         fit: true,
                     });
                 }
+            },
+            {
+                id: 'layout-dag',
+                title: 'layout via DAG',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    cy.layout({
+                        name: 'dagre',
+                        padding: 10,
+                        fit: true
+                    });
+                }
             }
-        ]                            
+        ]
     });
-} 
+}
 // Normal mode
 else {
     cy.contextMenus({
@@ -851,8 +863,20 @@ else {
                         fit: true,
                     });
                 }
+            },
+            {
+                id: 'layout-dag',
+                title: 'layout via DAG',
+                coreAsWell: true,
+                onClickFunction: function (event) {
+                    cy.layout({
+                        name: 'dagre',
+                        padding: 10,
+                        fit: true
+                    });
+                }
             }
-        ]                            
+        ]
     });
 }
 
